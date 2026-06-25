@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Смена — прототип</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   :root{--bg:#efeff4;--card:#fff;--sep:rgba(60,60,67,0.12);--text:#000;--hint:#8a8a8e;
     --blue:#3390ec;--blue-press:#2b7bd6;--red:#e8534f;--green:#34c759;--amber:#ef9b1f;--radius:12px;--tap:#f2f2f6;}
@@ -692,6 +693,17 @@ document.addEventListener("click",e=>{
 // отдельный обработчик удаления точки (data-vendel не в основном селекторе)
 document.addEventListener("click",e=>{const t=e.target.closest("[data-vendel]");if(!t)return;const id=t.dataset.vendel;staff=staff.map(s=>s.ven===id?{...s,ven:venues.find(v=>v.id!==id).id}:s);venues=venues.filter(v=>v.id!==id);closeSheet();renderScreen();toast("Точка удалена");});
 $("#sheetbg").addEventListener("click",closeSheet);
+
+/* ===== Telegram Mini App: разворот на всю высоту + тема. Вне Telegram молча пропускаем ===== */
+try{
+  const tg=window.Telegram&&window.Telegram.WebApp;
+  if(tg&&tg.initData!==undefined){
+    tg.ready();
+    if(tg.expand)tg.expand();
+    document.body.style.background=(tg.themeParams&&tg.themeParams.secondary_bg_color)||document.body.style.background;
+  }
+}catch(e){/* в обычном браузере window.Telegram нет — это нормально */}
+
 init();
 </script>
 </body>
