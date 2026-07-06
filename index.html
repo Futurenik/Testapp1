@@ -46,26 +46,44 @@
   .copybtn:active{background:var(--tap);}
   .gridwrap{margin:12px 12px 0;border-radius:var(--radius);overflow:hidden;background:#fff;border:.5px solid var(--sep);}
   .grid{display:grid;grid-template-columns:76px repeat(7,minmax(0,1fr));}
-  .gc{border-right:.5px solid var(--sep);border-bottom:.5px solid var(--sep);min-height:42px;min-width:0;overflow:hidden;}
+  .gc{border-right:.5px solid rgba(60,60,67,0.08);border-bottom:.5px solid rgba(60,60,67,0.08);min-height:42px;min-width:0;overflow:hidden;}
   .ghead{background:#f7f7fa;font-size:12px;font-weight:600;color:#3a3a3c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 0 6px;line-height:1.1;cursor:pointer;}
   .ghead small{color:var(--hint);font-weight:500;font-size:11px;}
-  .ghead.today{color:var(--blue);} .ghead.today small{color:var(--blue);}
+  .todaypill{background:var(--blue);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px;font-weight:700;line-height:1.2;margin-bottom:1px;}
+  .todaypill small{color:rgba(255,255,255,.85);font-weight:600;font-size:10px;}
   .ghead .cov{margin-top:3px;font-size:10px;font-weight:700;padding:1px 5px;border-radius:9px;}
   .ghead .cov.ok{color:var(--green);background:rgba(52,199,89,.14);} .ghead .cov.bad{color:var(--red);background:rgba(232,83,79,.14);}
-  .gsec{grid-column:1/-1;background:#eef0f4;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#5a5a5e;padding:6px 10px;display:flex;justify-content:space-between;border-bottom:.5px solid var(--sep);border-right:0;overflow:hidden;}
+  .gsec{grid-column:1/-1;background:#eef0f4;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#5a5a5e;padding:6px 10px;display:flex;justify-content:space-between;border-top:2px solid #d9d9df;border-bottom:.5px solid var(--sep);border-right:0;overflow:hidden;}
   .gsec span{color:var(--hint);font-weight:500;text-transform:none;letter-spacing:0;}
+  .gsec .gsl{display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;}
+  .gsec .addp{border:0;background:var(--blue);color:#fff;width:18px;height:18px;border-radius:5px;font-size:12px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex:0 0 auto;}
+  .rl{font-size:12px;color:var(--hint);padding:8px 6px 2px;}
   .gcov{background:#fcfcfd;font-size:9px;color:var(--hint);display:flex;align-items:center;padding-left:10px;font-weight:600;}
   .covcell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:#fcfcfd;}
-  .covcell.ok{color:var(--green);} .covcell.bad{color:var(--red);}
-  .gc.daybad{background:rgba(232,83,79,0.12);}
-  .gname{display:flex;align-items:center;gap:6px;padding:5px 6px;background:#fff;min-width:0;}
-  .gname .ini{width:20px;height:20px;border-radius:50%;color:#fff;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
-  .gname .nm{font-size:12px;font-weight:500;line-height:1.05;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .cell{display:flex;align-items:center;justify-content:center;cursor:pointer;padding:3px;min-width:0;}
+  .covcell.ok{color:var(--green);} .covcell.bad{color:var(--red);} .covcell.over{color:#b26a00;}
+  .ghead .cov.warn{color:#b26a00;background:#fff4e5;}
+  .devdot{position:absolute;top:1px;left:1px;width:8px;height:8px;border-radius:2px;background:#fff;border:1.5px solid var(--amber);z-index:2;}
+  .chip.trn{opacity:.55;}
+  .gname{display:flex;align-items:center;gap:6px;padding:5px 6px 5px 7px;background:#fff;min-width:0;border-left:3px solid transparent;}
+  .gname .nm{font-size:12px;font-weight:500;line-height:1.1;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .gc.trnrow{background:#fff7e8;}
+  .gc.gname.trnrow{background:#fff7e8;}
+  .gc.cell.na{background:#f1f1f4;}
+  .nalbl{font-size:9px;color:#8a8a8e;font-weight:600;}
+  .gc.cell.attneed{background:#fdeeee;}
+  .attdot{position:absolute;bottom:1px;right:1px;min-width:9px;height:9px;border-radius:2px;background:var(--amber);color:#fff;font-size:7px;font-weight:800;display:flex;align-items:center;justify-content:center;z-index:2;padding:0 1px;}
+  .cell{display:flex;align-items:center;justify-content:center;cursor:pointer;padding:3px;min-width:0;position:relative;}
+  .seekdot{position:absolute;top:1px;right:1px;width:9px;height:9px;border-radius:50%;background:var(--amber);border:1.5px solid #fff;z-index:2;}
+  .scard.danger{border:1.5px solid var(--red);}
+  .pubbar{margin:8px 12px 0;padding:9px 12px;border-radius:10px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;justify-content:space-between;line-height:1.3;}
+  .pubbar.draft{background:#fff4e5;color:#7a5200;} .pubbar.dirty{background:#fff4e5;color:#7a5200;} .pubbar.ok{background:rgba(52,199,89,.12);color:#2a9e49;cursor:pointer;}
+  .pubbtn{border:0;background:var(--blue);color:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;flex:0 0 auto;}
   .cell:active{background:var(--tap);}
-  .cell.todaycol{background:rgba(51,144,236,0.05);}
+  .gc.todaycol{box-shadow:inset 1.5px 0 0 var(--blue), inset -1.5px 0 0 var(--blue);}
   .chip{width:100%;height:100%;min-width:0;min-height:30px;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;line-height:1;overflow:hidden;}
   .chip small{font-size:9px;font-weight:600;opacity:.92;margin-top:2px;}
+  .chip.busy{background:#e3e3e8;color:#6a6a72;}
+  .chip.busy small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;padding:0 2px;}
   .cell .add{color:#c4c4cc;font-size:19px;font-weight:300;}
   .legend{display:flex;gap:14px;flex-wrap:wrap;padding:12px 18px 4px;font-size:12px;color:var(--hint);}
   .legend span{display:inline-flex;align-items:center;gap:5px;} .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
@@ -169,14 +187,18 @@
   <div class="toast" id="toast"></div>
 </div>
 <script>
-let positions,venues,staff,shiftList,normWeek,schedule,swaps,approvals;
-let role,tab,curWeek,curVen,sheetCtx,state,normDay;
-const ME=3, TODAY_IDX=3, NOW="Чт 25 июня, 14:30";
+let positions,venues,staff,shiftList,normWeek,schedule,swaps,approvals,placements,settings,published,pub,absences;
+let role,tab,curWeek,curVen,sheetCtx,state,normDay,regFilterVen,regFilterPos,editMode;
+const ME=3, TODAY_IDX=3, NOW="Чт 25 июня, 14:30", NOW_MIN=870;
 const DAYS=["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
-const WEEKS=[{key:"cur",label:"22–28 июня",sub:"текущая неделя",nums:[22,23,24,25,26,27,28]},
-             {key:"next",label:"29 июня – 5 июля",sub:"следующая неделя",nums:[29,30,1,2,3,4,5]}];
+const WEEKS=[{key:"cur",off:0,label:"22–28 июня",sub:"текущая неделя",nums:[22,23,24,25,26,27,28]},
+             {key:"next",off:1,label:"29 июня – 5 июля",sub:"следующая неделя",nums:[29,30,1,2,3,4,5]},
+             {key:"w2",off:2,label:"6–12 июля",sub:"через неделю",nums:[6,7,8,9,10,11,12]},
+             {key:"w3",off:3,label:"13–19 июля",sub:"через две недели",nums:[13,14,15,16,17,18,19]}];
+const weekOff=k=>{const w=WEEKS.find(x=>x.key===k);return w?w.off:0;};
 const COLORS=["#e8534f","#2f9bea","#ef9b1f","#34c759","#8a78ef","#ec5fa0","#13b9a8","#f0772a","#6a8cff","#c44fd1","#0fa3b1","#d1495b","#3aa6a0","#9b6dff","#e07b39","#2e8b57"];
 const SHIFT_COLORS=["#2f9bea","#8a78ef","#13b9a8","#ef9b1f","#ec5fa0","#34c759"];
+const NAMES=["Сергей Н.","Тимур А.","Мария Р.","Елена Т.","Анна К.","Ольга М.","Игорь С.","Дарья В.","Павел Л.","Роман Ф.","Кирилл Д.","Лидия П.","Никита В.","Карина С.","Артём К.","Вера Л.","Денис Ю.","Алина Г.","Максим Б.","Юлия Ж.","Антон Е.","Софья И.","Глеб О.","Полина Ч.","Марк Ш.","Нина З.","Егор Х.","Вика Ц.","Лев Д.","Рита П.","Жанна К.","Олег В."];
 
 function freshPositions(){return [
   {id:"mgr",name:"Менеджер",status:"active"},{id:"bar",name:"Бариста",status:"active"},
@@ -187,7 +209,6 @@ function freshVenues(){return [
   {id:"v1",name:"«Среда» на Ленина",addr:"ул. Ленина, 8",positions:["mgr","bar","waiter","runner","cook","dish"]},
   {id:"v2",name:"«Среда» на Блохина",addr:"ул. Блохина, 15",positions:["mgr","bar","cook"]},
 ];}
-const NAMES=["Сергей Н.","Тимур А.","Мария Р.","Елена Т.","Анна К.","Ольга М.","Игорь С.","Дарья В.","Павел Л.","Роман Ф.","Кирилл Д.","Лидия П.","Никита В.","Карина С.","Артём К.","Вера Л.","Денис Ю.","Алина Г.","Максим Б.","Юлия Ж.","Антон Е.","Софья И.","Глеб О.","Полина Ч.","Марк Ш.","Нина З.","Егор Х.","Вика Ц.","Лев Д.","Рита П.","Жанна К.","Олег В."];
 function freshShifts(){return [
   {id:"mgrD", ven:"v1",pos:"mgr",   name:"Смена",start:600,end:1320,col:"#13b9a8"},
   {id:"barM", ven:"v1",pos:"bar",   name:"Утро", start:480,end:960, col:"#2f9bea"},
@@ -205,36 +226,86 @@ function freshShifts(){return [
   {id:"v2cookE",ven:"v2",pos:"cook",name:"Вечер",start:840,end:1320,col:"#8a78ef"},
 ];}
 function freshNormWeek(){
-  const base={mgrD:1,barM:1,barE:1,watM:1,watE:1,runE:1,cookM:1,cookE:1,dishE:1,
-              v2mgrD:1,v2barM:1,v2barE:1,v2cookM:1,v2cookE:1};
+  const base={mgrD:1,barM:1,barE:1,watM:1,watE:1,runE:1,cookM:1,cookE:1,dishE:1,v2mgrD:1,v2barM:1,v2barE:1,v2cookM:1,v2cookE:1};
   const wk=[];for(let i=0;i<7;i++)wk.push(JSON.parse(JSON.stringify(base)));return wk;
 }
+function freshSettings(){return {swapsEnabled:true,visa:false,deadlineH:12,crossVenue:true,extraPos:true,temps:true,confirmShift:true,
+  mgrVacation:true,mgrSick:true,mgrTerm:false,mgrGraduate:true,pubOverApproval:true,attestation:true};}
+
+/* паттерн найма: ротации 2/2 и 3/3 (с якорем), 5/2, fixed (дни недели), flex */
+function isWorkday(e,wkey,di){
+  const pt=e.pattern;if(!pt)return false;
+  const abs=weekOff(wkey)*7+di;
+  const rot=pt.type.match(/^(\d)\/(\d)$/);
+  if(rot&&pt.type!=="5/2"){const wn=Number(rot[1]),on=Number(rot[2]);return ((abs+(pt.anchor||0))%(wn+on))<wn;}
+  if(pt.type==="5/2")return di<5;
+  if(pt.type==="fixed")return (pt.days||[]).includes(di);
+  return false;
+}
 function buildRoster(){
-  // график 2/2: фаза A работает дни {Пн,Вт,Пт,Сб}, фаза B — {Ср,Чт,Вс}; вместе закрывают неделю по 1/день
-  const PHASE=[[0,1,4,5],[2,3,6]];
-  const st=[],sc={cur:{},next:{}};let id=0;
+  const st=[],sc={};WEEKS.forEach(w=>sc[w.key]={});let id=0;
   shiftList.forEach(s=>{
-    PHASE.forEach(phase=>{
+    [0,2].forEach(anchor=>{
       id++;const name=NAMES[(id-1)%NAMES.length];
-      st.push({id,name,pos:s.pos,ven:s.ven,c:COLORS[id%COLORS.length]});
-      const arr=[null,null,null,null,null,null,null];phase.forEach(dy=>arr[dy]=s.id);
-      sc.cur[id]=arr;sc.next[id]=[null,null,null,null,null,null,null];
+      st.push({id,name,c:COLORS[id%COLORS.length],posMain:s.pos,posExtra:[],mainVen:s.ven,vens:[s.ven],
+               pattern:{type:"2/2",anchor},defShift:s.id});
+      WEEKS.forEach(w=>sc[w.key][id]=[null,null,null,null,null,null,null]);
+      for(let di=0;di<7;di++)if(((di+anchor)%4)<2)sc.cur[id][di]=s.id;
     });
   });
   return {st,sc};
 }
-function freshSwaps(){return [{id:1,empId:4,day:3,week:"cur",shift:"barM",taker:null,status:"open"}];}
+function freshSwaps(){return [
+  {id:1,empId:3, week:"cur",day:4,shift:"barM", offers:[4], taker:null,status:"seeking"},
+  {id:2,empId:13,week:"cur",day:4,shift:"cookM",offers:[],  taker:null,status:"seeking"},
+  {id:3,empId:4, week:"cur",day:6,shift:"barM", offers:[],  taker:null,status:"seeking"},
+];}
 function freshApprovals(){return [
+  {id:100,type:"overstaff",week:"cur",day:null,ven:"v1",qty:2,status:"approved",by:"Менеджер"},
   {id:101,type:"position",name:"Хостес",status:"pending",by:"Менеджер"},
   {id:102,type:"reinforce",week:"cur",day:4,sid:"cookE",qty:1,status:"pending",by:"Менеджер"},
 ];}
 
 function init(){
-  role="manager";tab="grid";curWeek=0;curVen="v1";sheetCtx=null;normDay=0;
+  role="manager";tab="grid";curWeek=0;curVen="v1";sheetCtx=null;normDay=0;regFilterVen="all";regFilterPos="all";editMode=false;
   positions=freshPositions();venues=freshVenues();
-  shiftList=freshShifts();normWeek=freshNormWeek();
-  const r=buildRoster();staff=r.st;schedule=r.sc;
+  shiftList=freshShifts();normWeek=freshNormWeek();settings=freshSettings();
+  const r=buildRoster();staff=r.st;schedule=r.sc;placements=[];
+  const b=staff.find(e=>e.posMain==="bar"&&e.mainVen==="v1");if(b)b.posExtra=["waiter"];
+  const c=staff.find(e=>e.posMain==="cook"&&e.mainVen==="v2");if(c)c.vens=["v2","v1"];
+  // демо-конфликт найма: второй повар утренней линии v1 взят на 3/3 — покрытие с парным 2/2 расходится
+  const t3=staff.filter(e=>e.posMain==="cook"&&e.mainVen==="v1"&&e.defShift==="cookM")[1];
+  if(t3){t3.pattern={type:"3/3",anchor:0};for(let di=0;di<7;di++)schedule.cur[t3.id][di]=isWorkday(t3,"cur",di)?t3.defShift:null;}
+  // стажёр: официантка, аттестация СЕГОДНЯ (Чт), наставник и аттестующий назначены
+  const trId=Math.max(...staff.map(s=>s.id))+1;
+  const mentors=staff.filter(e=>e.posMain==="waiter"&&e.mainVen==="v1"&&e.defShift==="watM");
+  staff.push({id:trId,name:"Алина Г.",c:COLORS[trId%COLORS.length],posMain:"waiter",posExtra:[],mainVen:"v1",vens:["v1"],
+    pattern:{type:"5/2"},defShift:"watM",trainee:true,startW:0,
+    attW:0,attD:3,mentorId:mentors[0]?mentors[0].id:null,attBy:"mgr"});
+  WEEKS.forEach(w=>schedule[w.key][trId]=[null,null,null,null,null,null,null]);
+  [0,1,2,3,4].forEach(di=>schedule.cur[trId][di]="watM"); // Пт — уже после аттестации → маркер «А»
+  // увольнение: вечерний официант уходит, последняя неделя — текущая
+  const fired=staff.filter(e=>e.defShift==="watE")[1];
+  if(fired){fired.endW=0;fired.endD=5;schedule.cur[fired.id][6]=null;WEEKS.filter(w=>w.off>0).forEach(w=>{schedule[w.key][fired.id]=[null,null,null,null,null,null,null];});}
+  // новый сотрудник вместо него — выходит со следующей недели
+  const nhId=trId+1;
+  staff.push({id:nhId,name:"Олег В.",c:COLORS[nhId%COLORS.length],posMain:"waiter",posExtra:[],mainVen:"v1",vens:["v1"],
+    pattern:{type:"2/2",anchor:2},defShift:"watE",startW:1,startD:2});
+  WEEKS.forEach(w=>schedule[w.key][nhId]=[null,null,null,null,null,null,null]);
+  // отсутствия: больничный мойщицы (Чт–Сб) и отпуск вечернего бариста на след. неделе
+  absences=[];
+  const dsh=staff.find(e=>e.defShift==="dishE");
+  if(dsh){absences.push({empId:dsh.id,type:"sick",wkey:"cur",days:[3,4,5]});[3,4,5].forEach(di=>{schedule.cur[dsh.id][di]=null;});}
+  const brE=staff.filter(e=>e.defShift==="barE")[0];
+  if(brE)absences.push({empId:brE.id,type:"vacation",wkey:"next",days:[0,1,2,3]});
   swaps=freshSwaps();approvals=freshApprovals();state={confirmed:{},avail:{}};
+  published=JSON.parse(JSON.stringify(schedule));
+  const v1team=staff.filter(e=>e.mainVen==="v1").map(e=>e.id);
+  const v2team=staff.filter(e=>e.mainVen==="v2").map(e=>e.id);
+  pub={
+    "cur|v1":{ts:"вчера 18:40",acks:v1team.filter(id=>![3,8,14].includes(id))},
+    "cur|v2":{ts:"вчера 19:05",acks:v2team.filter(id=>id!==24)},
+  };
   render();
 }
 
@@ -248,20 +319,90 @@ const venName=id=>{const v=ven(id);return v?v.name:"";};
 const activePos=()=>positions.filter(p=>p.status==="active");
 const shById=id=>shiftList.find(s=>s.id===id);
 const shiftsOfPosVen=(pid,vid)=>shiftList.filter(s=>s.pos===pid&&s.ven===vid);
-const staffOf=vid=>staff.filter(e=>e.ven===vid);
-const inStaffVen=(pid,vid)=>staff.filter(e=>e.pos===pid&&e.ven===vid).length;
+const empVens=e=>e.vens&&e.vens.length?e.vens:[e.mainVen];
+const empPos=e=>[e.posMain,...(e.posExtra||[])];
+const venShort=id=>{const n=venName(id);const m=n.match(/на\s+(.+)$/);return m?m[1]:n;};
+const staffOf=vid=>staff.filter(e=>!e.temp&&e.mainVen===vid);
+const inStaffVen=(pid,vid)=>staff.filter(e=>!e.temp&&e.mainVen===vid&&e.posMain===pid).length;
+function blockMembers(vid,pid){
+  const def=staff.filter(e=>!e.temp&&e.mainVen===vid&&e.posMain===pid);
+  const placed=placements.filter(pl=>pl.ven===vid&&pl.pos===pid).map(pl=>emp(pl.empId)).filter(Boolean);
+  const seen={},out=[];[...def,...placed].forEach(e=>{if(!seen[e.id]){seen[e.id]=1;out.push(e);}});return out;
+}
+const isInBlock=(eid,vid,pid)=>blockMembers(vid,pid).some(e=>e.id===eid);
+const candidatesForBlock=(vid,pid)=>staff.filter(e=>!e.temp&&!isInBlock(e.id,vid,pid)&&(e.posMain===pid||(e.posExtra||[]).includes(pid)));
 const posAtVen=vid=>{const v=ven(vid);const set=(v&&v.positions)||[];return activePos().filter(p=>set.includes(p.id));};
 function fmt(m){m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");}
 function dur(s){let d=s.end-s.start;if(d<=0)d+=1440;const h=Math.floor(d/60),mi=d%60;return mi?`${h} ч ${mi} мин`:`${h} ч`;}
 function durShort(s){let d=s.end-s.start;if(d<=0)d+=1440;const h=d/60;return (Number.isInteger(h)?h:h.toFixed(1))+"ч";}
-function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2200);}
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2400);}
+function hoursUntil(wkey,day,sid){const sh=shById(sid);if(!sh)return 999;return Math.round((weekOff(wkey)*7+day-TODAY_IDX)*24+(sh.start-NOW_MIN)/60);}
+const patLabel=e=>{const pt=e.pattern;if(!pt)return"—";if(pt.type==="2/2")return"2/2";if(pt.type==="5/2")return"5/2";if(pt.type==="fixed")return"фикс. дни";return"гибкий";};
+const isFree=(id,wkey,day)=>!(schedule[wkey][id]&&schedule[wkey][id][day]);
+function qualifies(e,sh){
+  if(e.trainee)return false;
+  const posOk=sh.pos===e.posMain||(settings.extraPos&&(e.posExtra||[]).includes(sh.pos));
+  const venOk=settings.crossVenue||empVens(e).includes(sh.ven);
+  return posOk&&venOk;
+}
+const seekingSwap=(eid,wkey,day)=>swaps.find(s=>s.empId===eid&&s.week===wkey&&s.day===day&&(s.status==="seeking"||s.status==="visa"));
+const cntShifts=id=>WEEKS.reduce((n,w)=>n+((schedule[w.key][id]||[]).filter(Boolean).length),0);
+const cntReq=id=>swaps.filter(s=>s.empId===id).length;
+const cntGiven=id=>swaps.filter(s=>s.empId===id&&s.status==="done").length;
+const cntTaken=id=>swaps.filter(s=>s.taker===id&&s.status==="done").length;
+function doTransfer(s,takerId){
+  [schedule,published].forEach(SC=>{
+    if(!SC[s.week][s.empId])SC[s.week][s.empId]=[null,null,null,null,null,null,null];
+    if(!SC[s.week][takerId])SC[s.week][takerId]=[null,null,null,null,null,null,null];
+    SC[s.week][s.empId][s.day]=null;
+    SC[s.week][takerId][s.day]=s.shift;
+  });
+  s.taker=takerId;s.status="done";
+}
+const shVenOf=sid=>{const sh=sid?shById(sid):null;return sh?sh.ven:null;};
+function pubDiff(wkey,vid){
+  let n=0;
+  staff.forEach(e=>{
+    const L=schedule[wkey][e.id]||[],P=(published[wkey]&&published[wkey][e.id])||[];
+    for(let di=0;di<7;di++){const l=L[di]||null,p=P[di]||null;if(l===p)continue;if(shVenOf(l)===vid||shVenOf(p)===vid)n++;}
+  });
+  return n;
+}
+function publishWeek(wkey,vid){
+  if(!published[wkey])published[wkey]={};
+  staff.forEach(e=>{
+    const L=schedule[wkey][e.id]||[];
+    if(!published[wkey][e.id])published[wkey][e.id]=[null,null,null,null,null,null,null];
+    for(let di=0;di<7;di++){const l=L[di]||null,p=published[wkey][e.id][di]||null;if(shVenOf(l)===vid||shVenOf(p)===vid)published[wkey][e.id][di]=l;}
+  });
+  pub[wkey+"|"+vid]={ts:"только что",acks:[]};
+}
 
 function reinforceQty(wkey,day,sid,status){return approvals.filter(a=>a.type==="reinforce"&&a.status===status&&a.week===wkey&&a.day===day&&a.sid===sid).reduce((s,a)=>s+a.qty,0);}
 function needCell(wkey,day,sid){return ((normWeek[day]&&normWeek[day][sid])||0)+reinforceQty(wkey,day,sid,"approved");}
-function fillCell(wkey,day,sid){let n=0;staff.forEach(e=>{if(schedule[wkey][e.id][day]===sid)n++;});return n;}
-function posDayDeficit(wkey,day,pid,vid){let d=0;shiftsOfPosVen(pid,vid).forEach(s=>{d+=Math.max(0,needCell(wkey,day,s.id)-fillCell(wkey,day,s.id));});return d;}
-function dayDeficit(wkey,day,vid){let d=0;posAtVen(vid).forEach(p=>d+=posDayDeficit(wkey,day,p.id,vid));return d;}
+const afterAtt=(e,wkey,di)=>e.attW!=null&&(weekOff(wkey)*7+di)>(e.attW*7+(e.attD||0));
+const countsInNorm=(e,wkey,di)=>!e.trainee||(afterAtt(e,wkey,di)&&!settings.attestation);
+function fillCell(wkey,day,sid,SC){SC=SC||schedule;let n=0;staff.forEach(e=>{if(countsInNorm(e,wkey,day)&&SC[wkey][e.id]&&SC[wkey][e.id][day]===sid)n++;});return n;}
+function unavailable(e,wkey,di){
+  const off=weekOff(wkey);
+  if(e.startW!=null&&e.startW>=0&&(off<e.startW||(off===e.startW&&di<(e.startD||0))))return"не раб.";
+  if(e.endW!=null&&(off>e.endW||(off===e.endW&&di>(e.endD==null?6:e.endD))))return"уволен";
+  const a=absences.find(x=>x.empId===e.id&&x.wkey===wkey&&x.days.includes(di));
+  if(a)return a.type==="vacation"?"отпуск":"больн.";
+  return null;
+}
+function weekOverTotal(wkey,vid){let n=0;for(let di=0;di<7;di++)n+=dayOver(wkey,di,vid,schedule);return n;}
+const overApproved=(wkey,vid)=>approvals.some(a=>a.type==="overstaff"&&a.status==="approved"&&a.week===wkey&&a.ven===vid);
+const overPending=(wkey,vid)=>approvals.some(a=>a.type==="overstaff"&&a.status==="pending"&&a.week===wkey&&a.ven===vid);
+const canPublish=(wkey,vid)=>!settings.pubOverApproval||weekOverTotal(wkey,vid)===0||overApproved(wkey,vid);
+function posDayDeficit(wkey,day,pid,vid,SC){let d=0;shiftsOfPosVen(pid,vid).forEach(s=>{d+=Math.max(0,needCell(wkey,day,s.id)-fillCell(wkey,day,s.id,SC));});return d;}
+function posDayOver(wkey,day,pid,vid,SC){let d=0;shiftsOfPosVen(pid,vid).forEach(s=>{d+=Math.max(0,fillCell(wkey,day,s.id,SC)-needCell(wkey,day,s.id));});return d;}
+function dayDeficit(wkey,day,vid,SC){let d=0;posAtVen(vid).forEach(p=>d+=posDayDeficit(wkey,day,p.id,vid,SC));return d;}
+function dayOver(wkey,day,vid,SC){let d=0;posAtVen(vid).forEach(p=>d+=posDayOver(wkey,day,p.id,vid,SC));return d;}
+const offPattern=(e,wkey,di)=>!!(e.pattern&&e.pattern.type!=="flex"&&!isWorkday(e,wkey,di));
 const pendingCount=()=>approvals.filter(a=>a.status==="pending").length;
+const swapAttention=()=>swaps.filter(s=>s.status==="seeking"||s.status==="visa").length;
+const marketList=()=>settings.swapsEnabled?swaps.filter(s=>s.status==="seeking"&&s.empId!==ME&&qualifies(emp(ME),shById(s.shift))&&isFree(ME,s.week,s.day)):[];
 
 function venSwitcher(){return `<div class="vensel">`+venues.map(v=>`<button data-ven-sel="${v.id}" class="${curVen===v.id?'on':''}">${v.name}</button>`).join("")+`</div>`;}
 
@@ -271,95 +412,157 @@ function renderHeader(){
     const t={grid:"График смен",staff:"Штат и норматив",now:"Сейчас на смене",swaps:"Замены"};
     h.innerHTML=`<div class="ava" style="background:#3390ec">М</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">${venName(curVen)}</div></div>`;
   }else if(role==="director"){
-    const t={appr:"Согласования",staffreg:"Сотрудники",dirstaff:"Штат и точки"};
-    h.innerHTML=`<div class="ava" style="background:#1c1c1e">Р</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">Сеть «Среда» · ${venues.length} точки · ${staff.length} сотрудников</div></div>`;
+    const t={appr:"Согласования",staffreg:"Сотрудники",dirstaff:"Штат и точки",mode:"Режим работы"};
+    h.innerHTML=`<div class="ava" style="background:#1c1c1e">Р</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">Сеть «Среда» · ${venues.length} точки · ${staff.filter(e=>!e.temp).length} сотрудников</div></div>`;
   }else{
     const t={mine:"Мои смены",avail:"Доступность",market:"Биржа смен"};const me=emp(ME);
-    h.innerHTML=`<div class="ava" style="background:${me.c}">${ini(me.name)}</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">${me.name} · ${posName(me.pos)} · ${venName(me.ven)}</div></div>`;
+    h.innerHTML=`<div class="ava" style="background:${me.c}">${ini(me.name)}</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">${me.name} · ${posName(me.posMain)} · ${venName(me.mainVen)} · ${patLabel(me)}</div></div>`;
   }
 }
 function renderTabs(){
   const t=$("#tabs");let sets;
   if(role==="manager")sets=[["grid","🗓","График"],["staff","📋","Штат"],["now","🟢","Сейчас"],["swaps","🔁","Замены"]];
-  else if(role==="director")sets=[["appr","✅","Согласования"],["staffreg","👤","Сотрудники"],["dirstaff","📋","Штат"]];
+  else if(role==="director")sets=[["appr","✅","Согласования"],["staffreg","👤","Сотрудники"],["dirstaff","📋","Штат"],["mode","⚙️","Режим"]];
   else sets=[["mine","🗓","Мои смены"],["avail","✅","Доступность"],["market","🔁","Биржа"]];
-  const openSwaps=swaps.filter(s=>s.status!=="done").length;
-  const mktN=swaps.filter(s=>s.status==="open"&&s.empId!==ME).length;
   t.innerHTML=sets.map(([k,ic,label])=>{
     let badge="";
-    if(role==="manager"&&k==="swaps"&&openSwaps)badge=`<span class="tabbadge">${openSwaps}</span>`;
-    if(role==="employee"&&k==="market"&&mktN)badge=`<span class="tabbadge">${mktN}</span>`;
+    if(role==="manager"&&k==="swaps"&&swapAttention())badge=`<span class="tabbadge">${swapAttention()}</span>`;
+    if(role==="employee"&&k==="market"&&marketList().length)badge=`<span class="tabbadge">${marketList().length}</span>`;
     if(role==="director"&&k==="appr"&&pendingCount())badge=`<span class="tabbadge">${pendingCount()}</span>`;
     return `<div class="tabwrap"><button data-tab="${k}" class="${tab===k?'on':''}"><span class="ic">${ic}</span><span class="tl">${label}</span></button>${badge}</div>`;
   }).join("");
 }
 
-function renderScreen(){
-  const s=$("#screen");$("#mainbtnSlot").innerHTML="";
-  const R={
-    manager:{grid:mgrGrid,staff:()=>staffScreen(false),now:mgrNow,swaps:mgrSwaps},
-    director:{appr:dirAppr,staffreg:dirStaffReg,dirstaff:()=>staffScreen(true)},
-    employee:{mine:empMine,avail:empAvail,market:empMarket},
-  };
+function renderScreen(toTop){
+  const s=$("#screen");const keep=s.scrollTop;$("#mainbtnSlot").innerHTML="";
+  const R={manager:{grid:mgrGrid,staff:()=>staffScreen(false),now:mgrNow,swaps:mgrSwaps},
+    director:{appr:dirAppr,staffreg:dirStaffReg,dirstaff:()=>staffScreen(true),mode:dirMode},
+    employee:{mine:empMine,avail:empAvail,market:empMarket}};
   s.innerHTML=R[role][tab]();
-  if(role==="employee"&&tab==="mine")mainButton("Запросить замену на смену",()=>toast("Выберите смену → «Нужна замена»"));
-  s.scrollTop=0;
+  s.scrollTop=toTop?0:keep;
 }
 function mainButton(label,fn){$("#mainbtnSlot").innerHTML=`<div class="mainbtn"><button id="_mb">${label}</button></div>`;$("#_mb").onclick=fn;}
 
 /* ===== MANAGER GRID ===== */
 function mgrGrid(){
   const w=WEEKS[curWeek],vid=curVen;
+  const pkey=w.key+"|"+vid,p=pub[pkey];
+  const editing=editMode||!p;               // неопубликованная неделя — сразу редактирование
+  const SRC=editing?schedule:published;      // просмотр = то, что видят сотрудники
   let head=`<div class="gc ghead" style="cursor:default"></div>`;
   DAYS.forEach((d,i)=>{
-    const today=(w.key==="cur"&&i===TODAY_IDX),def=dayDeficit(w.key,i,vid);
-    const badge=def>0?`<span class="cov bad">−${def}</span>`:`<span class="cov ok">✓</span>`;
-    head+=`<div class="gc ghead ${today?'today':''}" data-cov="${i}">${d}<small>${w.nums[i]}</small>${badge}</div>`;
+    const today=(w.key==="cur"&&i===TODAY_IDX),def=dayDeficit(w.key,i,vid,SRC),over=dayOver(w.key,i,vid,SRC);
+    const badge=def>0?`<span class="cov bad">−${def}</span>`:over>0?`<span class="cov warn">+${over}</span>`:`<span class="cov ok">✓</span>`;
+    head+=`<div class="gc ghead" data-cov="${i}">${today?`<span class=\"todaypill\">${d} <small>${w.nums[i]}</small></span>`:`${d}<small>${w.nums[i]}</small>`}${badge}</div>`;
   });
   let body="";
-  posAtVen(vid).forEach(p=>{
-    const list=staff.filter(e=>e.ven===vid&&e.pos===p.id);
-    const pbad=DAYS.map((d,di)=>posDayDeficit(w.key,di,p.id,vid)>0);
-    body+=`<div class="gsec">${p.name}<span>в штате ${list.length}</span></div>`;
+  posAtVen(vid).forEach(pp=>{
+    const list=blockMembers(vid,pp.id).filter(e=>!(e.endW!=null&&weekOff(w.key)>e.endW));
+    const pbad=DAYS.map((d,di)=>posDayDeficit(w.key,di,pp.id,vid,SRC)>0);
+    const pover=DAYS.map((d,di)=>posDayOver(w.key,di,pp.id,vid,SRC)>0);
+    body+=`<div class="gsec"><span class="gsl">${pp.name}${editing?`<button class="addp" data-addblock="${pp.id}">＋</button>`:''}</span><span>в графике ${list.length}</span></div>`;
     body+=`<div class="gc gcov">есть/нужно</div>`;
     DAYS.forEach((d,di)=>{
-      let f=0,n=0;shiftsOfPosVen(p.id,vid).forEach(s=>{f+=fillCell(w.key,di,s.id);n+=needCell(w.key,di,s.id);});
-      body+=`<div class="gc covcell ${pbad[di]?'bad daybad':'ok'}">${f}/${n}</div>`;
+      let f=0,n=0;shiftsOfPosVen(pp.id,vid).forEach(s=>{f+=fillCell(w.key,di,s.id,SRC);n+=needCell(w.key,di,s.id);});
+      body+=`<div class="gc covcell ${w.key==="cur"&&di===TODAY_IDX?'todaycol':''} ${pbad[di]?'bad':pover[di]?'over':'ok'}">${f}/${n}</div>`;
     });
     list.forEach(e=>{
-      body+=`<div class="gc gname"><span class="ini" style="background:${e.c}">${ini(e.name)}</span><span class="nm">${e.name.split(" ")[0]}</span></div>`;
+      const trn=!!e.trainee;
+      const notStarted=e.startW!=null&&e.startW>=0&&(e.startW>weekOff(w.key)||(e.startW===weekOff(w.key)&&(e.startD||0)>0));
+      const rowCls=trn?'trnrow':'';
+      const nameAttr=editing?`data-mem="${e.id}|${pp.id}"`:`data-empinfo="${e.id}"`;
+      const startLbl=notStarted?`<br><small style="color:var(--blue);font-size:9px;font-weight:600">с ${DAYS[e.startD||0]} ${WEEKS[e.startW].nums[e.startD||0]}</small>`:'';
+      body+=`<div class="gc gname ${rowCls}" ${nameAttr} style="border-left-color:${e.c}"><span class="nm" style="${notStarted?'white-space:normal;line-height:1.15':''}">${trn?'🎓 ':''}${e.name.split(" ")[0]}${e.temp?' •':''}${startLbl}</span></div>`;
       DAYS.forEach((d,di)=>{
-        const sid=schedule[w.key][e.id][di],today=(w.key==="cur"&&di===TODAY_IDX),sh=sid?shById(sid):null;
-        const inner=sh?`<div class="chip" style="background:${sh.col}">${fmt(sh.start)}<small>${durShort(sh)}</small></div>`:`<span class="add">+</span>`;
-        body+=`<div class="gc cell ${today?'todaycol':''} ${pbad[di]?'daybad':''}" data-emp="${e.id}" data-day="${di}">${inner}</div>`;
+        const un=unavailable(e,w.key,di);
+        const sid=(SRC[w.key][e.id]||[])[di],today=(w.key==="cur"&&di===TODAY_IDX);
+        const shAny=sid?shById(sid):null;
+        const here=shAny&&shAny.ven===vid&&shAny.pos===pp.id;
+        const seek=seekingSwap(e.id,w.key,di);
+        const dev=here&&offPattern(e,w.key,di)&&!trn;
+        const waitAtt=here&&trn&&settings.attestation&&afterAtt(e,w.key,di);
+        let inner,tappable=editing,cellState="";
+        if(un){inner=`<span class="nalbl">${un}</span>`;tappable=false;cellState="na";}
+        else if(here){inner=`<div class="chip ${trn&&!waitAtt?'trn':''}" style="background:${shAny.col}${waitAtt?';opacity:.8':''}">${fmt(shAny.start)}<small>${durShort(shAny)}</small></div>${seek?'<span class="seekdot"></span>':''}${dev?'<span class="devdot"></span>':''}${waitAtt?'<span class="attdot">А</span>':''}`;if(waitAtt)cellState="attneed";}
+        else if(shAny)inner=`<div class="chip busy">${fmt(shAny.start)}<small>${shAny.ven!==vid?venShort(shAny.ven):posName(shAny.pos)}</small></div>`;
+        else{inner=editing?`<span class="add">+</span>`:``;if(trn&&settings.attestation&&afterAtt(e,w.key,di))cellState="attneed";}
+        const cellAttr=tappable?`data-emp="${e.id}" data-day="${di}" data-bp="${pp.id}"`:``;
+        body+=`<div class="gc cell ${cellState||rowCls} ${today?'todaycol':''}" ${cellAttr}>${inner}</div>`;
       });
     });
   });
+  let pubbar,editRow="";
+  const ovTot=weekOverTotal(w.key,vid),pend=overPending(w.key,vid);
+  if(!p){
+    pubbar=pend
+      ?`<div class="pubbar dirty"><span>⏳ Расширение +${ovTot} ждёт согласования руководителя · не опубликован</span></div>`
+      :`<div class="pubbar draft"><span>Черновик — сотрудники его не видят${ovTot?` · перебор +${ovTot}`:''}</span><button class="pubbtn" data-publish="${pkey}">Опубликовать</button></div>`;
+  }else{
+    const diff=pubDiff(w.key,vid);
+    if(editing){
+      pubbar=`<div class="pubbar dirty"><span>✎ Редактирование · изменений: ${diff}${ovTot?` · перебор +${ovTot}`:''}</span><button class="pubbtn" data-editdone="${pkey}">Готово</button></div>`;
+    }else if(pend&&diff>0){
+      pubbar=`<div class="pubbar dirty"><span>⏳ Расширение +${ovTot} ждёт согласования руководителя · изменения не опубликованы</span></div>`;
+      editRow=`<div class="copybar"><button class="copybtn" data-editmode="1">✎ Редактировать график</button></div>`;
+    }else if(diff>0){
+      pubbar=`<div class="pubbar dirty"><span>Изменений не опубликовано: ${diff} — команда видит эту, прошлую версию</span><button class="pubbtn" data-publish="${pkey}">Опубликовать</button></div>`;
+      editRow=`<div class="copybar"><button class="copybtn" data-editmode="1">✎ Редактировать график</button></div>`;
+    }else{
+      const team=staff.filter(e=>!e.temp&&e.mainVen===vid);
+      const k=p.acks.filter(id=>team.some(t=>t.id===id)).length;
+      pubbar=`<div class="pubbar ok" data-acklist="${pkey}"><span>Опубликован ${p.ts} · ознакомились ${k} из ${team.length}</span><span style="opacity:.65;font-size:16px">›</span></div>`;
+      editRow=`<div class="copybar"><button class="copybtn" data-editmode="1">✎ Редактировать график</button></div>`;
+    }
+  }
+  const tools=editing?`<div class="copybar"><button class="copybtn" id="layoutBtn">⚙︎ Разложить по графикам найма</button></div>`:"";
   return venSwitcher()+`<div class="weekbar"><button class="nav" data-week="-1">‹</button><div class="wk">${w.label}<small>${w.sub}</small></div><button class="nav" data-week="1">›</button></div>
-    ${curWeek===1?`<div class="copybar"><button class="copybtn" id="copyBtn">⧉ Скопировать прошлую неделю</button></div>`:""}
+    ${pubbar}${editRow}${tools}
     <div class="gridwrap"><div class="grid">${head}${body}</div></div>
-    <div class="legend"><span><i style="background:#2f9bea"></i>Утро</span><span><i style="background:#8a78ef"></i>Вечер</span><span><i style="background:#13b9a8"></i>Полный день</span></div>
-    <div class="hinttext">В чипе — время начала и длительность смены. Красным подсвечена должность в тот день, где не хватает людей. Тап по дню сверху — разбор по сменам и запрос усиления. Точку выбираете переключателем сверху.</div>`;
+    <div class="legend"><span><i style="background:#2f9bea"></i>Утро</span><span><i style="background:#8a78ef"></i>Вечер</span><span><i style="background:var(--amber);border-radius:50%"></i>ищет замену</span><span><i style="background:#fff;border:1.5px solid var(--amber);border-radius:2px"></i>вне найма</span><span><i style="background:#f1f1f4;border:1px solid #e0e0e4"></i>недоступен</span><span><i style="background:#fdeeee"></i>после аттестации</span><span>🎓 стажёр — норму не закрывает</span></div>
+    <div class="hinttext">${editing?'Правки копятся в черновике, команда их не видит. «Готово» — выйти из редактирования (предложим опубликовать).':'Вы видите то же, что и сотрудники — опубликованную версию. Правки — через «Редактировать». Передачи смен применяются сразу, минуя черновик.'}</div>`;
+}
+function layoutWeek(){
+  const w=WEEKS[curWeek],vid=curVen;let cnt=0;
+  staff.filter(e=>!e.temp&&e.mainVen===vid&&e.defShift&&e.pattern&&e.pattern.type!=="flex").forEach(e=>{
+    if(!schedule[w.key][e.id])schedule[w.key][e.id]=[null,null,null,null,null,null,null];
+    for(let di=0;di<7;di++){
+      const cur=schedule[w.key][e.id][di];
+      if(cur&&shById(cur)&&shById(cur).ven!==vid)continue; // занят на другой точке — не трогаем
+      schedule[w.key][e.id][di]=(isWorkday(e,w.key,di)&&!unavailable(e,w.key,di))?e.defShift:null;cnt++;
+    }
+  });
+  renderScreen();toast(`Разложено по графикам найма (${venShort(vid)})`);
 }
 
-/* ===== STAFF SCREEN (норматив + точки + должности + конструктор по блокам) ===== */
+/* ===== STAFF SCREEN ===== */
 function staffScreen(dir){
   let html="";
   if(dir){
-    // Точки
     let vl=`<div class="clist">`;
-    venues.forEach(v=>{vl+=`<div class="crow" data-ven="${v.id}"><span class="sw" style="background:#e6e6ea;display:flex;align-items:center;justify-content:center">📍</span><span class="ct"><b>${v.name}</b><span>${v.addr} · ${staffOf(v.id).length} сотр.</span></span><span class="chev">›</span></div>`;});
+    venues.forEach(v=>{vl+=`<div class="crow" data-ven="${v.id}"><span class="sw" style="background:#e6e6ea;display:flex;align-items:center;justify-content:center">📍</span><span class="ct"><b>${v.name}</b><span>${v.addr} · должностей: ${(v.positions||[]).length}</span></span><span class="chev">›</span></div>`;});
     vl+=`<div class="crow add" data-venadd="1"><span style="font-size:20px">＋</span>&nbsp;Добавить точку</div></div>`;
     html+=`<div class="group-title tight">Точки</div>${vl}`;
-    // Должности
     let pl=`<div class="clist">`;
     positions.forEach(p=>{pl+=`<div class="crow"><span class="sw" style="background:${p.status==='active'?'#e6e6ea':'#fff4e5'};display:flex;align-items:center;justify-content:center;color:${p.status==='active'?'#8a8a8e':'#b26a00'};font-weight:700">${p.name[0]}</span><span class="ct"><b>${p.name}</b><span>${p.status==='active'?'единый реестр':'на утверждении'}</span></span>${p.status==='active'?`<span class="pill ok">активна</span>`:`<span class="pill warn">на утверждении</span>`}</div>`;});
     pl+=`<div class="crow add" data-posadd="1"><span style="font-size:20px">＋</span>&nbsp;Добавить должность</div></div>`;
     html+=`<div class="group-title">Должности · единый реестр</div>${pl}`;
   }
-  // переключатель точки для смен/норматива
   html+=`<div class="group-title">${dir?'Смены и норматив по точке':'Норматив по точке'}</div>`+venSwitcher();
-  // блоки по должностям
+  if(!dir){
+    const list=staff.filter(e=>!e.temp&&empVens(e).includes(curVen));
+    const temps=staff.filter(e=>e.temp&&placements.some(pl=>pl.empId===e.id&&pl.ven===curVen));
+    html+=`<div class="group-title">Сотрудники точки · ${list.length}${temps.length?` (+${temps.length} подменных)`:''}</div><div class="clist">`;
+    list.forEach(e=>{
+      const main=e.mainVen===curVen;
+      const ex=(e.posExtra||[]).filter(p=>activePos().some(a=>a.id===p));
+      const posS=`<b style="color:var(--text)">${posName(e.posMain)}</b>`+(ex.length?', '+ex.map(posName).join(', '):'');
+      html+=`<div class="crow" data-empinfo="${e.id}"><span class="ini" style="background:${e.c}">${ini(e.name)}</span><span class="ct"><b>${e.name}</b><span>${posS} · ${patLabel(e)} · ${main?'осн. точка':'доп. точка'}<br>смен: ${cntShifts(e.id)} · запросов замены: ${cntReq(e.id)} · передал: ${cntGiven(e.id)} · взял: ${cntTaken(e.id)}</span></span><span class="chev">›</span></div>`;
+    });
+    temps.forEach(e=>{
+      html+=`<div class="crow" data-empinfo="${e.id}"><span class="ini" style="background:${e.c}">${ini(e.name)}</span><span class="ct"><b>${e.name} •</b><span>подменный · ${posName(e.posMain)} · вне реестра</span></span><span class="chev">›</span></div>`;
+    });
+    html+=`</div>`;
+  }
   let wd=`<div class="wdsel">`+DAYS.map((d,i)=>`<button data-normday="${i}" class="${normDay===i?'on':''}">${d}</button>`).join("")+`</div>`;
   let nb=`<div class="normcard">`;
   posAtVen(curVen).forEach(p=>{
@@ -380,27 +583,44 @@ function staffScreen(dir){
   });
   nb+=`</div>`;
   html+=wd+nb;
-  html+=`<div class="hinttext">${dir?'Смены и нормы привязаны к точке: переключите точку сверху. Смена принадлежит должности и редактируется тут же, в её блоке. Норму задаёте на каждый день недели; применяется сразу.':'Нажмите значение нормы, чтобы предложить изменение руководителю (точка • — заявка отправлена). Смены и точки настраивает руководитель.'}</div>`;
+  html+=`<div class="hinttext">${dir?'Смены и нормы привязаны к точке. Смена принадлежит должности и редактируется в её блоке. Норма — на каждый день недели, применяется сразу.':'Нажмите значение нормы, чтобы предложить изменение руководителю (точка • — заявка отправлена).'}</div>`;
   return html;
 }
 
 /* ===== MANAGER NOW / SWAPS ===== */
 function mgrNow(){
-  const on=[];staffOf(curVen).forEach(e=>{const sid=schedule.cur[e.id][TODAY_IDX];if(sid)on.push({e,sid});});
+  const on=[];staff.forEach(e=>{const sid=schedule.cur[e.id]&&schedule.cur[e.id][TODAY_IDX];if(sid&&shById(sid)&&shById(sid).ven===curVen)on.push({e,sid});});
   let html=venSwitcher();
   if(!on.length)return html+`<div class="empty"><span class="em">🌙</span>Сейчас на этой точке никого нет на смене.</div>`;
   html+=`<div class="group-title">Сейчас · ${NOW} · ${venName(curVen)}</div><div class="rows">`;
-  on.forEach(({e,sid})=>{html+=`<div class="row"><span class="ava" style="background:${e.c}">${ini(e.name)}</span><div class="main"><div class="name">${e.name}</div><div class="meta">${posName(e.pos)} · ${shById(sid).name} ${fmt(shById(sid).start)}–${fmt(shById(sid).end)}</div></div><button class="pill" style="background:rgba(51,144,236,.12);color:var(--blue);border:0;cursor:pointer" data-call="${e.name}">Написать</button></div>`;});
+  on.forEach(({e,sid})=>{const sh=shById(sid);html+=`<div class="row"><span class="ava" style="background:${e.c}">${ini(e.name)}</span><div class="main"><div class="name">${e.name}${e.temp?' · подменный':''}</div><div class="meta">${posName(sh.pos)} · ${sh.name} ${fmt(sh.start)}–${fmt(sh.end)}</div></div><button class="pill" style="background:rgba(51,144,236,.12);color:var(--blue);border:0;cursor:pointer" data-call="${e.name}">Написать</button></div>`;});
   return html+`</div>`;
 }
 function mgrSwaps(){
-  const open=swaps.filter(s=>s.status!=="done");
-  if(!open.length)return `<div class="empty"><span class="em">✅</span>Открытых заявок на замену нет.</div>`;
-  let html=`<div class="group-title">Заявки на замену</div>`;
-  open.forEach(s=>{
-    const e=emp(s.empId),w=WEEKS.find(x=>x.key===s.week),taker=s.taker?emp(s.taker):null;
-    html+=`<div class="scard"><div class="top"><span class="ava" style="background:${e.c};width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex:0 0 auto">${ini(e.name)}</span><div class="info"><div class="t1">${e.name} просит замену</div><div class="t2">${DAYS[s.day]} ${w.nums[s.day]} · ${shById(s.shift).name} ${fmt(shById(s.shift).start)}–${fmt(shById(s.shift).end)} · ${venName(e.ven)}</div><div style="margin-top:7px">${taker?`<span class="badge">✓ ${taker.name.split(" ")[0]} готов(а) взять</span>`:`<span class="pill warn">Ищем замену…</span>`}</div></div></div>${taker?`<div class="bar"><button class="done" data-confirm="${s.id}">Подтвердить замену</button></div>`:""}</div>`;
+  const visa=swaps.filter(s=>s.status==="visa");
+  const seeking=swaps.filter(s=>s.status==="seeking");
+  let html="";
+  if(visa.length){
+    html+=`<div class="group-title tight">Ждут визы менеджера</div>`;
+    visa.forEach(s=>{
+      const o=emp(s.empId),t=emp(s.taker),sh=shById(s.shift);
+      html+=`<div class="apprcard"><div class="at"><div class="kind">Передача смены</div><div class="desc">${o.name} → ${t.name}</div><div class="meta">${DAYS[s.day]} · ${sh.name} ${fmt(sh.start)}–${fmt(sh.end)} · ${venName(sh.ven)}</div></div><div class="bar"><button class="rj" data-visa-no="${s.id}">Отклонить</button><button class="ap" data-visa-ok="${s.id}">Согласовать</button></div></div>`;
+    });
+  }
+  html+=`<div class="group-title ${visa.length?'':'tight'}">Идёт поиск замены · смена остаётся за владельцем</div>`;
+  if(!seeking.length)html+=`<div class="empty"><span class="em">✅</span>Никто не ищет замену.</div>`;
+  seeking.forEach(s=>{
+    const e=emp(s.empId),w=WEEKS.find(x=>x.key===s.week),sh=shById(s.shift);
+    const h=hoursUntil(s.week,s.day,s.shift);
+    const found=s.offers.length>0;
+    const danger=!found&&h<=24;
+    const title=found?`${e.name} нашёл(а) замену`:`${e.name} ищет замену`;
+    const badge=found?`<span class="badge">Откликов: ${s.offers.length} — владелец выберет, кому передать</span>`:`<span class="pill warn">Откликов нет${danger?' · скоро смена!':''}</span>`;
+    const bar=found?`<div class="bar"><button class="red" data-mgrcancel="${s.id}">Отменить замену</button></div>`
+                   :`<div class="bar"><button class="muted" data-remind="${s.id}">Напомнить команде</button><button data-force="${s.id}">Назначить самому</button></div>`;
+    html+=`<div class="scard ${danger?'danger':''}"><div class="top"><span class="ava" style="background:${e.c};width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex:0 0 auto">${ini(e.name)}</span><div class="info"><div class="t1">${title}</div><div class="t2">${DAYS[s.day]} ${w.nums[s.day]} · ${sh.name} ${fmt(sh.start)}–${fmt(sh.end)} · ${venName(sh.ven)} · через ~${h} ч</div><div style="margin-top:7px">${badge}</div></div></div>${bar}</div>`;
   });
+  html+=`<div class="hinttext">Пока сотрудник не передал смену — она его: он выходит, если замену не нашёл. Вмешивайтесь, когда откликов нет и смена близко (красная карточка).</div>`;
   return html;
 }
 
@@ -414,33 +634,89 @@ function dirAppr(){
     if(a.type==="reinforce"){const w=WEEKS.find(x=>x.key===a.week),s=shById(a.sid);kind="Усиление";desc=`+${a.qty} ${posName(s.pos)} · ${s.name} ${fmt(s.start)}`;meta=`${venName(s.ven)} · ${DAYS[a.day]} ${w.nums[a.day]} · повысит потребность`;}
     if(a.type==="norm"){const s=shById(a.sid);kind="Изменение нормы";desc=`${posName(s.pos)} · ${s.name}: ${a.from} → ${a.to}`;meta=`${venName(s.ven)} · ${DAYS[a.weekday]} · ${meta}`;}
     if(a.type==="position"){kind="Новая должность";desc=a.name;meta=`Единый реестр должностей · ${meta}`;}
+    if(a.type==="overstaff"){const w=WEEKS.find(x=>x.key===a.week);kind="Расширение графика";desc=`+${a.qty} чел.-смен сверх норматива`;meta=`${venName(a.ven)} · ${w.label} · согласование опубликует график команде`;}
+    if(a.type==="graduate"){const ee=emp(a.empId);kind="Выпуск стажёра";desc=ee?ee.name:"—";meta=`${ee?posName(ee.posMain):""} · после выпуска закрывает норму · ${meta}`;}
     html+=`<div class="apprcard"><div class="at"><div class="kind">${kind}</div><div class="desc">${desc}</div><div class="meta">${meta}</div></div><div class="bar"><button class="rj" data-reject="${a.id}">Отклонить</button><button class="ap" data-approve="${a.id}">Согласовать</button></div></div>`;
   });
   return html;
 }
 function dirStaffReg(){
-  let html=`<div class="copybar"><button class="copybtn" data-regadd="1">＋ Добавить сотрудника</button></div>`;
-  venues.forEach(v=>{
-    const list=staffOf(v.id);if(!list.length)return;
-    html+=`<div class="group-title">${v.name} · ${list.length}</div><div class="clist">`;
-    list.forEach(e=>{html+=`<div class="crow" data-reg="${e.id}"><span class="ini" style="background:${e.c}">${ini(e.name)}</span><span class="ct"><b>${e.name}</b><span>${posName(e.pos)}</span></span><span class="chev">›</span></div>`;});
-    html+=`</div>`;
+  const fv=regFilterVen,fp=regFilterPos;
+  let list=staff.filter(e=>!e.temp);
+  if(fv!=="all")list=list.filter(e=>empVens(e).includes(fv));
+  if(fp!=="all")list=list.filter(e=>empPos(e).includes(fp));
+  const venChips=`<div class="vensel"><button data-regfv="all" class="${fv==='all'?'on':''}">Все точки</button>`+venues.map(v=>`<button data-regfv="${v.id}" class="${fv===v.id?'on':''}">${venShort(v.id)}</button>`).join("")+`</div>`;
+  const posChips=`<div class="wdsel"><button data-regfp="all" class="${fp==='all'?'on':''}">Все</button>`+activePos().map(p=>`<button data-regfp="${p.id}" class="${fp===p.id?'on':''}">${p.name}</button>`).join("")+`</div>`;
+  let html=`<div class="copybar"><button class="copybtn" data-regadd="1">＋ Добавить сотрудника</button></div>`+venChips+posChips;
+  html+=`<div class="group-title">Сотрудники · ${list.length}</div>`;
+  if(!list.length)return html+`<div class="empty"><span class="em">🔍</span>Нет сотрудников по этому фильтру.</div>`;
+  html+=`<div class="clist">`;
+  list.forEach(e=>{
+    const ex=(e.posExtra||[]).filter(p=>activePos().some(a=>a.id===p));
+    const posS=`<b style="color:var(--text)">${posName(e.posMain)}</b>`+(ex.length?', '+ex.map(posName).join(', '):'');
+    const ov=empVens(e).filter(v=>v!==e.mainVen);
+    const venS=`<b style="color:var(--text)">${venShort(e.mainVen)}</b>`+(ov.length?', '+ov.map(venShort).join(', '):'');
+    html+=`<div class="crow" data-reg="${e.id}"><span class="ini" style="background:${e.c}">${ini(e.name)}</span><span class="ct"><b>${e.name}</b><span>${posS} · ${patLabel(e)}<br>${venS}</span></span><span class="chev">›</span></div>`;
   });
+  html+=`</div>`;
+  return html;
+}
+function dirMode(){
+  const row=(label,sub,key)=>`<div class="availrow"><div class="d">${label}<small style="display:block;margin-left:0;font-size:12px">${sub}</small></div><div class="toggle ${settings[key]?'on':''}" data-set="${key}"></div></div>`;
+  let html=`<div class="group-title tight">Замены</div><div class="rows">`;
+  html+=row("Замены между сотрудниками","выкл. — все замены только через менеджера","swapsEnabled");
+  html+=row("Виза менеджера на передачу","передача вступает в силу после согласования","visa");
+  html+=`<div class="availrow"><div class="d">Дедлайн поиска<small style="display:block;margin-left:0;font-size:12px">ближе к смене поиск закрыт — только менеджер</small></div><span class="timestp"><button data-dlh="-6">−</button><span class="tv">${settings.deadlineH} ч</span><button data-dlh="6">+</button></span></div>`;
+  html+=row("Замены между точками","сотрудник другой точки может откликнуться","crossVenue");
+  html+=row("Доп. должность может брать смены","иначе — только основная должность","extraPos");
+  html+=`</div><div class="group-title">График и публикация</div><div class="rows">`;
+  html+=row("Перебор — только с визы руководителя","«Опубликовать» при излишке шлёт заявку; согласование публикует","pubOverApproval");
+  html+=row("Подтверждение выхода","сотрудник подтверждает, что выйдет на смену","confirmShift");
+  html+=row("Подменные разрешены","разовые сотрудники без реестра","temps");
+  html+=`</div><div class="group-title">Кадровые механики менеджера</div><div class="rows">`;
+  html+=row("Оформляет отпуска","из карточки сотрудника","mgrVacation");
+  html+=row("Отмечает больничные","из карточки сотрудника","mgrSick");
+  html+=row("Оформляет увольнение","выкл. — только руководитель","mgrTerm");
+  html+=row("Выпускает стажёров","выкл. — выпуск через согласование руководителя","mgrGraduate");
+  html+=row("Аттестация стажёров обязательна","выкл. — стажировка закрывается по дате автоматически","attestation");
+  html+=`</div><div class="hinttext">Режим задаёт «культуру» сети: строгая — виза включена и короткий дедлайн, свободная — команда меняется сама. Действует на все точки.</div>`;
   return html;
 }
 
 /* ===== EMPLOYEE ===== */
 function empMine(){
+  const me=emp(ME),meVen=me.mainVen;
   const items=[];
-  WEEKS.forEach(w=>DAYS.forEach((d,di)=>{const sid=schedule[w.key][ME][di];if(sid)items.push({w,di,sid});}));
-  const up=items.filter(it=>it.w.key==="next"||it.di>=TODAY_IDX);
-  if(!up.length)return `<div class="empty"><span class="em">🗓</span>Ближайших смен нет.</div>`;
-  let html="";
-  up.forEach((it,idx)=>{
-    const sw=swaps.find(s=>s.empId===ME&&s.week===it.w.key&&s.day===it.di&&s.status!=="done");
-    const isNext=idx===0,key=it.w.key+"_"+it.di,conf=state.confirmed[key],sh=shById(it.sid);
-    html+=`<div class="scard ${isNext?'next':''}"><div class="top"><div class="daybox"><div class="dn">${it.w.nums[it.di]}</div><div class="dm">${DAYS[it.di]}</div></div><div class="info"><div class="t1">${sh.name} · ${fmt(sh.start)}–${fmt(sh.end)}</div><div class="t2">${venName(emp(ME).ven)} · ${it.w.sub}</div>${isNext?`<div style="margin-top:7px"><span class="badge">⏰ Напомним за 2 часа</span></div>`:""}${sw?`<div style="margin-top:7px"><span class="pill warn">${sw.taker?'Замену взял(а) '+emp(sw.taker).name.split(" ")[0]:'Ищем замену…'}</span></div>`:""}</div></div><div class="bar">${conf?`<button class="done" disabled>✓ Выход подтверждён</button>`:`<button data-confirm-shift="${key}">Подтвердить выход</button>`}${sw?`<button class="muted" disabled>Замена запрошена</button>`:`<button class="red" data-swap="${it.w.key}_${it.di}_${it.sid}">Нужна замена</button>`}</div></div>`;
+  WEEKS.forEach(w=>DAYS.forEach((d,di)=>{const sid=published[w.key]&&published[w.key][ME]&&published[w.key][ME][di];if(sid)items.push({w,di,sid});}));
+  const up=items.filter(it=>it.w.off>0||it.di>=TODAY_IDX);
+  let html=`<div class="group-title tight">Смен в графике на 2 недели: ${cntShifts(ME)} · передано: ${cntGiven(ME)} · взято: ${cntTaken(ME)}</div>`;
+  WEEKS.forEach(w=>{
+    const p=pub[w.key+"|"+meVen];
+    if(p&&!p.acks.includes(ME))html+=`<div class="scard next"><div class="top"><div class="info"><div class="t1">Опубликован график на ${w.label}</div><div class="t2">${p.ts} · подтвердите, что ознакомились</div></div></div><div class="bar"><button class="done" data-ack="${w.key}|${meVen}">Ознакомился ✓</button></div></div>`;
   });
+  if(!up.length)html+=`<div class="empty"><span class="em">🗓</span>Ближайших смен нет.</div>`;
+  up.forEach((it,idx)=>{
+    const sw=seekingSwap(ME,it.w.key,it.di);
+    const isNext=idx===0,key=it.w.key+"_"+it.di,conf=state.confirmed[key],sh=shById(it.sid);
+    let badges="";
+    if(isNext)badges+=`<div style="margin-top:7px"><span class="badge">⏰ Напомним за 2 часа</span></div>`;
+    if(sw&&sw.status==="seeking"){
+      badges+=`<div style="margin-top:7px"><span class="pill ${sw.offers.length?'ok':'warn'}">${sw.offers.length?`Замена найдена · выберите, кому передать`:`Ищу замену · откликов: 0`}</span></div>`;
+      if(sw.offers.length){
+        badges+=`<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">`+sw.offers.map(oid=>`<button class="rfchip" data-give="${sw.id}|${oid}" style="background:rgba(52,199,89,.14);color:#2a9e49">Передать: ${emp(oid).name.split(" ")[0]}</button>`).join("")+`</div>`;
+      }
+    }
+    if(sw&&sw.status==="visa")badges+=`<div style="margin-top:7px"><span class="pill warn">Передача ${emp(sw.taker).name.split(" ")[0]} — на визе у менеджера</span></div>`;
+    let seekBtn;
+    if(sw)seekBtn=`<button class="muted" data-cancelseek="${sw.id}">Отменить поиск</button>`;
+    else if(!settings.swapsEnabled)seekBtn=`<button class="muted" disabled>Замены — через менеджера</button>`;
+    else seekBtn=`<button class="red" data-seek="${it.w.key}_${it.di}_${it.sid}">Ищу замену</button>`;
+    const confBtn=settings.confirmShift?(conf?`<button class="done" disabled>✓ Выход подтверждён</button>`:`<button data-confirm-shift="${key}">Подтвердить выход</button>`):"";
+    html+=`<div class="scard ${isNext?'next':''}"><div class="top"><div class="daybox"><div class="dn">${it.w.nums[it.di]}</div><div class="dm">${DAYS[it.di]}</div></div><div class="info"><div class="t1">${sh.name} · ${fmt(sh.start)}–${fmt(sh.end)}</div><div class="t2">${venName(sh.ven)} · ${it.w.sub}</div>${badges}</div></div><div class="bar">${confBtn}${seekBtn}</div></div>`;
+  });
+  const unp=WEEKS.filter(w=>!pub[w.key+"|"+meVen]).map(w=>w.label);
+  if(unp.length)html+=`<div class="hinttext" style="text-align:center">Ещё не опубликовано: ${unp.join(" · ")}</div>`;
+  html+=`<div class="hinttext">Смена остаётся вашей, пока вы сами не передали её откликнувшемуся. Не передали — выходите вы.</div>`;
   return html;
 }
 function empAvail(){
@@ -450,10 +726,16 @@ function empAvail(){
   return html+`</div><div class="hinttext">Зелёный — вы доступны. Выключите день, если работать не можете.</div>`;
 }
 function empMarket(){
-  const open=swaps.filter(s=>s.status==="open"&&s.empId!==ME);
-  if(!open.length)return `<div class="empty"><span class="em">🤝</span>Свободных смен на бирже нет.</div>`;
-  let html=`<div class="group-title">Коллегам нужна замена</div>`;
-  open.forEach(s=>{const e=emp(s.empId),w=WEEKS.find(x=>x.key===s.week),sh=shById(s.shift);html+=`<div class="scard"><div class="top"><span class="ava" style="background:${e.c};width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex:0 0 auto">${ini(e.name)}</span><div class="info"><div class="t1">${sh.name} · ${fmt(sh.start)}–${fmt(sh.end)}</div><div class="t2">${DAYS[s.day]} ${w.nums[s.day]} · вместо ${e.name.split(" ")[0]} · ${venName(e.ven)}</div></div></div><div class="bar"><button class="done" data-take="${s.id}">Взять смену</button></div></div>`;});
+  if(!settings.swapsEnabled)return `<div class="empty"><span class="em">🔒</span>Руководитель отключил замены между сотрудниками.<br>По вопросам смен — к менеджеру.</div>`;
+  const open=marketList();
+  if(!open.length)return `<div class="empty"><span class="em">🤝</span>Подходящих смен нет.<br>Здесь появляются смены коллег, которые ищут замену.</div>`;
+  let html=`<div class="group-title">Коллеги ищут замену · вы можете откликнуться</div>`;
+  open.forEach(s=>{
+    const e=emp(s.empId),w=WEEKS.find(x=>x.key===s.week),sh=shById(s.shift);
+    const responded=s.offers.includes(ME);
+    html+=`<div class="scard"><div class="top"><span class="ava" style="background:${e.c};width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex:0 0 auto">${ini(e.name)}</span><div class="info"><div class="t1">${sh.name} · ${fmt(sh.start)}–${fmt(sh.end)}</div><div class="t2">${DAYS[s.day]} ${w.nums[s.day]} · ${venName(sh.ven)} · смена ${e.name.split(" ")[0]}</div>${responded?`<div style="margin-top:7px"><span class="badge">✓ Вы откликнулись — решает владелец смены</span></div>`:""}</div></div><div class="bar">${responded?`<button class="muted" data-offer="${s.id}">Отозвать отклик</button>`:`<button class="done" data-offer="${s.id}">Откликнуться</button>`}</div></div>`;
+  });
+  html+=`<div class="hinttext">Отклик — не взятие смены: владелец сам выберет, кому передать.</div>`;
   return html;
 }
 
@@ -461,32 +743,42 @@ function empMarket(){
 function showSheet(html){$("#sheet").innerHTML=html;$("#sheetbg").classList.add("show");$("#sheet").classList.add("show");}
 function closeSheet(){$("#sheetbg").classList.remove("show");$("#sheet").classList.remove("show");sheetCtx=null;}
 
-function openAssignSheet(empId,day){
-  sheetCtx={type:"assign",empId,day};
-  const e=emp(empId),w=WEEKS[curWeek],cur=schedule[w.key][empId][day];
-  let opts=`<div class="sheetgrp">`;
-  const shs=shiftsOfPosVen(e.pos,e.ven);
-  if(!shs.length)opts+=`<div style="background:#fff;padding:14px 15px;color:var(--hint);font-size:14px">У должности «${posName(e.pos)}» на точке «${venName(e.ven)}» пока нет смен. Их добавляет руководитель в «Штате».</div>`;
-  shs.forEach(sh=>{opts+=`<button class="opt" data-pick="${sh.id}"><span class="sw" style="background:${sh.col}"></span><span class="ot"><b>${fmt(sh.start)}–${fmt(sh.end)}</b><span>${sh.name} · ${dur(sh)}</span></span>${cur===sh.id?`<span class="chk">✓</span>`:""}</button>`;});
-  if(cur)opts+=`<button class="opt remove" data-pick="none">Убрать смену</button>`;
-  opts+=`</div>`;
-  showSheet(`<h3>${e.name.split(" ")[0]} — ${DAYS[day]} ${w.nums[day]}</h3><div class="who">${posName(e.pos)} · ${venName(e.ven)}</div>${opts}<button class="cancel" id="sheetCancel">Отмена</button>`);
+function openAssignSheet(empId,day,pid){
+  const e=emp(empId),w=WEEKS[curWeek],vid=curVen,cur=schedule[w.key][empId][day];
+  const curSh=cur?shById(cur):null;
+  const foreign=curSh&&!(curSh.ven===vid&&curSh.pos===pid);
+  sheetCtx={type:"assign",empId,day,pid,foreign:!!foreign};
+  let opts="";
+  if(foreign){
+    const where=curSh.ven!==vid?`точке «${venName(curSh.ven)}»`:`должности «${posName(curSh.pos)}»`;
+    opts+=`<div class="sheetgrp"><div style="background:#fff4e5;padding:13px 15px;font-size:14px;line-height:1.45;color:#7a5200"><b>Занят в этот день:</b> ${curSh.name} ${fmt(curSh.start)}–${fmt(curSh.end)} на ${where}. Чтобы поставить сюда — сначала снимите ту смену.</div>
+    <button class="opt remove" data-pick="none">Снять ту смену</button></div>`;
+  }else{
+    opts+=`<div class="sheetgrp">`;
+    if(offPattern(e,w.key,day)&&!cur)opts+=`<div style="background:#fff4e5;padding:11px 15px;font-size:13.5px;line-height:1.4;color:#7a5200">По графику найма (${patLabel(e)}) этот день у ${e.name.split(" ")[0]} — выходной. Смена будет отклонением и пометится маркером.</div>`;
+    const shs=shiftsOfPosVen(pid,vid);
+    if(!shs.length)opts+=`<div style="background:#fff;padding:14px 15px;color:var(--hint);font-size:14px">У должности «${posName(pid)}» на точке «${venName(vid)}» нет смен.</div>`;
+    shs.forEach(sh=>{opts+=`<button class="opt" data-pick="${sh.id}"><span class="sw" style="background:${sh.col}"></span><span class="ot"><b>${fmt(sh.start)}–${fmt(sh.end)}</b><span>${sh.name} · ${dur(sh)}</span></span>${cur===sh.id?`<span class="chk">✓</span>`:""}</button>`;});
+    if(cur)opts+=`<button class="opt remove" data-pick="none">Убрать смену</button>`;
+    opts+=`</div>`;
+  }
+  showSheet(`<h3>${e.name.split(" ")[0]} — ${DAYS[day]} ${w.nums[day]}</h3><div class="who">${posName(pid)} · ${venName(vid)} · график: ${patLabel(e)}</div>${opts}<button class="cancel" id="sheetCancel">Отмена</button>`);
 }
 function openCovSheet(di){
-  const w=WEEKS[curWeek],vid=curVen;let body=`<div class="covgrp">`,deficit=0;
+  const w=WEEKS[curWeek],vid=curVen;
+  const SRC=(editMode||!pub[w.key+"|"+vid])?schedule:published;
+  let body=`<div class="covgrp">`,deficit=0;
   posAtVen(vid).forEach(p=>{
     const chips=shiftsOfPosVen(p.id,vid).map(s=>{
-      const need=needCell(w.key,di,s.id),fill=fillCell(w.key,di,s.id),def=Math.max(0,need-fill);deficit+=def;
+      const need=needCell(w.key,di,s.id),fill=fillCell(w.key,di,s.id,SRC),def=Math.max(0,need-fill),over=Math.max(0,fill-need);deficit+=def;
       const pend=reinforceQty(w.key,di,s.id,"pending");
-      return `<span class="covchip ${fill>=need?'ok':'bad'}">${s.name} ${fmt(s.start)}: ${fill}/${need}${def?` · −${def}`:''}</span>`+(pend?`<span class="covchip rf">+${pend} на согл.</span>`:"");
+      return `<span class="covchip ${def?'bad':over?'rf':'ok'}">${s.name} ${fmt(s.start)}: ${fill}/${need}${def?` · −${def}`:over?` · +${over} излишек`:''}</span>`+(pend?`<span class="covchip rf">+${pend} на согл.</span>`:"");
     }).join("");
     if(chips)body+=`<div class="covpos"><div class="ph">${p.name}</div><div class="covchips">${chips}</div></div>`;
   });
   body+=`</div>`;
   const sum=deficit>0?`Не хватает <b>${deficit}</b> выход(а/ов)`:`Смена укомплектована ✓`;
-  showSheet(`<h3>Укомплектованность</h3><div class="who">${venName(vid)} · ${DAYS[di]} ${w.nums[di]}</div><div class="covsum">${sum}</div>${body}
-    <button class="opt" data-reinforce="${di}" style="border-radius:12px;justify-content:center;border-bottom:0"><b style="color:var(--blue)">＋ Запросить усиление на этот день</b></button>
-    <button class="cancel" id="sheetCancel">Закрыть</button>`);
+  showSheet(`<h3>Укомплектованность</h3><div class="who">${venName(vid)} · ${DAYS[di]} ${w.nums[di]}</div><div class="covsum">${sum}</div>${body}<button class="opt" data-reinforce="${di}" style="border-radius:12px;justify-content:center;border-bottom:0"><b style="color:var(--blue)">＋ Запросить усиление на этот день</b></button><button class="cancel" id="sheetCancel">Закрыть</button>`);
 }
 function openReinforceSheet(di){
   sheetCtx={type:"reinforce",di};const w=WEEKS[curWeek],vid=curVen;
@@ -503,6 +795,17 @@ function openReinforceSheet(di){
   rows+=`</div>`;
   showSheet(`<h3>Усиление · ${DAYS[di]} ${w.nums[di]}</h3><div class="who">${venName(vid)} · тап = +1 на смену. Уйдёт руководителю и не повысит потребность до согласования.</div>${rows}<button class="cancel" id="sheetCancel">Готово</button>`);
 }
+function openForceSheet(swapId){
+  const s=swaps.find(x=>x.id===swapId);if(!s)return;
+  sheetCtx={type:"force",swapId};
+  const sh=shById(s.shift);
+  const cands=staff.filter(e=>!e.temp&&e.id!==s.empId&&qualifies(e,sh)&&isFree(e.id,s.week,s.day));
+  let list=`<div class="sheetgrp">`;
+  if(!cands.length)list+=`<div style="background:#fff;padding:14px 15px;color:var(--hint);font-size:14px">Свободных подходящих сотрудников нет. Добавьте подменного через «＋» в графике.</div>`;
+  cands.forEach(e=>{const tag=e.mainVen!==sh.ven?`с «${venShort(e.mainVen)}»`:(e.posMain!==sh.pos?'доп. должность':posName(e.posMain));list+=`<button class="opt" data-forcepick="${s.id}|${e.id}"><span class="sw" style="background:${e.c};border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${ini(e.name)}</span><span class="ot"><b>${e.name}</b><span>${tag} · ${patLabel(e)}</span></span></button>`;});
+  list+=`</div>`;
+  showSheet(`<h3>Назначить на смену</h3><div class="who">${sh.name} ${fmt(sh.start)}–${fmt(sh.end)} · ${DAYS[s.day]} · вместо ${emp(s.empId).name}</div>${list}<button class="cancel" id="sheetCancel">Отмена</button>`);
+}
 function newShift(pid){const used=shiftList.map(s=>s.col);const col=SHIFT_COLORS.find(c=>!used.includes(c))||SHIFT_COLORS[shiftList.length%SHIFT_COLORS.length];const nid="s"+Date.now();shiftList.push({id:nid,ven:curVen,pos:pid,name:"Смена",start:540,end:1020,col});return nid;}
 function openShiftSheet(id){
   sheetCtx={type:"shift",id};const s=shById(id);
@@ -515,41 +818,198 @@ function openShiftSheet(id){
     <button class="cancel" id="shiftDone">Готово</button>`);
   const inp=$("#shName");if(inp)inp.oninput=()=>{shById(id).name=inp.value;};
 }
-function openNormProposeSheet(sid){
-  const s=shById(sid);
-  sheetCtx={type:"normpropose",sid,weekday:normDay,val:(normWeek[normDay]&&normWeek[normDay][sid])||0};
-  renderNormPropose(s);
-}
+function openNormProposeSheet(sid){const s=shById(sid);sheetCtx={type:"normpropose",sid,weekday:normDay,val:(normWeek[normDay]&&normWeek[normDay][sid])||0};renderNormPropose(s);}
 function renderNormPropose(s){
   const c=sheetCtx;
-  showSheet(`<h3>Изменить норму</h3><div class="who">${posName(s.pos)} · ${s.name} ${fmt(s.start)} · ${DAYS[c.weekday]} · ${venName(s.ven)}</div>
-    <div class="editgrp"><div class="editrow"><span class="el">Нужно</span><span class="timestp" style="margin-left:auto"><button data-npp="-1">−</button><span class="tv">${c.val}</span><button data-npp="1">+</button></span></div></div>
-    <button class="cancel" id="normProposeSend" style="color:#fff;background:var(--blue)">Отправить на согласование</button>
+  showSheet(`<h3>Изменить норму</h3><div class="who">${posName(s.pos)} · ${s.name} ${fmt(s.start)} · ${DAYS[c.weekday]} · ${venName(s.ven)}</div><div class="editgrp"><div class="editrow"><span class="el">Нужно</span><span class="timestp" style="margin-left:auto"><button data-npp="-1">−</button><span class="tv">${c.val}</span><button data-npp="1">+</button></span></div></div><button class="cancel" id="normProposeSend" style="color:#fff;background:var(--blue)">Отправить на согласование</button><button class="cancel" id="sheetCancel">Отмена</button>`);
+}
+function openAddBlockSheet(pid){
+  sheetCtx={type:"addblock",pid};const vid=curVen,cands=candidatesForBlock(vid,pid);
+  let list="";
+  if(settings.temps)list+=`<div class="sheetgrp"><button class="opt" data-addtemp="${pid}"><span class="sw" style="background:#c9c9d0;display:flex;align-items:center;justify-content:center;color:#555;font-weight:700">≈</span><span class="ot"><b>Подменный (разовый)</b><span>без добавления в реестр</span></span></button></div>`;
+  let cl="";
+  if(cands.length){
+    cl=`<div class="group-title" style="padding:14px 6px 6px">Из реестра</div><div class="sheetgrp">`;
+    cands.forEach(e=>{const tag=e.mainVen===vid?`доп. должность`:`с «${venName(e.mainVen)}»`;cl+=`<button class="opt" data-addemp="${e.id}|${pid}"><span class="sw" style="background:${e.c};border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${ini(e.name)}</span><span class="ot"><b>${e.name}</b><span>${posName(e.posMain)} · ${tag}</span></span></button>`;});
+    cl+=`</div>`;
+  }
+  if(!list&&!cl)list=`<div class="sheetgrp"><div style="background:#fff;padding:14px 15px;color:var(--hint);font-size:14px">Подменные отключены руководителем, подходящих в реестре нет.</div></div>`;
+  showSheet(`<h3>Добавить в «${posName(pid)}»</h3><div class="who">${venName(vid)}</div>${list}${cl}<button class="cancel" id="sheetCancel">Отмена</button>`);
+}
+function openTempSheet(pid){sheetCtx={type:"temp",pid};showSheet(`<h3>Подменный сотрудник</h3><div class="who">${posName(pid)} · ${venName(curVen)} · не попадёт в реестр</div><div class="editgrp"><div class="editrow"><span class="el">Имя</span><input id="tempName" placeholder="Имя"></div></div><button class="cancel" id="tempSave" style="color:#fff;background:var(--blue)">Добавить в график</button><button class="cancel" id="sheetCancel">Отмена</button>`);const i=$("#tempName");if(i)i.oninput=()=>{sheetCtx.name=i.value;};}
+function openMemberSheet(eid,pid){
+  const e=emp(eid);if(!e)return;const vid=curVen;
+  const placed=placements.some(pl=>pl.empId===eid&&pl.ven===vid&&pl.pos===pid);
+  const isDefault=!e.temp&&e.mainVen===vid&&e.posMain===pid;
+  if(!placed&&isDefault){openEmpInfoSheet(eid);return;}
+  sheetCtx={type:"member",eid,pid};
+  showSheet(`<h3>${e.name}</h3><div class="who">${posName(pid)} · ${venName(vid)}${e.temp?' · подменный':''}</div><div class="sheetgrp"><button class="opt" data-empinfo="${eid}"><span class="ot"><b style="color:var(--blue)">Данные и статистика</b></span></button><button class="opt remove" data-memdel="${eid}|${pid}">Убрать отсюда</button></div><button class="cancel" id="sheetCancel">Закрыть</button>`);
+}
+function openRegAddSheet(){sheetCtx={type:"regadd",name:"",posMain:activePos()[0].id,posExtra:[],mainVen:venues[0].id,vens:[venues[0].id],pattern:{type:"2/2",anchor:0,days:[]},defShift:null,trainee:false,startW:-1,attW:1,attD:0,mentorId:null,attBy:"mgr"};renderRegSheet();}
+function openRegEditSheet(id){const e=emp(id);sheetCtx={type:"regedit",id,name:e.name,posMain:e.posMain,posExtra:[...(e.posExtra||[])],mainVen:e.mainVen,vens:[...empVens(e)],pattern:JSON.parse(JSON.stringify(e.pattern||{type:"flex",anchor:0,days:[]})),defShift:e.defShift||null,trainee:!!e.trainee,startW:(e.startW==null?-1:e.startW),attW:(e.attW==null?1:e.attW),attD:e.attD||0,mentorId:e.mentorId||null,attBy:(e.attBy||"mgr")};renderRegSheet();}
+function anchorLabel(a){return DAYS.filter((_,d)=>((d+a)%4)<2).join(" ");}
+function renderRegSheet(){
+  const c=sheetCtx,isAdd=c.type==="regadd";
+  const mp=activePos().map(p=>`<button data-rpm="${p.id}" class="${c.posMain===p.id?'on':''}">${p.name}</button>`).join("");
+  const ep=activePos().filter(p=>p.id!==c.posMain).map(p=>`<button data-rpe="${p.id}" class="${c.posExtra.includes(p.id)?'on':''}">${p.name}</button>`).join("")||'<span style="color:var(--hint);font-size:13px;padding:4px">—</span>';
+  const mv=venues.map(v=>`<button data-rvm="${v.id}" class="${c.mainVen===v.id?'on':''}">${v.name}</button>`).join("");
+  const ev=venues.filter(v=>v.id!==c.mainVen).map(v=>`<button data-rve="${v.id}" class="${c.vens.includes(v.id)?'on':''}">${v.name}</button>`).join("")||'<span style="color:var(--hint);font-size:13px;padding:4px">—</span>';
+  const pt=c.pattern||{type:"flex"};
+  const types=[["2/2","2/2"],["3/3","3/3"],["5/2","5/2"],["fixed","Фикс. дни"],["flex","Гибкий"]];
+  const tp=types.map(([k,l])=>`<button data-rpt="${k}" class="${pt.type===k?'on':''}">${l}</button>`).join("");
+  let ptExtra="";
+  const rot=pt.type.match(/^(\d)\/(\d)$/);
+  if(rot&&pt.type!=="5/2"){
+    const cyc=Number(rot[1])+Number(rot[2]);
+    const lbl=a=>DAYS.filter((_,d)=>((d+a)%cyc)<Number(rot[1])).join(" ");
+    const anchors=[];for(let a=0;a<cyc;a++)anchors.push(a);
+    ptExtra=`<div class="rl">Ротация (рабочие дни этой недели)</div><div class="pickrow">${anchors.map(a=>`<button data-rpa="${a}" class="${(pt.anchor||0)===a?'on':''}">${lbl(a)}</button>`).join("")}</div>`;
+  }
+  if(pt.type==="fixed")ptExtra=`<div class="rl">Рабочие дни недели</div><div class="pickrow">${DAYS.map((d,i)=>`<button data-rpd="${i}" class="${(pt.days||[]).includes(i)?'on':''}">${d}</button>`).join("")}</div>`;
+  const shs=shiftsOfPosVen(c.posMain,c.mainVen);
+  const ds=shs.map(s=>`<button data-rds="${s.id}" class="${c.defShift===s.id?'on':''}">${s.name} ${fmt(s.start)}</button>`).join("")||'<span style="color:var(--hint);font-size:13px;padding:4px">нет смен у этой должности на этой точке</span>';
+  const stCh=`<button data-rtr="1" class="${c.trainee?'on':''}">🎓 Стажёр (норму не закрывает)</button>`;
+  let trnExtra="";
+  if(c.trainee){
+    const aw=WEEKS.map(w=>`<button data-raw="${w.off}" class="${(c.attW==null?1:c.attW)===w.off?'on':''}">${w.label}</button>`).join("");
+    const ad=DAYS.map((dd,i)=>`<button data-rad="${i}" class="${(c.attD||0)===i?'on':''}">${dd}</button>`).join("");
+    const cands=staff.filter(x=>!x.temp&&!x.trainee&&x.mainVen===c.mainVen&&(c.type==="regadd"||x.id!==c.id)&&x.posMain===c.posMain);
+    const pool=cands.length?cands:staff.filter(x=>!x.temp&&!x.trainee&&x.mainVen===c.mainVen);
+    const mn=pool.map(x=>`<button data-rmn="${x.id}" class="${c.mentorId===x.id?'on':''}">${x.name.split(" ")[0]}</button>`).join("")||'<span style="color:var(--hint);font-size:13px;padding:4px">—</span>';
+    const ab=`<button data-rab="mgr" class="${c.attBy==='mgr'?'on':''}">Менеджер</button>`+pool.map(x=>`<button data-rab="${x.id}" class="${c.attBy===x.id?'on':''}">${x.name.split(" ")[0]}</button>`).join("");
+    trnExtra=`<div class="rl">Дата аттестации</div><div class="pickrow">${aw}</div><div class="pickrow">${ad}</div>
+      <div class="rl">Наставник (за кем закреплён)</div><div class="pickrow">${mn}</div>
+      <div class="rl">Аттестацию принимает</div><div class="pickrow">${ab}</div>`;
+  }
+  const swCh=[[-1,"давно"]].concat(WEEKS.map(w=>[w.off,w.label])).map(([o,l])=>`<button data-rsw="${o}" class="${(c.startW==null?-1:c.startW)===o?'on':''}">${l}</button>`).join("");
+  const stats=isAdd?'':`<div class="rl">Статистика за период</div><div class="editgrp"><div class="editrow"><span style="font-size:14px;line-height:1.5">Смен в графике: <b>${cntShifts(c.id)}</b> · Запросов замены: <b>${cntReq(c.id)}</b><br>Передал: <b>${cntGiven(c.id)}</b> · Взял чужих: <b>${cntTaken(c.id)}</b></span></div></div>`;
+  showSheet(`<h3>${isAdd?'Новый сотрудник':c.name||'Сотрудник'}</h3>
+    <div class="editgrp"><div class="editrow"><span class="el">Имя</span><input id="regName" value="${c.name||''}" placeholder="Имя Фамилия"></div></div>
+    <div class="rl">Статус</div><div class="pickrow">${stCh}</div>
+    ${trnExtra}
+    <div class="rl">Начало работы</div><div class="pickrow">${swCh}</div>
+    <div class="rl">Основная должность</div><div class="pickrow">${mp}</div>
+    <div class="rl">Дополнительные должности</div><div class="pickrow">${ep}</div>
+    <div class="rl">Основная точка</div><div class="pickrow">${mv}</div>
+    <div class="rl">Ещё точки</div><div class="pickrow">${ev}</div>
+    <div class="rl">График найма — условие работы</div><div class="pickrow">${tp}</div>
+    ${ptExtra}
+    <div class="rl">Смена по умолчанию (для авторасклада)</div><div class="pickrow">${ds}</div>
+    ${stats}
+    <button class="cancel" id="regSave" style="color:#fff;background:var(--blue)">${isAdd?'Добавить в реестр':'Сохранить'}</button>
+    ${isAdd?'':`<button class="cancel" id="regDelBtn" style="color:var(--red)">Удалить из реестра</button>`}
+    <button class="cancel" id="sheetCancel">${isAdd?'Отмена':'Закрыть'}</button>`);
+  const n=$("#regName");if(n)n.oninput=()=>sheetCtx.name=n.value;
+}
+function openEmpInfoSheet(id){
+  const e=emp(id);if(!e)return;
+  sheetCtx={type:"empinfo",id};
+  const ex=(e.posExtra||[]).map(posName).join(", ");
+  const ov=empVens(e).filter(v=>v!==e.mainVen).map(venShort).join(", ");
+  const ds=e.defShift&&shById(e.defShift)?`${shById(e.defShift).name} ${fmt(shById(e.defShift).start)}`:"—";
+  const attLbl=e.attW!=null?`${DAYS[e.attD||0]} ${WEEKS[e.attW].nums[e.attD||0]}`:"—";
+  const mentorLbl=e.mentorId&&emp(e.mentorId)?emp(e.mentorId).name:"—";
+  const attByLbl=e.attBy==="mgr"?"Менеджер":(e.attBy&&emp(e.attBy)?emp(e.attBy).name:"—");
+  const stRow=e.trainee?`<div class="editrow"><span class="el">Статус</span><span style="font-size:15px;text-align:right;flex:1">🎓 Стажёр${settings.attestation?'':' · выпуск по дате'}</span></div>
+    <div class="editrow"><span class="el">Аттестация</span><span style="font-size:15px;text-align:right;flex:1">${attLbl}${settings.attestation?'':' (авто)'}</span></div>
+    <div class="editrow"><span class="el">Наставник</span><span style="font-size:15px;text-align:right;flex:1">${mentorLbl}</span></div>
+    <div class="editrow"><span class="el">Аттестует</span><span style="font-size:15px;text-align:right;flex:1">${attByLbl}</span></div>`:"";
+  let hr="";
+  if(!e.temp){
+    const gradPend=approvals.some(a=>a.type==="graduate"&&a.status==="pending"&&a.empId===e.id);
+    const btns=[];
+    if(e.trainee&&e.endW==null){
+      if(gradPend)btns.push(`<button class="cancel" disabled style="color:var(--hint)">⏳ Выпуск ждёт согласования</button>`);
+      else if(settings.mgrGraduate)btns.push(`<button class="cancel" data-hrgrad="${e.id}" style="color:#fff;background:var(--green)">Аттестация пройдена — выпустить ✓</button>`);
+      else btns.push(`<button class="cancel" data-hrgradreq="${e.id}" style="color:var(--blue)">Отправить на выпуск руководителю</button>`);
+      btns.push(`<button class="cancel" data-hrext="${e.id}" style="color:var(--blue)">Продлить стажировку (+1 неделя)</button>`);
+      btns.push(`<button class="cancel" data-hrstop="${e.id}" style="color:var(--red)">Прекратить стажировку</button>`);
+    }
+    if(settings.mgrVacation)btns.push(`<button class="cancel" data-hrabs="${e.id}|vacation" style="color:var(--blue)">Оформить отпуск</button>`);
+    if(settings.mgrSick)btns.push(`<button class="cancel" data-hrabs="${e.id}|sick" style="color:var(--blue)">Оформить больничный</button>`);
+    if(settings.mgrTerm&&e.endW==null)btns.push(`<button class="cancel" data-hrterm="${e.id}" style="color:var(--red)">Уволить…</button>`);
+    if(e.endW!=null)btns.push(`<button class="cancel" disabled style="color:var(--hint)">Уволен · последняя неделя: ${(WEEKS.find(x=>x.off===e.endW)||WEEKS[0]).label}</button>`);
+    hr=btns.join("");
+  }
+  showSheet(`<h3>${e.name}${e.temp?' · подменный':''}</h3><div class="who">${posName(e.posMain)} · ${venName(e.mainVen)}</div>
+    <div class="editgrp">
+    ${stRow}
+    <div class="editrow"><span class="el">Должности</span><span style="font-size:15px;text-align:right;flex:1"><b>${posName(e.posMain)}</b>${ex?', '+ex:''}</span></div>
+    <div class="editrow"><span class="el">Точки</span><span style="font-size:15px;text-align:right;flex:1"><b>${venShort(e.mainVen)}</b>${ov?', '+ov:''}</span></div>
+    <div class="editrow"><span class="el">График</span><span style="font-size:15px;text-align:right;flex:1">${patLabel(e)}</span></div>
+    <div class="editrow"><span class="el">Смена по умолч.</span><span style="font-size:15px;text-align:right;flex:1">${ds}</span></div>
+    <div class="editrow"><span class="el">Статистика</span><span style="font-size:13.5px;text-align:right;flex:1;line-height:1.45">смен: <b>${cntShifts(id)}</b> · запросов замены: <b>${cntReq(id)}</b><br>передал: <b>${cntGiven(id)}</b> · взял: <b>${cntTaken(id)}</b></span></div>
+    </div>
+    ${hr}
+    <button class="cancel" data-call="${e.name}" style="color:#fff;background:var(--blue)">Написать</button>
+    <button class="cancel" id="sheetCancel">Закрыть</button>
+    <div class="hinttext" style="padding:8px 6px 0;text-align:center">Данные найма редактирует руководитель в реестре.</div>`);
+}
+function openEditDoneSheet(pkey){
+  const[wk,vid]=pkey.split("|");const diff=pubDiff(wk,vid);
+  sheetCtx={type:"editdone",pkey};
+  showSheet(`<h3>Изменений: ${diff}</h3><div class="who">Команда их не увидит, пока вы не опубликуете</div>
+    <button class="cancel" data-editpub="${pkey}" style="color:#fff;background:var(--blue)">Опубликовать сейчас</button>
+    <button class="cancel" data-editdraft="1">Оставить черновиком</button>
+    <button class="cancel" id="sheetCancel">Вернуться к правкам</button>`);
+}
+function tryPublish(pkey){
+  const[wk,vid]=pkey.split("|");
+  if(!canPublish(wk,vid)){
+    const ov=weekOverTotal(wk,vid);
+    if(!overPending(wk,vid)){
+      approvals.push({id:Date.now(),type:"overstaff",week:wk,ven:vid,qty:ov,status:"pending",by:"Менеджер"});
+      toast(`Перебор +${ov} к нормативу — заявка ушла руководителю. Опубликуем после согласования`);
+    }else toast("Расширение графика уже ждёт согласования руководителя");
+    editMode=false;closeSheet();renderScreen();renderTabs();return;
+  }
+  publishWeek(wk,vid);editMode=false;closeSheet();renderScreen();renderTabs();
+  toast("Опубликовано — команда увидит и подтвердит ознакомление");
+}
+function openAbsenceSheet(id,absType){
+  sheetCtx={type:"absence",empId:id,absType,wkey:"cur",days:[]};renderAbsenceSheet();
+}
+function renderAbsenceSheet(){
+  const c=sheetCtx,e=emp(c.empId);
+  const wch=WEEKS.map(w=>`<button data-absw="${w.key}" class="${c.wkey===w.key?'on':''}">${w.label}</button>`).join("");
+  const dch=DAYS.map((d,i)=>`<button data-absd="${i}" class="${c.days.includes(i)?'on':''}">${d}</button>`).join("");
+  showSheet(`<h3>${c.absType==="vacation"?"Отпуск":"Больничный"} · ${e.name.split(" ")[0]}</h3><div class="who">Смены на выбранные дни снимутся, в графике появится отметка</div>
+    <div class="rl">Неделя</div><div class="pickrow">${wch}</div>
+    <div class="rl">Дни</div><div class="pickrow">${dch}</div>
+    <button class="cancel" id="absApply" style="color:#fff;background:var(--blue)">Оформить</button>
     <button class="cancel" id="sheetCancel">Отмена</button>`);
 }
-function openRegAddSheet(){sheetCtx={type:"regadd",posId:activePos()[0].id,venId:curVen};renderRegAdd();}
-function renderRegAdd(){
-  const c=sheetCtx;
-  const posBtns=activePos().map(p=>`<button data-regpos="${p.id}" class="${c.posId===p.id?'on':''}">${p.name}</button>`).join("");
-  const venBtns=venues.map(v=>`<button data-regven="${v.id}" class="${c.venId===v.id?'on':''}">${v.name}</button>`).join("");
-  showSheet(`<h3>Новый сотрудник</h3><div class="editgrp"><div class="editrow"><span class="el">Имя</span><input id="regName" placeholder="Имя Фамилия" value="${c.name||''}"></div></div>
-    <div style="font-size:12px;color:var(--hint);padding:4px 6px">Должность</div><div class="pickrow">${posBtns}</div>
-    <div style="font-size:12px;color:var(--hint);padding:0 6px">Точка</div><div class="pickrow">${venBtns}</div>
-    <button class="cancel" id="regSave" style="color:#fff;background:var(--blue)">Добавить в реестр</button><button class="cancel" id="sheetCancel">Отмена</button>`);
-  const inp=$("#regName");if(inp)inp.oninput=()=>{sheetCtx.name=inp.value;};
+function openTermSheet(id){
+  sheetCtx={type:"term",empId:id,wkey:WEEKS[curWeek].key};renderTermSheet();
 }
-function openRegEditSheet(id){const e=emp(id);sheetCtx={type:"regedit",id};showSheet(`<h3>${e.name}</h3><div class="who">${posName(e.pos)} · ${venName(e.ven)}</div><div class="sheetgrp"><button class="opt remove" data-regdel="${id}">Удалить из реестра</button></div><button class="cancel" id="sheetCancel">Закрыть</button>`);}
+function renderTermSheet(){
+  const c=sheetCtx,e=emp(c.empId);
+  const wch=WEEKS.map(w=>`<button data-termw="${w.key}" class="${c.wkey===w.key?'on':''}">${w.label}</button>`).join("");
+  showSheet(`<h3>Увольнение · ${e.name}</h3><div class="who">Выберите последнюю рабочую неделю — дальше смены снимутся, в графике будет «уволен»</div>
+    <div class="rl">Последняя рабочая неделя</div><div class="pickrow">${wch}</div>
+    <button class="cancel" id="termApply" style="color:#fff;background:var(--red)">Уволить</button>
+    <button class="cancel" id="sheetCancel">Отмена</button>`);
+}
+function openAckListSheet(pkey){
+  const p=pub[pkey];if(!p)return;
+  const[wk,vid]=pkey.split("|");const w=WEEKS.find(x=>x.key===wk);
+  const team=staff.filter(e=>!e.temp&&e.mainVen===vid);
+  const missing=team.filter(e=>!p.acks.includes(e.id));
+  sheetCtx={type:"acklist",pkey};
+  let list=`<div class="sheetgrp">`;
+  if(!missing.length)list+=`<div style="background:#fff;padding:14px 15px;color:var(--green);font-size:14px;text-align:center">Все ознакомились ✓</div>`;
+  missing.forEach(e=>{list+=`<div class="opt" style="cursor:default"><span class="sw" style="background:${e.c};border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${ini(e.name)}</span><span class="ot"><b>${e.name}</b><span>${posName(e.posMain)}</span></span></div>`;});
+  list+=`</div>`;
+  showSheet(`<h3>Не ознакомились с графиком</h3><div class="who">${venName(vid)} · ${w.label} · опубликован ${p.ts}</div>${list}${missing.length?`<button class="cancel" data-remindack="${pkey}" style="color:#fff;background:var(--blue)">Напомнить (${missing.length})</button>`:""}<button class="cancel" id="sheetCancel">Закрыть</button>`);
+}
 function openVenAddSheet(){sheetCtx={type:"venadd",name:"",addr:"",positions:[]};renderVenSheet();}
 function openVenEditSheet(id){const v=ven(id);sheetCtx={type:"venedit",id,name:v.name,addr:v.addr,positions:[...(v.positions||[])]};renderVenSheet();}
 function renderVenSheet(){
   const c=sheetCtx,isAdd=c.type==="venadd";
   const posChips=activePos().map(p=>`<button data-venpos="${p.id}" class="${c.positions.includes(p.id)?'on':''}">${p.name}</button>`).join("");
   showSheet(`<h3>${isAdd?'Новая точка':c.name||'Точка'}</h3>
-    <div class="editgrp">
-      <div class="editrow"><span class="el">Название</span><input id="venName" value="${c.name||''}" placeholder="«Среда» на Невском"></div>
-      <div class="editrow"><span class="el">Адрес</span><input id="venAddr" value="${c.addr||''}" placeholder="улица, дом"></div>
-    </div>
-    <div style="font-size:12px;color:var(--hint);padding:4px 6px">Должности на этой точке</div><div class="pickrow">${posChips}</div>
+    <div class="editgrp"><div class="editrow"><span class="el">Название</span><input id="venName" value="${c.name||''}" placeholder="«Среда» на Невском"></div><div class="editrow"><span class="el">Адрес</span><input id="venAddr" value="${c.addr||''}" placeholder="улица, дом"></div></div>
+    <div class="rl">Должности на этой точке</div><div class="pickrow">${posChips}</div>
     <button class="cancel" id="venSave" style="color:#fff;background:var(--blue)">${isAdd?'Добавить точку':'Сохранить'}</button>
     ${isAdd?'':(venues.length>1?`<button class="cancel" id="venDelBtn" style="color:var(--red)">Удалить точку</button>`:'')}
     <button class="cancel" id="sheetCancel">${isAdd?'Отмена':'Закрыть'}</button>`);
@@ -558,23 +1018,32 @@ function renderVenSheet(){
 }
 function openPosAddSheet(){sheetCtx={type:"posadd"};showSheet(`<h3>Новая должность</h3><div class="who">Добавится в единый реестр, сразу активна</div><div class="editgrp"><div class="editrow"><span class="el">Название</span><input id="posName" placeholder="Например, Хостес"></div></div><button class="cancel" id="posSave" style="color:#fff;background:var(--blue)">Добавить</button><button class="cancel" id="sheetCancel">Отмена</button>`);}
 
-function render(){document.querySelectorAll("#roleSeg button").forEach(b=>b.classList.toggle("on",b.dataset.role===role));renderHeader();renderScreen();renderTabs();}
+function render(){document.querySelectorAll("#roleSeg button").forEach(b=>b.classList.toggle("on",b.dataset.role===role));renderHeader();renderScreen(true);renderTabs();}
 
 document.addEventListener("click",e=>{
-  const sel="[data-role],[data-tab],[data-week],[data-ven-sel],#copyBtn,[data-emp],[data-cov],[data-pick],#sheetCancel,[data-confirm],[data-confirm-shift],[data-swap],[data-avail],[data-take],[data-call],#resetBtn,[data-norm],[data-normday],[data-normcell],[data-npp],#normProposeSend,[data-shift-edit],[data-shift-add],[data-st],#shiftDone,[data-shift-del],[data-reinforce],[data-reinf],[data-approve],[data-reject],[data-regadd],[data-reg],[data-regpos],[data-regven],#regSave,[data-regdel],[data-venadd],[data-ven],[data-venpos],#venSave,#venDelBtn,[data-posadd],#posSave";
+  const sel="[data-role],[data-tab],[data-week],[data-ven-sel],#layoutBtn,[data-publish],[data-ack],[data-acklist],[data-remindack],[data-editmode],[data-editdone],[data-editpub],[data-editdraft],[data-emp],[data-cov],[data-pick],#sheetCancel,[data-confirm-shift],[data-seek],[data-cancelseek],[data-offer],[data-give],[data-visa-ok],[data-visa-no],[data-force],[data-forcepick],[data-remind],[data-mgrcancel],[data-avail],[data-call],#resetBtn,[data-norm],[data-normday],[data-normcell],[data-npp],#normProposeSend,[data-shift-edit],[data-shift-add],[data-st],#shiftDone,[data-shift-del],[data-reinforce],[data-reinf],[data-approve],[data-reject],[data-addblock],[data-addtemp],[data-addemp],#tempSave,[data-mem],[data-memdel],[data-regadd],[data-empinfo],[data-reg],[data-regfv],[data-regfp],[data-rpm],[data-rpe],[data-rvm],[data-rve],[data-rpt],[data-rpa],[data-rpd],[data-rds],[data-rtr],[data-rsw],[data-raw],[data-rad],[data-rmn],[data-rab],[data-hrext],[data-hrstop],[data-hrabs],[data-absw],[data-absd],#absApply,[data-hrterm],[data-termw],#termApply,[data-hrgrad],[data-hrgradreq],#regSave,#regDelBtn,[data-venadd],[data-ven],[data-venpos],#venSave,#venDelBtn,[data-posadd],#posSave,[data-set],[data-dlh]";
   const t=e.target.closest(sel);if(!t)return;const d=t.dataset;
 
   if(d.role){role=d.role;tab=role==="manager"?"grid":role==="director"?"appr":"mine";render();return;}
   if(t.id==="resetBtn"){init();toast("Демо сброшено");return;}
   if(d.tab){tab=d.tab;render();return;}
-  if(d.venSel){curVen=d.venSel;renderScreen();return;}
-  if(d.week){curWeek=Math.max(0,Math.min(1,curWeek+Number(d.week)));renderScreen();return;}
-  if(t.id==="copyBtn"){staff.forEach(em=>schedule.next[em.id]=schedule.cur[em.id].slice());renderScreen();toast("График скопирован");return;}
+  if(d.venSel){curVen=d.venSel;editMode=false;renderScreen();return;}
+  if(d.week){curWeek=Math.max(0,Math.min(WEEKS.length-1,curWeek+Number(d.week)));editMode=false;renderScreen();return;}
+  if(d.editmode){editMode=true;renderScreen();return;}
+  if(d.editdone){const[wk,vid]=d.editdone.split("|");if(pubDiff(wk,vid)>0)openEditDoneSheet(d.editdone);else{editMode=false;renderScreen();}return;}
+  if(d.editpub){tryPublish(d.editpub);return;}
+  if(d.editdraft){editMode=false;closeSheet();renderScreen();toast("Черновик сохранён. Жёлтая полоса напомнит опубликовать");return;}
+  if(t.id==="layoutBtn"){layoutWeek();return;}
+  if(d.publish){tryPublish(d.publish);return;}
+  if(d.acklist){openAckListSheet(d.acklist);return;}
+  if(d.remindack){closeSheet();toast("Напоминание отправлено не ознакомившимся (в рабочей версии — в Telegram)");return;}
+  if(d.ack){const p=pub[d.ack];if(p&&!p.acks.includes(ME)){p.acks.push(ME);renderScreen();toast("Ознакомление зафиксировано ✓");}return;}
 
   if(d.cov!==undefined&&t.classList.contains("ghead")){openCovSheet(Number(d.cov));return;}
-  if(d.emp){openAssignSheet(Number(d.emp),Number(d.day));return;}
+  if(d.mem){const[eid,pid]=d.mem.split("|");openMemberSheet(Number(eid),pid);return;}
+  if(d.emp){openAssignSheet(Number(d.emp),Number(d.day),d.bp);return;}
   if(t.id==="sheetCancel"){closeSheet();return;}
-  if(d.pick&&sheetCtx&&sheetCtx.type==="assign"){const{empId,day}=sheetCtx,w=WEEKS[curWeek];schedule[w.key][empId][day]=d.pick==="none"?null:d.pick;closeSheet();renderScreen();return;}
+  if(d.pick&&sheetCtx&&sheetCtx.type==="assign"){const c=sheetCtx,w=WEEKS[curWeek];schedule[w.key][c.empId][c.day]=d.pick==="none"?null:d.pick;if(d.pick==="none"&&c.foreign){openAssignSheet(c.empId,c.day,c.pid);renderScreen();toast("Смена снята — теперь можно ставить");return;}closeSheet();renderScreen();return;}
 
   if(d.norm){const[sid,delta]=d.norm.split("|");normWeek[normDay][sid]=Math.max(0,((normWeek[normDay]&&normWeek[normDay][sid])||0)+Number(delta));renderScreen();return;}
   if(d.normday!==undefined){normDay=Number(d.normday);renderScreen();return;}
@@ -585,42 +1054,97 @@ document.addEventListener("click",e=>{
   if(d.shiftEdit){openShiftSheet(d.shiftEdit);return;}
   if(d.shiftAdd){openShiftSheet(newShift(d.shiftAdd));return;}
   if(d.st&&sheetCtx&&sheetCtx.type==="shift"){const[f,delta]=d.st.split("|");const s=shById(sheetCtx.id);s[f]=((s[f]+Number(delta))%1440+1440)%1440;openShiftSheet(sheetCtx.id);return;}
-  if(d.shiftDel){const sid=d.shiftDel;shiftList=shiftList.filter(s=>s.id!==sid);staff.forEach(em=>WEEKS.forEach(w=>schedule[w.key][em.id]=schedule[w.key][em.id].map(v=>v===sid?null:v)));normWeek.forEach(nd=>{delete nd[sid];});closeSheet();renderScreen();toast("Смена удалена");return;}
+  if(d.shiftDel){const sid=d.shiftDel;shiftList=shiftList.filter(s=>s.id!==sid);staff.forEach(em=>{if(em.defShift===sid)em.defShift=null;WEEKS.forEach(w=>{if(schedule[w.key][em.id])schedule[w.key][em.id]=schedule[w.key][em.id].map(v=>v===sid?null:v);});});normWeek.forEach(nd=>{delete nd[sid];});closeSheet();renderScreen();toast("Смена удалена");return;}
   if(t.id==="shiftDone"){closeSheet();renderScreen();return;}
 
   if(d.reinforce!==undefined){openReinforceSheet(Number(d.reinforce));return;}
   if(d.reinf&&sheetCtx&&sheetCtx.type==="reinforce"){const w=WEEKS[curWeek];approvals.push({id:Date.now(),type:"reinforce",week:w.key,day:sheetCtx.di,sid:d.reinf,qty:1,status:"pending",by:"Менеджер"});openReinforceSheet(sheetCtx.di);renderTabs();toast("Усиление отправлено на согласование");return;}
 
-  if(d.approve){const a=approvals.find(x=>x.id===Number(d.approve));if(a){a.status="approved";if(a.type==="norm"){normWeek[a.weekday][a.sid]=a.to;}if(a.type==="position"){positions.push({id:"p"+Date.now(),name:a.name,status:"active"});}render();toast("Согласовано");}return;}
+  if(d.approve){const a=approvals.find(x=>x.id===Number(d.approve));if(a){a.status="approved";if(a.type==="norm"){normWeek[a.weekday][a.sid]=a.to;}if(a.type==="position"){positions.push({id:"p"+Date.now(),name:a.name,status:"active"});}if(a.type==="overstaff"){publishWeek(a.week,a.ven);}if(a.type==="graduate"){const ee=emp(a.empId);if(ee)ee.trainee=false;}render();toast(a.type==="overstaff"?"Согласовано — график опубликован":"Согласовано");}return;}
   if(d.reject){const a=approvals.find(x=>x.id===Number(d.reject));if(a){a.status="rejected";render();toast("Отклонено");}return;}
 
-  if(d.regadd){openRegAddSheet();return;}
-  if(d.regpos&&sheetCtx&&sheetCtx.type==="regadd"){sheetCtx.posId=d.regpos;renderRegAdd();return;}
-  if(d.regven&&sheetCtx&&sheetCtx.type==="regadd"){sheetCtx.venId=d.regven;renderRegAdd();return;}
-  if(t.id==="regSave"&&sheetCtx&&sheetCtx.type==="regadd"){const nm=(sheetCtx.name||"").trim();if(!nm){toast("Введите имя");return;}const id=Math.max(...staff.map(s=>s.id))+1;staff.push({id,name:nm,pos:sheetCtx.posId,ven:sheetCtx.venId,c:COLORS[id%COLORS.length]});WEEKS.forEach(w=>schedule[w.key][id]=[null,null,null,null,null,null,null]);closeSheet();renderScreen();toast("Сотрудник добавлен");return;}
-  if(d.reg){openRegEditSheet(Number(d.reg));return;}
-  if(d.regdel){const id=Number(d.regdel);staff=staff.filter(s=>s.id!==id);closeSheet();renderScreen();toast("Удалён из реестра");return;}
+  /* --- новый флоу замен --- */
+  if(d.seek){
+    const[wk,di,sid]=d.seek.split("_");const day=Number(di);
+    const h=hoursUntil(wk,day,sid);
+    if(h<settings.deadlineH){toast(`До смены ~${Math.max(0,h)} ч — меньше дедлайна ${settings.deadlineH} ч. Обратитесь к менеджеру.`);return;}
+    swaps.push({id:Date.now(),empId:ME,week:wk,day,shift:sid,offers:[],taker:null,status:"seeking"});
+    renderScreen();renderTabs();toast("Поиск замены запущен. Смена остаётся за вами, пока не передадите.");return;
+  }
+  if(d.cancelseek){const s=swaps.find(x=>x.id===Number(d.cancelseek));if(s){s.status="cancelled";renderScreen();renderTabs();toast("Поиск отменён — смена ваша");}return;}
+  if(d.offer){const s=swaps.find(x=>x.id===Number(d.offer));if(s){const i=s.offers.indexOf(ME);if(i<0){s.offers.push(ME);toast("Отклик отправлен — решает владелец смены");}else{s.offers.splice(i,1);toast("Отклик отозван");}renderScreen();renderTabs();}return;}
+  if(d.give){const[sid2,tid]=d.give.split("|");const s=swaps.find(x=>x.id===Number(sid2));if(s){const takerId=Number(tid);if(settings.visa){s.taker=takerId;s.status="visa";toast(`Передача ${emp(takerId).name.split(" ")[0]} — ушла на визу менеджеру`);}else{doTransfer(s,takerId);toast(`Смена передана: ${emp(takerId).name.split(" ")[0]}`);}renderScreen();renderTabs();}return;}
+  if(d.visaOk){const s=swaps.find(x=>x.id===Number(d.visaOk));if(s&&s.taker){doTransfer(s,s.taker);render();toast("Передача согласована");}return;}
+  if(d.visaNo){const s=swaps.find(x=>x.id===Number(d.visaNo));if(s){s.status="seeking";s.taker=null;render();toast("Передача отклонена — поиск продолжается");}return;}
+  if(d.force){openForceSheet(Number(d.force));return;}
+  if(d.forcepick){const[sid3,eid]=d.forcepick.split("|");const s=swaps.find(x=>x.id===Number(sid3));if(s){doTransfer(s,Number(eid));closeSheet();renderScreen();renderTabs();toast("Назначено менеджером");}return;}
+  if(d.remind){toast("Напоминание отправлено команде (в рабочей версии — в чат)");return;}
+  if(d.mgrcancel){const s=swaps.find(x=>x.id===Number(d.mgrcancel));if(s){s.status="cancelled";renderScreen();renderTabs();toast("Замена отменена — смена остаётся за владельцем");}return;}
 
+  /* --- кадровые механики --- */
+  if(d.hrabs){const[id,tp]=d.hrabs.split("|");openAbsenceSheet(Number(id),tp);return;}
+  if(d.absw&&sheetCtx&&sheetCtx.type==="absence"){sheetCtx.wkey=d.absw;renderAbsenceSheet();return;}
+  if(d.absd&&sheetCtx&&sheetCtx.type==="absence"){const di=Number(d.absd);const i=sheetCtx.days.indexOf(di);if(i<0)sheetCtx.days.push(di);else sheetCtx.days.splice(i,1);renderAbsenceSheet();return;}
+  if(t.id==="absApply"&&sheetCtx&&sheetCtx.type==="absence"){const c=sheetCtx;if(!c.days.length){toast("Выберите дни");return;}absences.push({empId:c.empId,type:c.absType,wkey:c.wkey,days:c.days.slice()});[schedule,published].forEach(SC=>{if(SC[c.wkey][c.empId])c.days.forEach(di=>SC[c.wkey][c.empId][di]=null);});closeSheet();renderScreen();toast(c.absType==="vacation"?"Отпуск оформлен, смены сняты":"Больничный оформлен, смены сняты");return;}
+  if(d.hrterm){openTermSheet(Number(d.hrterm));return;}
+  if(d.termw&&sheetCtx&&sheetCtx.type==="term"){sheetCtx.wkey=d.termw;renderTermSheet();return;}
+  if(t.id==="termApply"&&sheetCtx&&sheetCtx.type==="term"){const c=sheetCtx,ee=emp(c.empId);ee.endW=weekOff(c.wkey);WEEKS.filter(w=>w.off>ee.endW).forEach(w=>{[schedule,published].forEach(SC=>{if(SC[w.key][ee.id])SC[w.key][ee.id]=[null,null,null,null,null,null,null];});});closeSheet();renderScreen();toast(`${ee.name} — уволен(а), будущие смены сняты`);return;}
+  if(d.hrgrad){const ee=emp(Number(d.hrgrad));if(ee){ee.trainee=false;closeSheet();renderScreen();toast(`${ee.name} — аттестация пройдена, закрывает норму`);}return;}
+  if(d.hrgradreq){const id=Number(d.hrgradreq);if(!approvals.some(a=>a.type==="graduate"&&a.status==="pending"&&a.empId===id)){approvals.push({id:Date.now(),type:"graduate",empId:id,status:"pending",by:"Менеджер"});}closeSheet();renderTabs();toast("Заявка на выпуск ушла руководителю");return;}
+  if(d.hrext){const ee=emp(Number(d.hrext));if(ee&&ee.attW!=null){ee.attW=Math.min(WEEKS.length-1,ee.attW+1);closeSheet();renderScreen();toast(`Аттестация перенесена: ${WEEKS[ee.attW].label}`);}return;}
+  if(d.hrstop){const ee=emp(Number(d.hrstop));if(ee){ee.endW=ee.attW!=null?ee.attW:0;WEEKS.filter(w=>w.off>ee.endW).forEach(w=>{[schedule,published].forEach(SC=>{if(SC[w.key][ee.id])SC[w.key][ee.id]=[null,null,null,null,null,null,null];});});closeSheet();renderScreen();toast(`Стажировка ${ee.name} прекращена`);}return;}
+
+  /* --- блоки графика --- */
+  if(d.addblock){openAddBlockSheet(d.addblock);return;}
+  if(d.addtemp){openTempSheet(d.addtemp);return;}
+  if(d.addemp){const[eid,pid]=d.addemp.split("|");const ee=emp(Number(eid));if(ee&&!empVens(ee).includes(curVen)){ee.vens=[...empVens(ee),curVen];}placements.push({empId:Number(eid),ven:curVen,pos:pid});closeSheet();renderScreen();toast("Добавлен в график");return;}
+  if(t.id==="tempSave"&&sheetCtx&&sheetCtx.type==="temp"){const nm=(sheetCtx.name||"").trim();if(!nm){toast("Введите имя");return;}const id=Math.max(0,...staff.map(s=>s.id))+1;staff.push({id,name:nm,c:COLORS[id%COLORS.length],temp:true,posMain:sheetCtx.pid,posExtra:[],mainVen:curVen,vens:[curVen],pattern:{type:"flex"},defShift:null});WEEKS.forEach(w=>schedule[w.key][id]=[null,null,null,null,null,null,null]);placements.push({empId:id,ven:curVen,pos:sheetCtx.pid});closeSheet();renderScreen();toast("Подменный добавлен");return;}
+  if(d.memdel){const[eid,pid]=d.memdel.split("|");const id=Number(eid);placements=placements.filter(pl=>!(pl.empId===id&&pl.ven===curVen&&pl.pos===pid));WEEKS.forEach(w=>{if(schedule[w.key][id])schedule[w.key][id]=schedule[w.key][id].map(v=>{const sh=shById(v);return (sh&&sh.ven===curVen&&sh.pos===pid)?null:v;});});const ee=emp(id);if(ee&&ee.temp&&!placements.some(pl=>pl.empId===id)){staff=staff.filter(s=>s.id!==id);}closeSheet();renderScreen();toast("Убран из графика");return;}
+
+  /* --- реестр --- */
+  if(d.regadd){openRegAddSheet();return;}
+  if(d.empinfo){openEmpInfoSheet(Number(d.empinfo));return;}
+  if(d.regfv){regFilterVen=d.regfv;renderScreen();return;}
+  if(d.regfp){regFilterPos=d.regfp;renderScreen();return;}
+  if(d.reg){openRegEditSheet(Number(d.reg));return;}
+  if(d.rpm&&sheetCtx){sheetCtx.posMain=d.rpm;sheetCtx.posExtra=sheetCtx.posExtra.filter(x=>x!==d.rpm);const shs=shiftsOfPosVen(sheetCtx.posMain,sheetCtx.mainVen);if(!shs.some(s=>s.id===sheetCtx.defShift))sheetCtx.defShift=shs.length?shs[0].id:null;renderRegSheet();return;}
+  if(d.rpe&&sheetCtx){const i=sheetCtx.posExtra.indexOf(d.rpe);if(i<0)sheetCtx.posExtra.push(d.rpe);else sheetCtx.posExtra.splice(i,1);renderRegSheet();return;}
+  if(d.rvm&&sheetCtx){sheetCtx.mainVen=d.rvm;if(!sheetCtx.vens.includes(d.rvm))sheetCtx.vens.push(d.rvm);const shs=shiftsOfPosVen(sheetCtx.posMain,sheetCtx.mainVen);if(!shs.some(s=>s.id===sheetCtx.defShift))sheetCtx.defShift=shs.length?shs[0].id:null;renderRegSheet();return;}
+  if(d.rve&&sheetCtx){const i=sheetCtx.vens.indexOf(d.rve);if(i<0)sheetCtx.vens.push(d.rve);else sheetCtx.vens.splice(i,1);renderRegSheet();return;}
+  if(d.rpt&&sheetCtx&&sheetCtx.pattern){sheetCtx.pattern.type=d.rpt;renderRegSheet();return;}
+  if(d.rpa&&sheetCtx&&sheetCtx.pattern){sheetCtx.pattern.anchor=Number(d.rpa);renderRegSheet();return;}
+  if(d.rpd&&sheetCtx&&sheetCtx.pattern){const di=Number(d.rpd);sheetCtx.pattern.days=sheetCtx.pattern.days||[];const i=sheetCtx.pattern.days.indexOf(di);if(i<0)sheetCtx.pattern.days.push(di);else sheetCtx.pattern.days.splice(i,1);renderRegSheet();return;}
+  if(d.rds&&sheetCtx){sheetCtx.defShift=d.rds;renderRegSheet();return;}
+  if(d.rtr&&sheetCtx&&(sheetCtx.type==="regadd"||sheetCtx.type==="regedit")){sheetCtx.trainee=!sheetCtx.trainee;renderRegSheet();return;}
+  if(d.rsw!==undefined&&sheetCtx&&(sheetCtx.type==="regadd"||sheetCtx.type==="regedit")){sheetCtx.startW=Number(d.rsw);renderRegSheet();return;}
+  if(d.raw!==undefined&&sheetCtx&&sheetCtx.trainee!==undefined){sheetCtx.attW=Number(d.raw);renderRegSheet();return;}
+  if(d.rad!==undefined&&sheetCtx&&sheetCtx.trainee!==undefined){sheetCtx.attD=Number(d.rad);renderRegSheet();return;}
+  if(d.rmn&&sheetCtx&&sheetCtx.trainee!==undefined){sheetCtx.mentorId=Number(d.rmn);renderRegSheet();return;}
+  if(d.rab&&sheetCtx&&sheetCtx.trainee!==undefined){sheetCtx.attBy=d.rab==="mgr"?"mgr":Number(d.rab);renderRegSheet();return;}
+  if(t.id==="regSave"&&sheetCtx&&(sheetCtx.type==="regadd"||sheetCtx.type==="regedit")){const c=sheetCtx,nm=(c.name||"").trim();if(!nm){toast("Введите имя");return;}const vens=Array.from(new Set([c.mainVen,...c.vens]));if(c.type==="regadd"){const id=Math.max(0,...staff.map(s=>s.id))+1;staff.push({id,name:nm,c:COLORS[id%COLORS.length],posMain:c.posMain,posExtra:c.posExtra.slice(),mainVen:c.mainVen,vens,pattern:JSON.parse(JSON.stringify(c.pattern)),defShift:c.defShift,trainee:c.trainee,startW:c.startW,attW:c.attW,attD:c.attD,mentorId:c.mentorId,attBy:c.attBy});WEEKS.forEach(w=>schedule[w.key][id]=[null,null,null,null,null,null,null]);}else{const ee=emp(c.id);ee.name=nm;ee.posMain=c.posMain;ee.posExtra=c.posExtra.slice();ee.mainVen=c.mainVen;ee.vens=vens;ee.pattern=JSON.parse(JSON.stringify(c.pattern));ee.defShift=c.defShift;ee.trainee=c.trainee;ee.startW=c.startW;ee.attW=c.attW;ee.attD=c.attD;ee.mentorId=c.mentorId;ee.attBy=c.attBy;}closeSheet();renderScreen();toast("Сохранено");return;}
+  if(t.id==="regDelBtn"&&sheetCtx&&sheetCtx.type==="regedit"){const id=sheetCtx.id;staff=staff.filter(s=>s.id!==id);placements=placements.filter(pl=>pl.empId!==id);closeSheet();renderScreen();toast("Удалён из реестра");return;}
+
+  /* --- точки / должности --- */
   if(d.venadd){openVenAddSheet();return;}
   if(d.ven){openVenEditSheet(d.ven);return;}
   if(d.venpos&&sheetCtx&&(sheetCtx.type==="venadd"||sheetCtx.type==="venedit")){const i=sheetCtx.positions.indexOf(d.venpos);if(i<0)sheetCtx.positions.push(d.venpos);else sheetCtx.positions.splice(i,1);renderVenSheet();return;}
   if(t.id==="venSave"&&sheetCtx&&(sheetCtx.type==="venadd"||sheetCtx.type==="venedit")){const c=sheetCtx,nm=(c.name||"").trim();if(!nm){toast("Введите название");return;}if(c.type==="venadd"){venues.push({id:"v"+Date.now(),name:nm,addr:(c.addr||"").trim()||"—",positions:c.positions.slice()});}else{const v=ven(c.id);v.name=nm;v.addr=(c.addr||"").trim()||"—";v.positions=c.positions.slice();}closeSheet();renderScreen();toast("Точка сохранена");return;}
-  if(t.id==="venDelBtn"&&sheetCtx&&sheetCtx.type==="venedit"){const id=sheetCtx.id;if(venues.length<=1){toast("Нельзя удалить единственную точку");return;}staff=staff.map(s=>s.ven===id?{...s,ven:venues.find(v=>v.id!==id).id}:s);venues=venues.filter(v=>v.id!==id);if(curVen===id)curVen=venues[0].id;closeSheet();renderScreen();toast("Точка удалена");return;}
-
+  if(t.id==="venDelBtn"&&sheetCtx&&sheetCtx.type==="venedit"){const id=sheetCtx.id;if(venues.length<=1){toast("Нельзя удалить единственную точку");return;}staff=staff.map(s=>s.mainVen===id?{...s,mainVen:venues.find(v=>v.id!==id).id,vens:empVens(s).filter(v=>v!==id).length?empVens(s).filter(v=>v!==id):[venues.find(v=>v.id!==id).id]}:{...s,vens:empVens(s).filter(v=>v!==id)});placements=placements.filter(pl=>pl.ven!==id);venues=venues.filter(v=>v.id!==id);if(curVen===id)curVen=venues[0].id;closeSheet();renderScreen();toast("Точка удалена");return;}
   if(d.posadd){openPosAddSheet();return;}
   if(t.id==="posSave"&&sheetCtx&&sheetCtx.type==="posadd"){const nm=($("#posName").value||"").trim();if(!nm){toast("Введите название");return;}positions.push({id:"p"+Date.now(),name:nm,status:"active"});closeSheet();renderScreen();toast("Должность добавлена");return;}
 
-  if(d.confirm){const s=swaps.find(x=>x.id===Number(d.confirm));if(s&&s.taker){schedule[s.week][s.empId][s.day]=null;schedule[s.week][s.taker][s.day]=s.shift;s.status="done";render();toast(`Замена подтверждена`);}return;}
+  /* --- настройки --- */
+  if(d.set){settings[d.set]=!settings[d.set];renderScreen();renderTabs();return;}
+  if(d.dlh){settings.deadlineH=Math.max(6,Math.min(48,settings.deadlineH+Number(d.dlh)));renderScreen();return;}
+
   if(d.confirmShift){state.confirmed[d.confirmShift]=true;renderScreen();toast("Выход подтверждён ✓");return;}
-  if(d.swap){const[wk,di,sid]=d.swap.split("_");swaps.push({id:Date.now(),empId:ME,day:Number(di),week:wk,shift:sid,taker:null,status:"open"});renderScreen();renderTabs();toast("Запрос на замену отправлен");return;}
-  if(d.avail!==undefined&&t.classList.contains("toggle")){const di=Number(d.avail);state.avail[di]=state.avail[di]===false?true:false;renderScreen();toast(state.avail[di]===false?`${DAYS[di]} — «не могу»`:`${DAYS[di]} — доступны`);return;}
-  if(d.take){const s=swaps.find(x=>x.id===Number(d.take));if(s){s.taker=ME;s.status="taken";renderScreen();renderTabs();toast("Готово! Ждём подтверждения менеджера");}return;}
+  if(d.avail!==undefined&&t.classList.contains("toggle")&&!d.set){const di=Number(d.avail);state.avail[di]=state.avail[di]===false?true:false;renderScreen();toast(state.avail[di]===false?`${DAYS[di]} — «не могу»`:`${DAYS[di]} — доступны`);return;}
   if(d.call){toast(`Открываю чат с ${d.call}…`);return;}
 });
 $("#sheetbg").addEventListener("click",closeSheet);
-
 try{const tg=window.Telegram&&window.Telegram.WebApp;if(tg&&tg.initData!==undefined){tg.ready();if(tg.expand)tg.expand();}}catch(e){}
 init();
+
 </script>
 </body>
 </html>
