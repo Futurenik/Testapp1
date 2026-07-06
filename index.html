@@ -71,6 +71,7 @@
   .gc.cell.na{background:#f1f1f4;}
   .nalbl{font-size:9px;color:#8a8a8e;font-weight:600;}
   .gc.cell.attneed{background:#fdeeee;}
+  .gc.cell.avreq{background:#fff6d8;cursor:pointer;}
   .attdot{position:absolute;bottom:1px;right:1px;min-width:9px;height:9px;border-radius:2px;background:var(--amber);color:#fff;font-size:7px;font-weight:800;display:flex;align-items:center;justify-content:center;z-index:2;padding:0 1px;}
   .cell{display:flex;align-items:center;justify-content:center;cursor:pointer;padding:3px;min-width:0;position:relative;}
   .seekdot{position:absolute;top:1px;right:1px;width:9px;height:9px;border-radius:50%;background:var(--amber);border:1.5px solid #fff;z-index:2;}
@@ -187,7 +188,7 @@
   <div class="toast" id="toast"></div>
 </div>
 <script>
-let positions,venues,staff,shiftList,normWeek,schedule,swaps,approvals,placements,settings,published,pub,absences;
+let positions,venues,staff,shiftList,normWeek,schedule,swaps,approvals,placements,settings,published,pub,absences,availReqs;
 let role,tab,curWeek,curVen,sheetCtx,state,normDay,regFilterVen,regFilterPos,editMode;
 const ME=3, TODAY_IDX=3, NOW="Чт 25 июня, 14:30", NOW_MIN=870;
 const DAYS=["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
@@ -230,7 +231,7 @@ function freshNormWeek(){
   const wk=[];for(let i=0;i<7;i++)wk.push(JSON.parse(JSON.stringify(base)));return wk;
 }
 function freshSettings(){return {swapsEnabled:true,visa:false,deadlineH:12,crossVenue:true,extraPos:true,temps:true,confirmShift:true,
-  mgrVacation:true,mgrSick:true,mgrTerm:false,mgrGraduate:true,pubOverApproval:true,attestation:true};}
+  mgrVacation:true,mgrSick:true,mgrTerm:false,mgrGraduate:true,pubOverApproval:true,attestation:true,availVisa:true,availDays:2};}
 
 /* паттерн найма: ротации 2/2 и 3/3 (с якорем), 5/2, fixed (дни недели), flex */
 function isWorkday(e,wkey,di){
@@ -298,6 +299,8 @@ function init(){
   if(dsh){absences.push({empId:dsh.id,type:"sick",wkey:"cur",days:[3,4,5]});[3,4,5].forEach(di=>{schedule.cur[dsh.id][di]=null;});}
   const brE=staff.filter(e=>e.defShift==="barE")[0];
   if(brE)absences.push({empId:brE.id,type:"vacation",wkey:"next",days:[0,1,2,3]});
+  const avEmp=staff.filter(e=>e.defShift==="watM"&&!e.trainee)[0];
+  availReqs=avEmp?[{id:1,empId:avEmp.id,wkey:"next",days:[2],reason:"personal",label:"не доступен",status:"pending"}]:[];
   swaps=freshSwaps();approvals=freshApprovals();state={confirmed:{},avail:{}};
   published=JSON.parse(JSON.stringify(schedule));
   const v1team=staff.filter(e=>e.mainVen==="v1").map(e=>e.id);
@@ -388,7 +391,7 @@ function unavailable(e,wkey,di){
   if(e.startW!=null&&e.startW>=0&&(off<e.startW||(off===e.startW&&di<(e.startD||0))))return"не раб.";
   if(e.endW!=null&&(off>e.endW||(off===e.endW&&di>(e.endD==null?6:e.endD))))return"уволен";
   const a=absences.find(x=>x.empId===e.id&&x.wkey===wkey&&x.days.includes(di));
-  if(a)return a.type==="vacation"?"отпуск":"больн.";
+  if(a)return a.type==="vacation"?"отпуск":a.type==="sick"?"больн.":(a.label||"не доступен");
   return null;
 }
 function weekOverTotal(wkey,vid){let n=0;for(let di=0;di<7;di++)n+=dayOver(wkey,di,vid,schedule);return n;}
@@ -481,7 +484,10 @@ function mgrGrid(){
         const seek=seekingSwap(e.id,w.key,di);
         const dev=here&&offPattern(e,w.key,di)&&!trn;
         const waitAtt=here&&trn&&settings.attestation&&afterAtt(e,w.key,di);
+        const avq=availReqs.find(r=>r.status==="pending"&&r.empId===e.id&&r.wkey===w.key&&r.days.includes(di));
         let inner,tappable=editing,cellState="";
+        if(avq){inner=`<span class="nalbl" style="color:#9a7b00">${avq.label}?</span>`;tappable=false;cellState="avreq";
+          body+=`<div class="gc cell avreq ${today?'todaycol':''}" data-avreq="${avq.id}">${inner}</div>`;return;}
         if(un){inner=`<span class="nalbl">${un}</span>`;tappable=false;cellState="na";}
         else if(here){inner=`<div class="chip ${trn&&!waitAtt?'trn':''}" style="background:${shAny.col}${waitAtt?';opacity:.8':''}">${fmt(shAny.start)}<small>${durShort(shAny)}</small></div>${seek?'<span class="seekdot"></span>':''}${dev?'<span class="devdot"></span>':''}${waitAtt?'<span class="attdot">А</span>':''}`;if(waitAtt)cellState="attneed";}
         else if(shAny)inner=`<div class="chip busy">${fmt(shAny.start)}<small>${shAny.ven!==vid?venShort(shAny.ven):posName(shAny.pos)}</small></div>`;
@@ -607,7 +613,15 @@ function mgrSwaps(){
       html+=`<div class="apprcard"><div class="at"><div class="kind">Передача смены</div><div class="desc">${o.name} → ${t.name}</div><div class="meta">${DAYS[s.day]} · ${sh.name} ${fmt(sh.start)}–${fmt(sh.end)} · ${venName(sh.ven)}</div></div><div class="bar"><button class="rj" data-visa-no="${s.id}">Отклонить</button><button class="ap" data-visa-ok="${s.id}">Согласовать</button></div></div>`;
     });
   }
-  html+=`<div class="group-title ${visa.length?'':'tight'}">Идёт поиск замены · смена остаётся за владельцем</div>`;
+  const avPend=availReqs.filter(r=>r.status==="pending");
+  if(avPend.length){
+    html+=`<div class="group-title ${visa.length?'':'tight'}">Недоступность — ждут визы</div>`;
+    avPend.forEach(r=>{
+      const e=emp(r.empId),w=WEEKS.find(x=>x.key===r.wkey);
+      html+=`<div class="apprcard"><div class="at"><div class="kind">Не сможет выйти</div><div class="desc">${e.name} · ${r.days.map(di=>DAYS[di]).join(", ")}</div><div class="meta">${w.label} · ${AV_REASONS.find(x=>x[0]===r.reason)[1]}</div></div><div class="bar"><button class="rj" data-avno="${r.id}">Отклонить</button><button class="ap" data-avok="${r.id}">Согласовать</button></div></div>`;
+    });
+  }
+  html+=`<div class="group-title">Идёт поиск замены · смена остаётся за владельцем</div>`;
   if(!seeking.length)html+=`<div class="empty"><span class="em">✅</span>Никто не ищет замену.</div>`;
   seeking.forEach(s=>{
     const e=emp(s.empId),w=WEEKS.find(x=>x.key===s.week),sh=shById(s.shift);
@@ -673,6 +687,9 @@ function dirMode(){
   html+=row("Перебор — только с визы руководителя","«Опубликовать» при излишке шлёт заявку; согласование публикует","pubOverApproval");
   html+=row("Подтверждение выхода","сотрудник подтверждает, что выйдет на смену","confirmShift");
   html+=row("Подменные разрешены","разовые сотрудники без реестра","temps");
+  html+=`</div><div class="group-title">Доступность сотрудников</div><div class="rows">`;
+  html+=row("Виза менеджера на недоступность","уведомление «не смогу выйти» утверждает менеджер","availVisa");
+  html+=`<div class="availrow"><div class="d">Горизонт уведомления<small style="display:block;margin-left:0;font-size:12px">не позднее чем за N дней до дня</small></div><span class="timestp"><button data-avdays="-1">−</button><span class="tv">${settings.availDays} дн</span><button data-avdays="1">+</button></span></div>`;
   html+=`</div><div class="group-title">Кадровые механики менеджера</div><div class="rows">`;
   html+=row("Оформляет отпуска","из карточки сотрудника","mgrVacation");
   html+=row("Отмечает больничные","из карточки сотрудника","mgrSick");
@@ -719,11 +736,34 @@ function empMine(){
   html+=`<div class="hinttext">Смена остаётся вашей, пока вы сами не передали её откликнувшемуся. Не передали — выходите вы.</div>`;
   return html;
 }
+const AV_REASONS=[["personal","Личное","не доступен"],["study","Учёба","учёба"],["family","Семья","семья"],["health","Самочувствие","здоровье"]];
 function empAvail(){
-  const w=WEEKS[1];
-  let html=`<div class="group-title">${w.label} · отметьте, когда не сможете</div><div class="rows">`;
-  DAYS.forEach((d,di)=>{const off=state.avail[di]===false;html+=`<div class="availrow ${off?'off':''}"><div class="d">${d}<small>${w.nums[di]}</small></div><div class="toggle ${off?'':'on'}" data-avail="${di}"></div></div>`;});
-  return html+`</div><div class="hinttext">Зелёный — вы доступны. Выключите день, если работать не можете.</div>`;
+  if(!state.av)state.av={wkey:"next",days:[],reason:"personal"};
+  const c=state.av,me=emp(ME);
+  const wch=WEEKS.map(w=>`<button data-avweek="${w.key}" class="${c.wkey===w.key?'on':''}">${w.label}</button>`).join("");
+  const dch=DAYS.map((d,i)=>`<button data-avday="${i}" class="${c.days.includes(i)?'on':''}">${d}</button>`).join("");
+  const rch=AV_REASONS.map(([k,l])=>`<button data-avreason="${k}" class="${c.reason===k?'on':''}">${l}</button>`).join("");
+  let html=`<div class="group-title tight">Не смогу выйти — уведомить заранее</div>
+    <div class="rl">Неделя</div><div class="pickrow">${wch}</div>
+    <div class="rl">Дни</div><div class="pickrow">${dch}</div>
+    <div class="rl">Причина (личная не раскрывается — в графике будет «не доступен»)</div><div class="pickrow">${rch}</div>
+    <div class="copybar"><button class="copybtn" id="avSubmit" style="background:var(--blue);color:#fff;border:0">Уведомить менеджера</button></div>`;
+  const mine=availReqs.filter(r=>r.empId===ME&&r.status!=="rejected");
+  const myAbs=absences.filter(a=>a.empId===ME);
+  if(mine.length||myAbs.length){
+    html+=`<div class="group-title">Мои уведомления</div><div class="rows">`;
+    mine.forEach(r=>{
+      const w=WEEKS.find(x=>x.key===r.wkey);
+      html+=`<div class="availrow"><div class="d">${r.days.map(di=>DAYS[di]).join(", ")}<small>${w.label} · ${AV_REASONS.find(x=>x[0]===r.reason)[1]}</small></div>${r.status==="pending"?`<span class="pill warn">виза менеджера</span><button class="pill" style="border:0;background:rgba(232,83,79,.1);color:var(--red);cursor:pointer;margin-left:6px" data-avcancel="${r.id}">Отменить</button>`:`<span class="pill ok">учтено</span>`}</div>`;
+    });
+    myAbs.forEach(a=>{
+      const w=WEEKS.find(x=>x.key===a.wkey);
+      html+=`<div class="availrow"><div class="d">${a.days.map(di=>DAYS[di]).join(", ")}<small>${w?w.label:""} · ${a.type==="vacation"?"отпуск":a.type==="sick"?"больничный":(a.label||"не доступен")}</small></div><span class="pill ok">в графике</span></div>`;
+    });
+    html+=`</div>`;
+  }
+  html+=`<div class="hinttext">Уведомить можно не позднее чем за ${settings.availDays} дн. до дня. Если график уже опубликован и день у вас рабочий — только через «Нужна замена» в «Моих сменах».${settings.availVisa?" Уведомления утверждает менеджер.":""}</div>`;
+  return html;
 }
 function empMarket(){
   if(!settings.swapsEnabled)return `<div class="empty"><span class="em">🔒</span>Руководитель отключил замены между сотрудниками.<br>По вопросам смен — к менеджеру.</div>`;
@@ -990,6 +1030,19 @@ function renderTermSheet(){
     <button class="cancel" id="termApply" style="color:#fff;background:var(--red)">Уволить</button>
     <button class="cancel" id="sheetCancel">Отмена</button>`);
 }
+function openAvailReqSheet(id){
+  const r=availReqs.find(x=>x.id===id);if(!r)return;
+  const e=emp(r.empId),w=WEEKS.find(x=>x.key===r.wkey);
+  sheetCtx={type:"avreq",id};
+  showSheet(`<h3>Недоступность · виза</h3><div class="who">${e.name} · ${posName(e.posMain)}</div>
+    <div class="editgrp">
+    <div class="editrow"><span class="el">Дни</span><span style="font-size:15px;text-align:right;flex:1">${r.days.map(di=>DAYS[di]).join(", ")} · ${w.label}</span></div>
+    <div class="editrow"><span class="el">Причина</span><span style="font-size:15px;text-align:right;flex:1">${AV_REASONS.find(x=>x[0]===r.reason)[1]}${r.reason==="personal"?" (в графике — «не доступен»)":""}</span></div>
+    </div>
+    <button class="cancel" data-avok="${r.id}" style="color:#fff;background:var(--green)">Согласовать</button>
+    <button class="cancel" data-avno="${r.id}" style="color:var(--red)">Отклонить</button>
+    <button class="cancel" id="sheetCancel">Закрыть</button>`);
+}
 function openAckListSheet(pkey){
   const p=pub[pkey];if(!p)return;
   const[wk,vid]=pkey.split("|");const w=WEEKS.find(x=>x.key===wk);
@@ -1021,7 +1074,7 @@ function openPosAddSheet(){sheetCtx={type:"posadd"};showSheet(`<h3>Новая д
 function render(){document.querySelectorAll("#roleSeg button").forEach(b=>b.classList.toggle("on",b.dataset.role===role));renderHeader();renderScreen(true);renderTabs();}
 
 document.addEventListener("click",e=>{
-  const sel="[data-role],[data-tab],[data-week],[data-ven-sel],#layoutBtn,[data-publish],[data-ack],[data-acklist],[data-remindack],[data-editmode],[data-editdone],[data-editpub],[data-editdraft],[data-emp],[data-cov],[data-pick],#sheetCancel,[data-confirm-shift],[data-seek],[data-cancelseek],[data-offer],[data-give],[data-visa-ok],[data-visa-no],[data-force],[data-forcepick],[data-remind],[data-mgrcancel],[data-avail],[data-call],#resetBtn,[data-norm],[data-normday],[data-normcell],[data-npp],#normProposeSend,[data-shift-edit],[data-shift-add],[data-st],#shiftDone,[data-shift-del],[data-reinforce],[data-reinf],[data-approve],[data-reject],[data-addblock],[data-addtemp],[data-addemp],#tempSave,[data-mem],[data-memdel],[data-regadd],[data-empinfo],[data-reg],[data-regfv],[data-regfp],[data-rpm],[data-rpe],[data-rvm],[data-rve],[data-rpt],[data-rpa],[data-rpd],[data-rds],[data-rtr],[data-rsw],[data-raw],[data-rad],[data-rmn],[data-rab],[data-hrext],[data-hrstop],[data-hrabs],[data-absw],[data-absd],#absApply,[data-hrterm],[data-termw],#termApply,[data-hrgrad],[data-hrgradreq],#regSave,#regDelBtn,[data-venadd],[data-ven],[data-venpos],#venSave,#venDelBtn,[data-posadd],#posSave,[data-set],[data-dlh]";
+  const sel="[data-role],[data-tab],[data-week],[data-ven-sel],#layoutBtn,[data-publish],[data-ack],[data-acklist],[data-remindack],[data-editmode],[data-editdone],[data-editpub],[data-editdraft],[data-emp],[data-cov],[data-pick],#sheetCancel,[data-confirm-shift],[data-seek],[data-cancelseek],[data-offer],[data-give],[data-visa-ok],[data-visa-no],[data-force],[data-forcepick],[data-remind],[data-mgrcancel],[data-avweek],[data-avday],[data-avreason],#avSubmit,[data-avcancel],[data-avreq],[data-avok],[data-avno],[data-avdays],[data-call],#resetBtn,[data-norm],[data-normday],[data-normcell],[data-npp],#normProposeSend,[data-shift-edit],[data-shift-add],[data-st],#shiftDone,[data-shift-del],[data-reinforce],[data-reinf],[data-approve],[data-reject],[data-addblock],[data-addtemp],[data-addemp],#tempSave,[data-mem],[data-memdel],[data-regadd],[data-empinfo],[data-reg],[data-regfv],[data-regfp],[data-rpm],[data-rpe],[data-rvm],[data-rve],[data-rpt],[data-rpa],[data-rpd],[data-rds],[data-rtr],[data-rsw],[data-raw],[data-rad],[data-rmn],[data-rab],[data-hrext],[data-hrstop],[data-hrabs],[data-absw],[data-absd],#absApply,[data-hrterm],[data-termw],#termApply,[data-hrgrad],[data-hrgradreq],#regSave,#regDelBtn,[data-venadd],[data-ven],[data-venpos],#venSave,#venDelBtn,[data-posadd],#posSave,[data-set],[data-dlh]";
   const t=e.target.closest(sel);if(!t)return;const d=t.dataset;
 
   if(d.role){role=d.role;tab=role==="manager"?"grid":role==="director"?"appr":"mine";render();return;}
@@ -1138,7 +1191,38 @@ document.addEventListener("click",e=>{
   if(d.dlh){settings.deadlineH=Math.max(6,Math.min(48,settings.deadlineH+Number(d.dlh)));renderScreen();return;}
 
   if(d.confirmShift){state.confirmed[d.confirmShift]=true;renderScreen();toast("Выход подтверждён ✓");return;}
-  if(d.avail!==undefined&&t.classList.contains("toggle")&&!d.set){const di=Number(d.avail);state.avail[di]=state.avail[di]===false?true:false;renderScreen();toast(state.avail[di]===false?`${DAYS[di]} — «не могу»`:`${DAYS[di]} — доступны`);return;}
+  /* --- недоступность: форма сотрудника --- */
+  if(d.avweek){state.av.wkey=d.avweek;renderScreen();return;}
+  if(d.avday!==undefined){const di=Number(d.avday);const i=state.av.days.indexOf(di);if(i<0)state.av.days.push(di);else state.av.days.splice(i,1);renderScreen();return;}
+  if(d.avreason){state.av.reason=d.avreason;renderScreen();return;}
+  if(t.id==="avSubmit"){
+    const c=state.av,me=emp(ME);
+    if(!c.days.length){toast("Выберите дни");return;}
+    const off=weekOff(c.wkey);
+    const tooLate=c.days.some(di=>(off*7+di-TODAY_IDX)<settings.availDays);
+    if(tooLate){toast(`Поздно: уведомлять нужно за ${settings.availDays} дн. Обратитесь к менеджеру`);return;}
+    const pubbed=pub[c.wkey+"|"+me.mainVen];
+    const hasShift=c.days.some(di=>published[c.wkey]&&published[c.wkey][ME]&&published[c.wkey][ME][di]);
+    if(pubbed&&hasShift){toast("График уже опубликован, день рабочий — только через «Нужна замена»");return;}
+    const dup=c.days.some(di=>unavailable(me,c.wkey,di)||availReqs.some(r=>r.status==="pending"&&r.empId===ME&&r.wkey===c.wkey&&r.days.includes(di)));
+    if(dup){toast("Часть дней уже отмечена");return;}
+    const label=AV_REASONS.find(x=>x[0]===c.reason)[2];
+    if(settings.availVisa){
+      availReqs.push({id:Date.now(),empId:ME,wkey:c.wkey,days:c.days.slice(),reason:c.reason,label,status:"pending"});
+      toast("Уведомление ушло менеджеру на визу");
+    }else{
+      absences.push({empId:ME,type:"unavail",wkey:c.wkey,days:c.days.slice(),label});
+      c.days.forEach(di=>{if(schedule[c.wkey][ME])schedule[c.wkey][ME][di]=null;});
+      toast("Недоступность добавлена в график");
+    }
+    state.av={wkey:c.wkey,days:[],reason:"personal"};renderScreen();return;
+  }
+  if(d.avcancel){const r=availReqs.find(x=>x.id===Number(d.avcancel));if(r&&r.status==="pending"){r.status="rejected";renderScreen();toast("Уведомление отменено");}return;}
+  /* --- недоступность: виза менеджера --- */
+  if(d.avreq){openAvailReqSheet(Number(d.avreq));return;}
+  if(d.avok){const r=availReqs.find(x=>x.id===Number(d.avok));if(r){r.status="approved";absences.push({empId:r.empId,type:"unavail",wkey:r.wkey,days:r.days.slice(),label:r.label});r.days.forEach(di=>{if(schedule[r.wkey][r.empId])schedule[r.wkey][r.empId][di]=null;});closeSheet();renderScreen();renderTabs();toast("Недоступность согласована и в графике");}return;}
+  if(d.avno){const r=availReqs.find(x=>x.id===Number(d.avno));if(r){r.status="rejected";closeSheet();renderScreen();renderTabs();toast("Отклонено — сотруднику придёт уведомление");}return;}
+  if(d.avdays){settings.availDays=Math.max(0,Math.min(14,settings.availDays+Number(d.avdays)));renderScreen();return;}
   if(d.call){toast(`Открываю чат с ${d.call}…`);return;}
 });
 $("#sheetbg").addEventListener("click",closeSheet);
