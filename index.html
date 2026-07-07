@@ -2,26 +2,30 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@800;900&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Смена — прототип</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-  :root{--bg:#efeff4;--card:#fff;--sep:rgba(60,60,67,0.12);--text:#000;--hint:#8a8a8e;
-    --blue:#3390ec;--blue-press:#2b7bd6;--red:#e8534f;--green:#34c759;--amber:#ef9b1f;--radius:12px;--tap:#f2f2f6;}
+  :root{--bg:#F6F3EC;--card:#FFFFFF;--sep:#E7E0D0;--text:#221F18;--hint:#8E877A;
+    --blue:#DE4726;--blue-press:#2b7bd6;--red:#D93A2B;--green:#2E9E4C;--amber:#EF9B1F;--radius:12px;--tap:#f2f2f6;
+    --head:#F1EDE3;--chiphead:#F1EDE3;--rowtrn:#FBF2DA;--rowatt:var(--rowatt);--rowna:var(--rowna);--rowvisa:var(--rowvisa);--naborder:#E0DBCF;--ink:#16140E;--onink:#FFF6F2;}
+  body.dark{--bg:#141210;--card:#1E1B17;--sep:#332F28;--text:#EDE8DE;--hint:#8E877A;
+    --head:#242019;--chiphead:#242019;--rowtrn:#2E2617;--rowatt:#2E1E1C;--rowna:#201E19;--rowvisa:#2C2713;--naborder:#3A352B;--ink:#000;--onink:#EDE8DE;--tap:#26231d;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
   body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#d8d8de;color:var(--text);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;align-items:center;min-height:100vh;}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
-  .proto{width:100%;max-width:430px;padding:10px 14px;display:flex;align-items:center;gap:10px;color:#3a3a3c;font-size:12px;}
-  .proto .lbl{color:#6a6a6e;white-space:nowrap;}
-  .seg{display:flex;background:#c9c9d0;border-radius:9px;padding:2px;flex:1;}
-  .seg button{flex:1;border:0;background:transparent;font:inherit;font-weight:600;color:#3a3a3c;padding:6px 4px;border-radius:7px;cursor:pointer;font-size:12.5px;}
-  .seg button.on{background:#fff;color:#000;box-shadow:0 1px 3px rgba(0,0,0,.14);}
-  .proto .reset{margin-left:auto;background:none;border:0;color:var(--blue);font:inherit;font-size:12px;cursor:pointer;padding:4px;white-space:nowrap;}
   .phone{width:100%;max-width:430px;background:var(--bg);height:calc(100vh - 56px);max-height:920px;min-height:600px;display:flex;flex-direction:column;overflow:hidden;position:relative;border-radius:22px;box-shadow:0 10px 40px rgba(0,0,0,.25);}
   @media (max-width:440px){body{background:var(--bg);}.phone{border-radius:0;box-shadow:none;height:calc(100vh - 50px);max-height:none;}}
-  .hdr{background:#fff;border-bottom:.5px solid var(--sep);padding:12px 16px 11px;display:flex;align-items:center;gap:10px;min-height:54px;flex:0 0 auto;}
-  .hdr .title{font-size:17px;font-weight:600;letter-spacing:-.2px;}
+  .hdr{background:var(--bg);border-bottom:.5px solid var(--sep);padding:9px 12px;display:flex;align-items:center;gap:9px;min-height:56px;flex:0 0 auto;}
+  .hdr .applogo{width:34px;height:34px;border-radius:9px;background:var(--ink);flex:0 0 auto;display:flex;align-items:center;justify-content:center;}
+  .venpill{flex:1;min-width:0;height:38px;background:var(--card);border:1px solid var(--sep);border-radius:12px;display:flex;align-items:center;gap:8px;padding:0 10px;cursor:pointer;font:inherit;}
+  .venpill:disabled{cursor:default;}
+  .venpill .venav{width:24px;height:24px;border-radius:7px;background:var(--ink);color:#FFF6F2;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-family:'Golos Text',sans-serif;}
+  .venpill .venttl{flex:1;min-width:0;text-align:left;font-size:15px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .venpill .venchev{color:var(--hint);font-size:15px;flex:0 0 auto;}
+  .roleava{width:38px;height:38px;border-radius:50%;border:2px solid var(--blue);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;cursor:pointer;font-family:'Golos Text',sans-serif;}
+  .hdr .title{font-size:20px;font-weight:800;font-family:'Golos Text',system-ui,sans-serif;letter-spacing:-.3px;}
   .hdr .sub{font-size:12px;color:var(--hint);margin-top:1px;}
   .hdr .ava{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:14px;flex:0 0 auto;}
   .scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:16px;}
@@ -33,63 +37,74 @@
   .row .ava{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:15px;flex:0 0 auto;}
   .row .main{flex:1;min-width:0;} .row .name{font-size:16px;font-weight:500;} .row .meta{font-size:13px;color:var(--hint);margin-top:2px;}
   .pill{font-size:12px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
-  .pill.warn{background:#fff4e5;color:#b26a00;} .pill.ok{background:rgba(52,199,89,.14);color:#2a9e49;}
+  .pill.warn{background:#fff4e5;color:#b26a00;} .pill.ok{background:rgba(46,158,76,.14);color:#1F7A3A;}
   .chev{color:#c4c4cc;font-size:20px;}
   .vensel{display:flex;gap:6px;padding:10px 12px 2px;overflow-x:auto;}
-  .vensel button{flex:0 0 auto;border:0;background:#fff;border:.5px solid var(--sep);color:var(--text);font:inherit;font-size:13px;font-weight:600;padding:8px 13px;border-radius:9px;cursor:pointer;}
+  .vensel button{flex:0 0 auto;border:0;background:var(--card);border:.5px solid var(--sep);color:var(--text);font:inherit;font-size:13px;font-weight:600;padding:8px 13px;border-radius:9px;cursor:pointer;}
   .vensel button.on{background:var(--blue);color:#fff;border-color:var(--blue);}
-  .weekbar{background:#fff;border-bottom:.5px solid var(--sep);display:flex;align-items:center;justify-content:space-between;padding:9px 8px;margin-top:8px;}
-  .weekbar .nav{background:none;border:0;color:var(--blue);font-size:22px;width:40px;height:36px;cursor:pointer;border-radius:8px;}
+  .weekbar{background:var(--card);border-bottom:.5px solid var(--sep);display:flex;align-items:center;justify-content:space-between;padding:9px 8px;margin-top:8px;}
+  .weekbar .nav{background:none;border:0;color:var(--text);font-size:22px;width:40px;height:36px;cursor:pointer;border-radius:8px;}
   .weekbar .wk{font-size:15px;font-weight:600;text-align:center;} .weekbar .wk small{display:block;font-size:11px;color:var(--hint);font-weight:400;margin-top:1px;}
   .copybar{padding:10px 12px 0;}
-  .copybtn{width:100%;background:#fff;border:.5px solid var(--sep);border-radius:10px;color:var(--blue);font:inherit;font-size:14px;font-weight:500;padding:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
+  .copybtn{width:100%;background:var(--card);border:.5px solid var(--sep);border-radius:10px;color:var(--blue);font:inherit;font-size:14px;font-weight:500;padding:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
   .copybtn:active{background:var(--tap);}
-  .gridwrap{margin:12px 12px 0;border-radius:var(--radius);overflow:hidden;background:#fff;border:.5px solid var(--sep);}
-  .grid{display:grid;grid-template-columns:76px repeat(7,minmax(0,1fr));}
-  .gc{border-right:.5px solid rgba(60,60,67,0.08);border-bottom:.5px solid rgba(60,60,67,0.08);min-height:42px;min-width:0;overflow:hidden;}
-  .ghead{background:#f7f7fa;font-size:12px;font-weight:600;color:#3a3a3c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 0 6px;line-height:1.1;cursor:pointer;}
+  .gridwrap{margin:12px 12px 0;border-radius:var(--radius);overflow:hidden;background:var(--card);border:.5px solid var(--sep);}
+  .grid{display:grid;grid-template-columns:74px repeat(7,minmax(0,1fr));}
+  .gc{border-right:.5px solid rgba(60,60,67,0.08);border-bottom:.5px solid rgba(60,60,67,0.08);min-height:41px;min-width:0;overflow:hidden;}
+  .ghead{background:var(--head);font-size:12px;font-weight:600;color:#3a3a3c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 0 6px;line-height:1.1;cursor:pointer;}
   .ghead small{color:var(--hint);font-weight:500;font-size:11px;}
-  .todaypill{background:var(--blue);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px;font-weight:700;line-height:1.2;margin-bottom:1px;}
+  .todaypill{background:var(--ink);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px;font-weight:700;line-height:1.2;margin-bottom:1px;}
   .todaypill small{color:rgba(255,255,255,.85);font-weight:600;font-size:10px;}
   .ghead .cov{margin-top:3px;font-size:10px;font-weight:700;padding:1px 5px;border-radius:9px;}
-  .ghead .cov.ok{color:var(--green);background:rgba(52,199,89,.14);} .ghead .cov.bad{color:var(--red);background:rgba(232,83,79,.14);}
+  .ghead .cov.ok{color:var(--green);background:rgba(46,158,76,.14);} .ghead .cov.bad{color:var(--red);background:rgba(217,58,43,.14);}
   .gsec{grid-column:1/-1;background:#eef0f4;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#5a5a5e;padding:6px 10px;display:flex;justify-content:space-between;border-top:2px solid #d9d9df;border-bottom:.5px solid var(--sep);border-right:0;overflow:hidden;}
   .gsec span{color:var(--hint);font-weight:500;text-transform:none;letter-spacing:0;}
   .gsec .gsl{display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;}
   .gsec .addp{border:0;background:var(--blue);color:#fff;width:18px;height:18px;border-radius:5px;font-size:12px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex:0 0 auto;}
   .rl{font-size:12px;color:var(--hint);padding:8px 6px 2px;}
+  .lchip{border:1px solid var(--sep);background:var(--card);border-radius:9px;padding:7px 11px;font:inherit;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
+  .lchip.on{background:var(--ink);color:#fff;border-color:#221F18;}
+  .lchip .lh{font-size:10px;font-weight:600;color:var(--hint);} .lchip.on .lh{color:#B9B3A6;}
   .gcov{background:#fcfcfd;font-size:9px;color:var(--hint);display:flex;align-items:center;padding-left:10px;font-weight:600;}
   .covcell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:#fcfcfd;}
   .covcell.ok{color:var(--green);} .covcell.bad{color:var(--red);} .covcell.over{color:#b26a00;}
   .ghead .cov.warn{color:#b26a00;background:#fff4e5;}
-  .devdot{position:absolute;top:1px;left:1px;width:8px;height:8px;border-radius:2px;background:#fff;border:1.5px solid var(--amber);z-index:2;}
+  .devdot{position:absolute;top:1px;left:1px;width:8px;height:8px;border-radius:2px;background:var(--card);border:1.5px solid var(--amber);z-index:2;}
   .chip.trn{opacity:.55;}
-  .gname{display:flex;align-items:center;gap:6px;padding:5px 6px 5px 7px;background:#fff;min-width:0;border-left:3px solid transparent;}
+  .gname{display:flex;align-items:center;gap:6px;padding:5px 6px 5px 7px;background:var(--card);min-width:0;border-left:3px solid transparent;}
   .gname .nm{font-size:12px;font-weight:500;line-height:1.1;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .gc.trnrow{background:#fff7e8;}
-  .gc.gname.trnrow{background:#fff7e8;}
-  .gc.cell.na{background:#f1f1f4;}
+  .gc.trnrow{background:var(--rowtrn);}
+  .gc.gname.trnrow{background:var(--rowtrn);}
+  .gc.cell.na{background:var(--rowna);}
   .nalbl{font-size:9px;color:#8a8a8e;font-weight:600;}
-  .gc.cell.attneed{background:#fdeeee;}
-  .gc.cell.avreq{background:#fff6d8;cursor:pointer;}
+  .gc.cell.attneed{background:var(--rowatt);}
+  .gc.cell.avreq{background:var(--rowvisa);cursor:pointer;}
+  .ldots{position:absolute;bottom:1px;left:50%;transform:translateX(-50%);display:flex;gap:2px;z-index:2;}
+  .ldot{width:6px;height:6px;border-radius:50%;border:1px solid #fff;}
+  .ldot.sr{background:#F2B705;} .ldot.op{background:#4FA3E0;} .ldot.cl{background:#5B4B8A;}
   .attdot{position:absolute;bottom:1px;right:1px;min-width:9px;height:9px;border-radius:2px;background:var(--amber);color:#fff;font-size:7px;font-weight:800;display:flex;align-items:center;justify-content:center;z-index:2;padding:0 1px;}
   .cell{display:flex;align-items:center;justify-content:center;cursor:pointer;padding:3px;min-width:0;position:relative;}
   .seekdot{position:absolute;top:1px;right:1px;width:9px;height:9px;border-radius:50%;background:var(--amber);border:1.5px solid #fff;z-index:2;}
   .scard.danger{border:1.5px solid var(--red);}
   .pubbar{margin:8px 12px 0;padding:9px 12px;border-radius:10px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;justify-content:space-between;line-height:1.3;}
-  .pubbar.draft{background:#fff4e5;color:#7a5200;} .pubbar.dirty{background:#fff4e5;color:#7a5200;} .pubbar.ok{background:rgba(52,199,89,.12);color:#2a9e49;cursor:pointer;}
-  .pubbtn{border:0;background:var(--blue);color:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;flex:0 0 auto;}
+  .pubbar.draft{background:#FBF0DC;color:#A8802B;border-radius:14px;} .pubbar.dirty{background:#FBF0DC;color:#A8802B;border-radius:14px;} .pubbar.ok{background:rgba(46,158,76,.12);color:#1F7A3A;cursor:pointer;border-radius:14px;}
+  .pubbtn{border:0;background:var(--blue);color:#fff;border-radius:11px;padding:8px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;flex:0 0 auto;}
   .cell:active{background:var(--tap);}
-  .gc.todaycol{box-shadow:inset 1.5px 0 0 var(--blue), inset -1.5px 0 0 var(--blue);}
-  .chip{width:100%;height:100%;min-width:0;min-height:30px;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;line-height:1;overflow:hidden;}
-  .chip small{font-size:9px;font-weight:600;opacity:.92;margin-top:2px;}
+  .gc.todaycol{box-shadow:inset 1.25px 0 0 var(--text), inset -1.25px 0 0 var(--text);}
+  .chip{width:100%;height:100%;min-width:0;min-height:30px;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:11.5px;font-weight:800;line-height:1;overflow:hidden;}
+  .chip small{font-size:8px;font-weight:600;opacity:.9;margin-top:1px;}
   .chip.busy{background:#e3e3e8;color:#6a6a72;}
   .chip.busy small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;padding:0 2px;}
-  .cell .add{color:#c4c4cc;font-size:19px;font-weight:300;}
-  .legend{display:flex;gap:14px;flex-wrap:wrap;padding:12px 18px 4px;font-size:12px;color:var(--hint);}
-  .legend span{display:inline-flex;align-items:center;gap:5px;} .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+  .cell .add{color:#c4c4cc;font-size:19px;font-weight:300;} .cell .add.past{color:var(--amber);font-weight:600;}
+  .legend{display:flex;gap:12px 14px;flex-wrap:wrap;padding:12px 18px 4px;font-size:12px;color:var(--hint);align-items:center;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;} .legend i{width:11px;height:11px;border-radius:3px;display:inline-block;border:1px solid var(--naborder);}
+  .legend i.dot{width:8px;height:8px;border-radius:50%;border:1px solid #fff;box-shadow:0 0 0 .5px rgba(0,0,0,.12);}
+  .legend i.sq{width:12px;height:12px;border-radius:3px;font-size:8px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;}
+  .legend i.pill2{width:auto;height:auto;background:var(--ink);color:#fff;border-radius:7px;padding:1px 6px;font-size:10px;font-weight:700;}
+  .legend b{font-weight:800;}
+  .legend .lgsep{width:1px;height:13px;background:var(--sep);margin:0 2px;}
   .hinttext{padding:8px 18px 16px;font-size:12px;color:var(--hint);line-height:1.4;}
-  .clist{background:#fff;margin:0 14px;border-radius:var(--radius);overflow:hidden;border:.5px solid var(--sep);}
+  .clist{background:var(--card);margin:0 14px;border-radius:var(--radius);overflow:hidden;border:.5px solid var(--sep);}
   .crow{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:.5px solid var(--sep);cursor:pointer;}
   .crow:last-child{border-bottom:0;} .crow:active{background:var(--tap);}
   .crow .sw{width:30px;height:30px;border-radius:8px;flex:0 0 auto;}
@@ -97,10 +112,10 @@
   .crow .ct{flex:1;min-width:0;} .crow .ct b{font-size:16px;font-weight:500;display:block;} .crow .ct span{font-size:13px;color:var(--hint);}
   .crow.add{color:var(--blue);font-weight:500;justify-content:center;}
   .wdsel{display:flex;gap:6px;padding:4px 14px 0;overflow-x:auto;}
-  .wdsel button{flex:0 0 auto;border:0;background:#fff;border:.5px solid var(--sep);color:var(--text);font:inherit;font-size:13px;font-weight:600;padding:7px 12px;border-radius:9px;cursor:pointer;}
+  .wdsel button{flex:0 0 auto;border:0;background:var(--card);border:.5px solid var(--sep);color:var(--text);font:inherit;font-size:13px;font-weight:600;padding:7px 12px;border-radius:9px;cursor:pointer;}
   .wdsel button.on{background:var(--blue);color:#fff;border-color:var(--blue);}
-  .normcard{background:#fff;margin:0 14px;border-radius:var(--radius);overflow:hidden;border:.5px solid var(--sep);}
-  .normpos{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:#f7f7fa;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#5a5a5e;border-bottom:.5px solid var(--sep);}
+  .normcard{background:var(--card);margin:0 14px;border-radius:var(--radius);overflow:hidden;border:.5px solid var(--sep);}
+  .normpos{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--head);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#5a5a5e;border-bottom:.5px solid var(--sep);}
   .normpos span{font-weight:500;text-transform:none;letter-spacing:0;color:var(--hint);}
   .normline{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:.5px solid var(--sep);gap:10px;}
   .normline:last-child{border-bottom:0;}
@@ -113,54 +128,62 @@
   .stp button:active{background:#e2e2e8;}
   .stp .v{min-width:22px;text-align:center;font-size:15px;font-weight:600;} .stp .v.zero{color:#c4c4cc;font-weight:400;}
   .ncell{min-width:40px;text-align:center;font-size:15px;font-weight:600;cursor:pointer;padding:5px 8px;border-radius:7px;flex:0 0 auto;} .ncell.zero{color:#c4c4cc;font-weight:400;}
-  .scard{background:#fff;border-radius:var(--radius);margin:10px 14px;overflow:hidden;border:.5px solid var(--sep);}
-  .scard.next{border:1.5px solid var(--blue);}
+  .scard{background:var(--card);border-radius:var(--radius);margin:10px 14px;overflow:hidden;border:.5px solid var(--sep);}
+  .scard.next{border:1px solid var(--sep);box-shadow:0 1px 3px rgba(34,31,24,.06);}
   .scard .top{display:flex;align-items:center;gap:12px;padding:13px 15px;}
   .scard .daybox{width:46px;text-align:center;flex:0 0 auto;} .scard .daybox .dn{font-size:22px;font-weight:700;line-height:1;} .scard .daybox .dm{font-size:11px;color:var(--hint);text-transform:uppercase;margin-top:2px;}
   .scard .info{flex:1;min-width:0;} .scard .info .t1{font-size:16px;font-weight:600;} .scard .info .t2{font-size:13px;color:var(--hint);margin-top:2px;}
-  .scard .bar{border-top:.5px solid var(--sep);display:flex;}
-  .scard .bar button{flex:1;background:none;border:0;border-right:.5px solid var(--sep);font:inherit;font-size:14px;font-weight:500;color:var(--blue);padding:11px;cursor:pointer;}
+  .scard .bar{border-top:.5px solid var(--sep);display:flex;gap:8px;padding:10px 12px;} .scard.emp .bar{border-top:0;padding:0 12px 12px;}
+  .scard .bar button{flex:1;background:none;border:0;border-right:.5px solid var(--sep);font:inherit;font-size:14px;font-weight:600;color:var(--text);padding:11px;cursor:pointer;}
+  .scard.emp .bar button{border-right:0;border-radius:12px;padding:13px;font-size:15px;font-weight:700;}
+  .scard.emp .bar button.pri{background:var(--blue);color:#fff;}
+  .scard.emp .bar button.sec{background:#ECE7DB;color:#3A352B;}
+  .scard.emp .bar button.ok{background:rgba(46,158,76,.14);color:#1F7A3A;}
+  .scard.emp .bar button.ghost{background:#ECE7DB;color:#8E877A;}
+  .sbadge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:7px;}
+  .sbadge.sr{background:rgba(242,183,5,.18);color:#8A6D00;} .sbadge.op{background:rgba(79,163,224,.16);color:#2E6C99;} .sbadge.cl{background:rgba(91,75,138,.16);color:#4A3D73;} .sbadge.tr{background:var(--rowtrn);color:#A8802B;}
+  .whobtn{margin-top:9px;background:none;border:0;padding:0;font:inherit;font-size:13px;font-weight:600;color:var(--blue);cursor:pointer;}
   .scard .bar button:last-child{border-right:0;} .scard .bar button:active{background:var(--tap);}
   .scard .bar button.muted{color:var(--hint);} .scard .bar button.done{color:var(--green);font-weight:600;} .scard .bar button.red{color:var(--red);}
-  .badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);background:rgba(51,144,236,.1);padding:3px 9px;border-radius:20px;}
-  .availrow{display:flex;align-items:center;padding:12px 16px;border-bottom:.5px solid var(--sep);background:#fff;}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#8E877A;background:#EFEBE1;padding:3px 9px;border-radius:20px;}
+  .availrow{display:flex;align-items:center;padding:12px 16px;border-bottom:.5px solid var(--sep);background:var(--card);}
   .availrow:last-child{border-bottom:0;} .availrow .d{flex:1;font-size:16px;} .availrow .d small{color:var(--hint);font-size:13px;margin-left:6px;}
   .toggle{width:52px;height:31px;border-radius:31px;background:#e3e3e8;position:relative;cursor:pointer;transition:background .18s;flex:0 0 auto;} .toggle.on{background:var(--green);}
-  .toggle::after{content:"";position:absolute;width:27px;height:27px;border-radius:50%;background:#fff;top:2px;left:2px;transition:left .18s;box-shadow:0 1px 3px rgba(0,0,0,.2);} .toggle.on::after{left:23px;} .availrow.off .d{color:var(--hint);}
+  .toggle::after{content:"";position:absolute;width:27px;height:27px;border-radius:50%;background:var(--card);top:2px;left:2px;transition:left .18s;box-shadow:0 1px 3px rgba(0,0,0,.2);} .toggle.on::after{left:23px;} .availrow.off .d{color:var(--hint);}
   .empty{text-align:center;color:var(--hint);padding:40px 30px;font-size:14px;line-height:1.5;} .empty .em{font-size:34px;display:block;margin-bottom:8px;}
   .mainbtn{flex:0 0 auto;padding:8px 12px 14px;background:var(--bg);}
   .mainbtn button{width:100%;background:var(--blue);color:#fff;border:0;border-radius:12px;font:inherit;font-size:16px;font-weight:600;padding:15px;cursor:pointer;} .mainbtn button:active{background:var(--blue-press);}
-  .tabs{flex:0 0 auto;display:flex;background:#fff;border-top:.5px solid var(--sep);padding-bottom:env(safe-area-inset-bottom);}
+  .tabs{flex:0 0 auto;display:flex;background:var(--card);border-top:.5px solid var(--sep);padding-bottom:env(safe-area-inset-bottom);}
   .tabwrap{position:relative;flex:1;}
   .tabs button{width:100%;background:none;border:0;font:inherit;color:var(--hint);padding:8px 2px 9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;}
-  .tabs button .ic{font-size:20px;line-height:1;} .tabs button .tl{font-size:10px;font-weight:500;} .tabs button.on{color:var(--blue);}
+  .tabs button .ic{width:25px;height:25px;line-height:0;} .tabs button .ic svg{width:25px;height:25px;} .tabs button .tl{font-size:10px;font-weight:600;margin-top:2px;} .tabs button{color:#A8A093;} .tabs button.on{color:var(--blue);}
   .tabbadge{position:absolute;top:5px;right:calc(50% - 20px);min-width:17px;height:17px;background:var(--red);color:#fff;border-radius:9px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;}
   .sheetbg{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40;} .sheetbg.show{opacity:1;pointer-events:auto;}
   .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--bg);border-radius:16px 16px 0 0;transform:translateY(100%);transition:transform .24s cubic-bezier(.2,.8,.2,1);z-index:41;padding:8px 12px calc(14px + env(safe-area-inset-bottom));max-height:90%;overflow-y:auto;} .sheet.show{transform:translateY(0);}
-  .sheet h3{margin:8px 6px 4px;font-size:16px;font-weight:600;text-align:center;} .sheet .who{text-align:center;font-size:13px;color:var(--hint);margin-bottom:12px;}
-  .opt{display:flex;align-items:center;gap:12px;background:#fff;border:0;width:100%;font:inherit;text-align:left;padding:13px 15px;border-bottom:.5px solid var(--sep);cursor:pointer;} .opt:active{background:var(--tap);}
+  .sheet h3{margin:8px 6px 4px;font-size:17px;font-weight:800;font-family:'Golos Text',system-ui,sans-serif;letter-spacing:-.2px;text-align:center;} .sheet .who{text-align:center;font-size:13px;color:var(--hint);margin-bottom:12px;}
+  .opt{display:flex;align-items:center;gap:12px;background:var(--card);border:0;width:100%;font:inherit;text-align:left;padding:13px 15px;border-bottom:.5px solid var(--sep);cursor:pointer;} .opt:active{background:var(--tap);}
   .opt .sw{width:30px;height:30px;border-radius:8px;flex:0 0 auto;} .opt .ot{flex:1;} .opt .ot b{font-size:16px;font-weight:500;display:block;} .opt .ot span{font-size:13px;color:var(--hint);} .opt .chk{color:var(--blue);font-weight:700;font-size:18px;}
   .sheetgrp{border-radius:12px;overflow:hidden;}
   .opt.remove{color:var(--red);justify-content:center;font-weight:500;border-bottom:0;}
-  .sheet .cancel{width:100%;background:#fff;border:0;border-radius:12px;font:inherit;font-size:16px;font-weight:600;color:var(--blue);padding:14px;margin-top:8px;cursor:pointer;} .sheet .cancel:active{background:var(--tap);}
-  .editgrp{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:8px;}
+  .sheet .cancel{width:100%;background:var(--card);border:0;border-radius:12px;font:inherit;font-size:16px;font-weight:600;color:var(--blue);padding:14px;margin-top:8px;cursor:pointer;} .sheet .cancel:active{background:var(--tap);}
+  .editgrp{background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:8px;}
   .editrow{display:flex;align-items:center;padding:12px 15px;border-bottom:.5px solid var(--sep);gap:12px;} .editrow:last-child{border-bottom:0;} .editrow .el{flex:0 0 auto;font-size:15px;color:var(--hint);min-width:78px;}
   .editrow input{font:inherit;font-size:16px;border:0;background:transparent;text-align:right;flex:1;min-width:0;color:var(--text);}
   .timestp{display:flex;align-items:center;gap:6px;margin-left:auto;} .timestp button{width:30px;height:30px;border-radius:8px;border:0;background:#f0f0f4;color:var(--blue);font-size:18px;font-weight:600;cursor:pointer;} .timestp .tv{min-width:54px;text-align:center;font-size:16px;font-weight:600;}
   .durline{text-align:center;color:var(--hint);font-size:13px;padding:2px 0 10px;}
   .pickrow{display:flex;gap:7px;flex-wrap:wrap;padding:4px 2px 10px;}
-  .pickrow button{border:0;background:#fff;border:.5px solid var(--sep);font:inherit;font-size:14px;padding:8px 13px;border-radius:9px;cursor:pointer;color:var(--text);} .pickrow button.on{background:var(--blue);color:#fff;border-color:var(--blue);}
-  .covgrp{background:#fff;border-radius:12px;overflow:hidden;margin-bottom:8px;}
+  .pickrow button{border:0;background:var(--card);border:.5px solid var(--sep);font:inherit;font-size:14px;padding:8px 13px;border-radius:9px;cursor:pointer;color:var(--text);} .pickrow button.on{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .covgrp{background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:8px;}
   .covpos{padding:10px 15px;border-bottom:.5px solid var(--sep);} .covpos:last-child{border-bottom:0;} .covpos .ph{font-size:15px;font-weight:600;margin-bottom:6px;}
   .covchips{display:flex;gap:7px;flex-wrap:wrap;}
   .covchip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:8px;display:inline-flex;gap:5px;align-items:center;}
-  .covchip.ok{background:rgba(52,199,89,.12);color:#2a9e49;} .covchip.bad{background:rgba(232,83,79,.12);color:var(--red);} .covchip.rf{background:#fff4e5;color:#b26a00;}
+  .covchip.ok{background:rgba(46,158,76,.12);color:#1F7A3A;} .covchip.bad{background:rgba(217,58,43,.12);color:var(--red);} .covchip.rf{background:#fff4e5;color:#b26a00;}
   .covsum{text-align:center;font-size:14px;margin:2px 6px 12px;} .covsum b{color:var(--red);}
-  .reinfrow{display:flex;align-items:center;padding:10px 14px;border-bottom:.5px solid var(--sep);background:#fff;gap:8px;} .reinfrow:last-child{border-bottom:0;}
+  .reinfrow{display:flex;align-items:center;padding:10px 14px;border-bottom:.5px solid var(--sep);background:var(--card);gap:8px;} .reinfrow:last-child{border-bottom:0;}
   .reinfrow .rn{flex:0 0 auto;font-size:14px;font-weight:600;min-width:74px;} .rfchips{display:flex;gap:6px;flex-wrap:wrap;}
   .rfchip{border:0;background:#f0f0f4;font:inherit;font-size:12px;font-weight:600;padding:6px 9px;border-radius:8px;cursor:pointer;position:relative;color:var(--text);}
   .rfchip .b{position:absolute;top:-6px;right:-6px;background:var(--amber);color:#fff;border-radius:9px;min-width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
-  .apprcard{background:#fff;border-radius:var(--radius);margin:10px 14px;overflow:hidden;border:.5px solid var(--sep);}
+  .apprcard{background:var(--card);border-radius:var(--radius);margin:10px 14px;overflow:hidden;border:.5px solid var(--sep);}
   .apprcard .at{padding:12px 15px;} .apprcard .kind{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--amber);}
   .apprcard .desc{font-size:15px;font-weight:500;margin-top:4px;} .apprcard .meta{font-size:12px;color:var(--hint);margin-top:3px;}
   .apprcard .bar{border-top:.5px solid var(--sep);display:flex;} .apprcard .bar button{flex:1;background:none;border:0;border-right:.5px solid var(--sep);font:inherit;font-size:15px;font-weight:600;padding:12px;cursor:pointer;} .apprcard .bar button:last-child{border-right:0;}
@@ -169,15 +192,6 @@
 </style>
 </head>
 <body>
-<div class="proto">
-  <span class="lbl">Роль:</span>
-  <div class="seg" id="roleSeg">
-    <button data-role="employee">Сотрудник</button>
-    <button data-role="manager" class="on">Менеджер</button>
-    <button data-role="director">Руководитель</button>
-  </div>
-  <button class="reset" id="resetBtn">Сброс</button>
-</div>
 <div class="phone">
   <div class="hdr" id="hdr"></div>
   <div class="scroll" id="screen"></div>
@@ -188,7 +202,7 @@
   <div class="toast" id="toast"></div>
 </div>
 <script>
-let positions,venues,staff,shiftList,normWeek,schedule,swaps,approvals,placements,settings,published,pub,absences,availReqs;
+let positions,venues,staff,shiftList,normWeek,schedule,swaps,approvals,placements,settings,published,pub,absences,availReqs,leads;
 let role,tab,curWeek,curVen,sheetCtx,state,normDay,regFilterVen,regFilterPos,editMode;
 const ME=3, TODAY_IDX=3, NOW="Чт 25 июня, 14:30", NOW_MIN=870;
 const DAYS=["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
@@ -197,8 +211,8 @@ const WEEKS=[{key:"cur",off:0,label:"22–28 июня",sub:"текущая не�
              {key:"w2",off:2,label:"6–12 июля",sub:"через неделю",nums:[6,7,8,9,10,11,12]},
              {key:"w3",off:3,label:"13–19 июля",sub:"через две недели",nums:[13,14,15,16,17,18,19]}];
 const weekOff=k=>{const w=WEEKS.find(x=>x.key===k);return w?w.off:0;};
-const COLORS=["#e8534f","#2f9bea","#ef9b1f","#34c759","#8a78ef","#ec5fa0","#13b9a8","#f0772a","#6a8cff","#c44fd1","#0fa3b1","#d1495b","#3aa6a0","#9b6dff","#e07b39","#2e8b57"];
-const SHIFT_COLORS=["#2f9bea","#8a78ef","#13b9a8","#ef9b1f","#ec5fa0","#34c759"];
+const COLORS=["#e8534f","#2F8FE0","#ef9b1f","#34c759","#8A7BEF","#ec5fa0","#13b9a8","#f0772a","#6a8cff","#c44fd1","#0fa3b1","#d1495b","#3aa6a0","#9b6dff","#e07b39","#2e8b57"];
+const SHIFT_COLORS=["#2F8FE0","#8A7BEF","#13b9a8","#ef9b1f","#ec5fa0","#34c759"];
 const NAMES=["Сергей Н.","Тимур А.","Мария Р.","Елена Т.","Анна К.","Ольга М.","Игорь С.","Дарья В.","Павел Л.","Роман Ф.","Кирилл Д.","Лидия П.","Никита В.","Карина С.","Артём К.","Вера Л.","Денис Ю.","Алина Г.","Максим Б.","Юлия Ж.","Антон Е.","Софья И.","Глеб О.","Полина Ч.","Марк Ш.","Нина З.","Егор Х.","Вика Ц.","Лев Д.","Рита П.","Жанна К.","Олег В."];
 
 function freshPositions(){return [
@@ -212,26 +226,26 @@ function freshVenues(){return [
 ];}
 function freshShifts(){return [
   {id:"mgrD", ven:"v1",pos:"mgr",   name:"Смена",start:600,end:1320,col:"#13b9a8"},
-  {id:"barM", ven:"v1",pos:"bar",   name:"Утро", start:480,end:960, col:"#2f9bea"},
-  {id:"barE", ven:"v1",pos:"bar",   name:"Вечер",start:840,end:1320,col:"#8a78ef"},
-  {id:"watM", ven:"v1",pos:"waiter",name:"Утро", start:600,end:1080,col:"#2f9bea"},
-  {id:"watE", ven:"v1",pos:"waiter",name:"Вечер",start:960,end:1440,col:"#8a78ef"},
-  {id:"runE", ven:"v1",pos:"runner",name:"Вечер",start:1020,end:1440,col:"#8a78ef"},
-  {id:"cookM",ven:"v1",pos:"cook",  name:"Утро", start:480,end:960, col:"#2f9bea"},
-  {id:"cookE",ven:"v1",pos:"cook",  name:"Вечер",start:840,end:1320,col:"#8a78ef"},
-  {id:"dishE",ven:"v1",pos:"dish",  name:"Вечер",start:900,end:1380,col:"#8a78ef"},
+  {id:"barM", ven:"v1",pos:"bar",   name:"Утро", start:480,end:960, col:"#2F8FE0"},
+  {id:"barE", ven:"v1",pos:"bar",   name:"Вечер",start:840,end:1320,col:"#8A7BEF"},
+  {id:"watM", ven:"v1",pos:"waiter",name:"Утро", start:600,end:1080,col:"#2F8FE0"},
+  {id:"watE", ven:"v1",pos:"waiter",name:"Вечер",start:960,end:1440,col:"#8A7BEF"},
+  {id:"runE", ven:"v1",pos:"runner",name:"Вечер",start:1020,end:1440,col:"#8A7BEF"},
+  {id:"cookM",ven:"v1",pos:"cook",  name:"Утро", start:480,end:960, col:"#2F8FE0"},
+  {id:"cookE",ven:"v1",pos:"cook",  name:"Вечер",start:840,end:1320,col:"#8A7BEF"},
+  {id:"dishE",ven:"v1",pos:"dish",  name:"Вечер",start:900,end:1380,col:"#8A7BEF"},
   {id:"v2mgrD", ven:"v2",pos:"mgr", name:"Смена",start:600,end:1320,col:"#13b9a8"},
-  {id:"v2barM", ven:"v2",pos:"bar", name:"Утро", start:480,end:960, col:"#2f9bea"},
-  {id:"v2barE", ven:"v2",pos:"bar", name:"Вечер",start:840,end:1320,col:"#8a78ef"},
-  {id:"v2cookM",ven:"v2",pos:"cook",name:"Утро", start:540,end:1020,col:"#2f9bea"},
-  {id:"v2cookE",ven:"v2",pos:"cook",name:"Вечер",start:840,end:1320,col:"#8a78ef"},
+  {id:"v2barM", ven:"v2",pos:"bar", name:"Утро", start:480,end:960, col:"#2F8FE0"},
+  {id:"v2barE", ven:"v2",pos:"bar", name:"Вечер",start:840,end:1320,col:"#8A7BEF"},
+  {id:"v2cookM",ven:"v2",pos:"cook",name:"Утро", start:540,end:1020,col:"#2F8FE0"},
+  {id:"v2cookE",ven:"v2",pos:"cook",name:"Вечер",start:840,end:1320,col:"#8A7BEF"},
 ];}
 function freshNormWeek(){
   const base={mgrD:1,barM:1,barE:1,watM:1,watE:1,runE:1,cookM:1,cookE:1,dishE:1,v2mgrD:1,v2barM:1,v2barE:1,v2cookM:1,v2cookE:1};
   const wk=[];for(let i=0;i<7;i++)wk.push(JSON.parse(JSON.stringify(base)));return wk;
 }
 function freshSettings(){return {swapsEnabled:true,visa:false,deadlineH:12,crossVenue:true,extraPos:true,temps:true,confirmShift:true,
-  mgrVacation:true,mgrSick:true,mgrTerm:false,mgrGraduate:true,pubOverApproval:true,attestation:true,availVisa:true,availDays:2};}
+  mgrVacation:true,mgrSick:true,mgrTerm:false,mgrGraduate:true,pubOverApproval:true,attestation:true,availVisa:true,availDays:2,mgrEditPast:true,pastVisa:true};}
 
 /* паттерн найма: ротации 2/2 и 3/3 (с якорем), 5/2, fixed (дни недели), flex */
 function isWorkday(e,wkey,di){
@@ -301,7 +315,11 @@ function init(){
   if(brE)absences.push({empId:brE.id,type:"vacation",wkey:"next",days:[0,1,2,3]});
   const avEmp=staff.filter(e=>e.defShift==="watM"&&!e.trainee)[0];
   availReqs=avEmp?[{id:1,empId:avEmp.id,wkey:"next",days:[2],reason:"personal",label:"не доступен",status:"pending"}]:[];
-  swaps=freshSwaps();approvals=freshApprovals();state={confirmed:{},avail:{}};
+  leads={};
+  // демо: Сергей — старший и открывает пн/вт; вечерний бариста закрывает
+  const srg=staff.filter(e=>e.defShift==="barM"&&e.mainVen==="v1")[0];
+  if(srg){leads["cur|"+srg.id+"|0"]={senior:true,open:true,close:false};leads["cur|"+srg.id+"|1"]={senior:true,open:true,close:false};}
+  swaps=freshSwaps();approvals=freshApprovals();state={confirmed:{},avail:{},formal:false,retroWarned:false,theme:"light"};
   published=JSON.parse(JSON.stringify(schedule));
   const v1team=staff.filter(e=>e.mainVen==="v1").map(e=>e.id);
   const v2team=staff.filter(e=>e.mainVen==="v2").map(e=>e.id);
@@ -348,6 +366,41 @@ function qualifies(e,sh){
   const venOk=settings.crossVenue||empVens(e).includes(sh.ven);
   return posOk&&venOk;
 }
+
+
+function isPastDay(wkey,di){const off=weekOff(wkey);if(off>0)return false;return di<TODAY_IDX;} // прошлое = до сегодня (текущая неделя) или прошедшие недели
+function isPastWeek(wkey){return weekOff(wkey)<0;} // в демо прошедших недель нет, задел
+function retroKey(wkey,vid){return "retro|"+wkey+"|"+vid;}
+function retroDirty(wkey,vid){return !!(pub[retroKey(wkey,vid)]);}
+function retroPending(wkey,vid){return approvals.some(a=>a.type==="retro"&&a.status==="pending"&&a.week===wkey&&a.ven===vid);}
+const seekingSwapOrig=null;
+
+
+// tone-движок: только «голосовые» места (уведомления, пустые состояния, тосты, онбординг).
+// Функциональные подписи, кадровое и ошибки — мимо движка, всегда нейтральны.
+const PHRASES={
+  published_toast:{bold:["Готово! Команда уже видит график","Опубликовано — народ в курсе","Всё, график улетел команде"],plain:["График опубликован. Команда получит уведомление"]},
+  ack_toast:{bold:["Принято, ты в теме ✌️","Отметили, что ты в курсе"],plain:["Ознакомление зафиксировано"]},
+  swap_found:{bold:["Есть кто готов подхватить!","Нашёлся сменщик"],plain:["Найден кандидат на замену"]},
+  empty_now:{bold:["Тишина. На точке сейчас пусто 🌙","Никого — смена спит"],plain:["Сейчас на точке никто не работает"]},
+  empty_market:{bold:["Пусто. Никто не скидывает смены","Биржа пока молчит"],plain:["Открытых замен нет"]},
+  confirm_toast:{bold:["Красавчик, ждём на смене 🔥","Отметили — ты выходишь"],plain:["Выход подтверждён"]},
+  reminded:{bold:["Пнули команду 👋","Напомнили, кому надо"],plain:["Напоминание отправлено"]}
+};
+function phrase(key,idx){const p=PHRASES[key];if(!p)return key;const arr=(state.formal?p.plain:p.bold);return arr[(idx!=null?idx:Math.floor(Math.random()*arr.length))%arr.length];}
+
+function leadKey(wkey,eid,di){return wkey+"|"+eid+"|"+di;}
+function leadOf(wkey,eid,di){return leads[leadKey(wkey,eid,di)]||null;}
+function autoLead(wkey,eid,di,vid){
+  // подсказка: если смена самая ранняя среди своих в этот день на точке — open; самая поздняя — close
+  const sid=(schedule[wkey][eid]||[])[di]; if(!sid)return {open:false,close:false};
+  const sh=shById(sid); if(!sh)return{open:false,close:false};
+  let minStart=1e9,maxEnd=-1;
+  staff.forEach(e=>{const s2=(schedule[wkey][e.id]||[])[di];if(!s2)return;const o=shById(s2);if(!o||o.ven!==vid)return;if(unavailable(e,wkey,di))return;if(o.start<minStart)minStart=o.start;if(o.end>maxEnd)maxEnd=o.end;});
+  return {open:sh.start===minStart, close:sh.end===maxEnd};
+}
+function posDefSenior(pid){const p=pos(pid);return !!(p&&p.defSenior);}
+
 const seekingSwap=(eid,wkey,day)=>swaps.find(s=>s.empId===eid&&s.week===wkey&&s.day===day&&(s.status==="seeking"||s.status==="visa"));
 const cntShifts=id=>WEEKS.reduce((n,w)=>n+((schedule[w.key][id]||[]).filter(Boolean).length),0);
 const cntReq=id=>swaps.filter(s=>s.empId===id).length;
@@ -409,30 +462,47 @@ const marketList=()=>settings.swapsEnabled?swaps.filter(s=>s.status==="seeking"&
 
 function venSwitcher(){return `<div class="vensel">`+venues.map(v=>`<button data-ven-sel="${v.id}" class="${curVen===v.id?'on':''}">${v.name}</button>`).join("")+`</div>`;}
 
-function renderHeader(){
-  const h=$("#hdr");
-  if(role==="manager"){
-    const t={grid:"График смен",staff:"Штат и норматив",now:"Сейчас на смене",swaps:"Замены"};
-    h.innerHTML=`<div class="ava" style="background:#3390ec">М</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">${venName(curVen)}</div></div>`;
-  }else if(role==="director"){
-    const t={appr:"Согласования",staffreg:"Сотрудники",dirstaff:"Штат и точки",mode:"Режим работы"};
-    h.innerHTML=`<div class="ava" style="background:#1c1c1e">Р</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">Сеть «Среда» · ${venues.length} точки · ${staff.filter(e=>!e.temp).length} сотрудников</div></div>`;
-  }else{
-    const t={mine:"Мои смены",avail:"Доступность",market:"Биржа смен"};const me=emp(ME);
-    h.innerHTML=`<div class="ava" style="background:${me.c}">${ini(me.name)}</div><div style="flex:1"><div class="title">${t[tab]}</div><div class="sub">${me.name} · ${posName(me.posMain)} · ${venName(me.mainVen)} · ${patLabel(me)}</div></div>`;
-  }
+function roleGlyph(){
+  if(role==="manager")return {bg:"#3A5BDE",t:"М"};
+  if(role==="director")return {bg:"#221F18",t:"Р"};
+  const me=emp(ME);return {bg:me.c,t:ini(me.name)};
 }
+function venChip(){
+  const vn=venName(curVen); const m=vn.match(/на\s+(.)/); const letter=(m?m[1]:(vn.replace(/[«»\s]/g,"")[0]||"Т"));
+  const clickable=(role!=="director");
+  return `<button class="venpill" ${clickable?'data-venpick="1"':'disabled'}><span class="venav">${letter}</span><span class="venttl">${venShort(curVen)}</span>${clickable?'<span class="venchev">⌄</span>':''}</button>`;
+}
+function renderHeader(){
+  const h=$("#hdr"); const rg=roleGlyph();
+  h.innerHTML=`<span class="applogo"><svg viewBox="0 0 100 100" width="20" height="20"><g fill="#DE4726"><rect x="13.7" y="18" width="14.6" height="64" rx="7.3"/><path fill-rule="evenodd" d="M26.7,44 h18 a13,13 0 0 1 13,13 v12 a13,13 0 0 1 -13,13 h-18 a13,13 0 0 1 -13,-13 v-12 a13,13 0 0 1 13,-13 z M28.3,58.6 v8.8 h16.8 v-8.8 z"/><rect x="71.7" y="18" width="14.6" height="64" rx="7.3"/></g></svg></span>${venChip()}<button class="roleava" data-rolemenu="1" style="background:${rg.bg}">${rg.t}</button>`;
+}
+
+const ICONS={
+ grid:'<path d="M4 5h16M4 12h16M4 19h16"/><circle cx="7.5" cy="5" r="0" fill="currentColor"/>',
+ gridcal:'<rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2v4M16 2v4"/>',
+ clip:'<rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1"/><path d="M8.5 10h7M8.5 14h5"/>',
+ pulse:'<circle cx="12" cy="12" r="9"/><path d="M8 12h2l1.5-3 2 6 1.5-3H17"/>',
+ swap:'<path d="M7 8h11l-3-3M17 16H6l3 3"/>',
+ check:'<circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>',
+ people:'<circle cx="9" cy="9" r="3.2"/><path d="M3.5 19c0-3 2.6-5 5.5-5s5.5 2 5.5 5"/><path d="M16 7.5a3 3 0 0 1 0 5.4M17.5 19c0-2-.8-3.6-2-4.6"/>',
+ person:'<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.4 3-6 7-6s7 2.6 7 6"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+ avail:'<rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M9 15l2 2 4-4"/>'
+};
+function ic(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]||''}</svg>`;}
+
 function renderTabs(){
   const t=$("#tabs");let sets;
-  if(role==="manager")sets=[["grid","🗓","График"],["staff","📋","Штат"],["now","🟢","Сейчас"],["swaps","🔁","Замены"]];
-  else if(role==="director")sets=[["appr","✅","Согласования"],["staffreg","👤","Сотрудники"],["dirstaff","📋","Штат"],["mode","⚙️","Режим"]];
-  else sets=[["mine","🗓","Мои смены"],["avail","✅","Доступность"],["market","🔁","Биржа"]];
-  t.innerHTML=sets.map(([k,ic,label])=>{
+  if(role==="manager")sets=[["grid","gridcal","График"],["staff","clip","Штат"],["now","pulse","Сейчас"],["swaps","swap","Замены"]];
+  else if(role==="director")sets=[["appr","check","Согласования"],["staffreg","person","Сотрудники"],["dirstaff","clip","Штат"],["mode","gear","Режим"]];
+  else sets=[["mine","clock","Смены"],["avail","avail","Доступность"],["market","swap","Биржа"]];
+  t.innerHTML=sets.map(([k,icn,label])=>{
     let badge="";
     if(role==="manager"&&k==="swaps"&&swapAttention())badge=`<span class="tabbadge">${swapAttention()}</span>`;
     if(role==="employee"&&k==="market"&&marketList().length)badge=`<span class="tabbadge">${marketList().length}</span>`;
     if(role==="director"&&k==="appr"&&pendingCount())badge=`<span class="tabbadge">${pendingCount()}</span>`;
-    return `<div class="tabwrap"><button data-tab="${k}" class="${tab===k?'on':''}"><span class="ic">${ic}</span><span class="tl">${label}</span></button>${badge}</div>`;
+    return `<div class="tabwrap"><button data-tab="${k}" class="${tab===k?'on':''}"><span class="ic">${ic(icn)}</span><span class="tl">${label}</span></button>${badge}</div>`;
   }).join("");
 }
 
@@ -489,9 +559,9 @@ function mgrGrid(){
         if(avq){inner=`<span class="nalbl" style="color:#9a7b00">${avq.label}?</span>`;tappable=false;cellState="avreq";
           body+=`<div class="gc cell avreq ${today?'todaycol':''}" data-avreq="${avq.id}">${inner}</div>`;return;}
         if(un){inner=`<span class="nalbl">${un}</span>`;tappable=false;cellState="na";}
-        else if(here){inner=`<div class="chip ${trn&&!waitAtt?'trn':''}" style="background:${shAny.col}${waitAtt?';opacity:.8':''}">${fmt(shAny.start)}<small>${durShort(shAny)}</small></div>${seek?'<span class="seekdot"></span>':''}${dev?'<span class="devdot"></span>':''}${waitAtt?'<span class="attdot">А</span>':''}`;if(waitAtt)cellState="attneed";}
+        else if(here){const ld=leadOf(w.key,e.id,di);const mk=(ld?(ld.senior?'<span class="ldot sr" title="старший"></span>':'')+(ld.open?'<span class="ldot op" title="открытие"></span>':'')+(ld.close?'<span class="ldot cl" title="закрытие"></span>':''):'');inner=`<div class="chip ${trn&&!waitAtt?'trn':''}" style="background:${shAny.col}${waitAtt?';opacity:.8':''}">${String(Math.floor(shAny.start/60)).padStart(2,"0")}<small>${durShort(shAny)}</small></div>${seek?'<span class="seekdot"></span>':''}${dev?'<span class="devdot"></span>':''}${waitAtt?'<span class="attdot">А</span>':''}${mk?`<span class="ldots">${mk}</span>`:''}`;if(waitAtt)cellState="attneed";}
         else if(shAny)inner=`<div class="chip busy">${fmt(shAny.start)}<small>${shAny.ven!==vid?venShort(shAny.ven):posName(shAny.pos)}</small></div>`;
-        else{inner=editing?`<span class="add">+</span>`:``;if(trn&&settings.attestation&&afterAtt(e,w.key,di))cellState="attneed";}
+        else{const pastCell=editing&&isPastDay(w.key,di);inner=editing?`<span class="add${pastCell?' past':''}">+</span>`:``;if(trn&&settings.attestation&&afterAtt(e,w.key,di))cellState="attneed";}
         const cellAttr=tappable?`data-emp="${e.id}" data-day="${di}" data-bp="${pp.id}"`:``;
         body+=`<div class="gc cell ${cellState||rowCls} ${today?'todaycol':''}" ${cellAttr}>${inner}</div>`;
       });
@@ -499,7 +569,13 @@ function mgrGrid(){
   });
   let pubbar,editRow="";
   const ovTot=weekOverTotal(w.key,vid),pend=overPending(w.key,vid);
-  if(!p){
+  const rDirty=retroDirty(w.key,vid),rPend=retroPending(w.key,vid);
+  if(rPend){
+    pubbar=`<div class="pubbar dirty"><span>⏳ Правки задним числом ждут согласования руководителя</span>${editing?`<button class="pubbtn" data-editdone="${pkey}">Готово</button>`:''}</div>`;
+    if(!editing)editRow=`<div class="copybar"><button class="copybtn" data-editmode="1">✎ Редактировать график</button></div>`;
+  } else if(rDirty&&editing){
+    pubbar=`<div class="pubbar dirty" style="background:#FBE9CF"><span>✎ Правки прошлого · нужно согласование</span><button class="pubbtn" data-retrosend="${pkey}">Согласовать</button></div>`;
+  } else if(!p){
     pubbar=pend
       ?`<div class="pubbar dirty"><span>⏳ Расширение +${ovTot} ждёт согласования руководителя · не опубликован</span></div>`
       :`<div class="pubbar draft"><span>Черновик — сотрудники его не видят${ovTot?` · перебор +${ovTot}`:''}</span><button class="pubbtn" data-publish="${pkey}">Опубликовать</button></div>`;
@@ -521,10 +597,29 @@ function mgrGrid(){
     }
   }
   const tools=editing?`<div class="copybar"><button class="copybtn" id="layoutBtn">⚙︎ Разложить по графикам найма</button></div>`:"";
-  return venSwitcher()+`<div class="weekbar"><button class="nav" data-week="-1">‹</button><div class="wk">${w.label}<small>${w.sub}</small></div><button class="nav" data-week="1">›</button></div>
+  return `<div class="weekbar"><button class="nav" data-week="-1">‹</button><div class="wk">${w.label}<small>${w.sub}</small></div><button class="nav" data-week="1">›</button></div>
     ${pubbar}${editRow}${tools}
     <div class="gridwrap"><div class="grid">${head}${body}</div></div>
-    <div class="legend"><span><i style="background:#2f9bea"></i>Утро</span><span><i style="background:#8a78ef"></i>Вечер</span><span><i style="background:var(--amber);border-radius:50%"></i>ищет замену</span><span><i style="background:#fff;border:1.5px solid var(--amber);border-radius:2px"></i>вне найма</span><span><i style="background:#f1f1f4;border:1px solid #e0e0e4"></i>недоступен</span><span><i style="background:#fdeeee"></i>после аттестации</span><span>🎓 стажёр — норму не закрывает</span></div>
+    <div class="legend">
+      <span><i style="background:#2F8FE0"></i>Утро</span>
+      <span><i style="background:#8A7BEF"></i>Вечер</span>
+      <span class="lgsep"></span>
+      <span><i class="dot" style="background:#F2B705"></i>старший смены</span>
+      <span><i class="dot" style="background:#4FA3E0"></i>открытие</span>
+      <span><i class="dot" style="background:#5B4B8A"></i>закрытие</span>
+      <span><i class="dot" style="background:var(--amber)"></i>ищет замену</span>
+      <span><i style="background:var(--card);border:1.5px solid var(--amber)"></i>вне графика найма</span>
+      <span><i class="sq" style="background:var(--amber);color:#fff">А</i>ждёт аттестации</span>
+      <span class="lgsep"></span>
+      <span><i style="background:var(--rowtrn);border-color:#D9C489"></i>стажировка</span>
+      <span><i style="background:var(--rowatt);border-color:#D98A80"></i>после аттестации</span>
+      <span><i style="background:var(--rowna);border-color:#9A9488"></i>недоступен</span>
+      <span><i style="background:var(--rowvisa);border-color:#D9B84A"></i>ждёт визы</span>
+      <span class="lgsep"></span>
+      <span><b style="color:var(--red)">−N</b>дефицит</span>
+      <span><b style="color:var(--amber)">+N</b>излишек</span>
+      <span><i class="pill2">Чт</i>сегодня</span>
+    </div>
     <div class="hinttext">${editing?'Правки копятся в черновике, команда их не видит. «Готово» — выйти из редактирования (предложим опубликовать).':'Вы видите то же, что и сотрудники — опубликованную версию. Правки — через «Редактировать». Передачи смен применяются сразу, минуя черновик.'}</div>`;
 }
 function layoutWeek(){
@@ -549,11 +644,11 @@ function staffScreen(dir){
     vl+=`<div class="crow add" data-venadd="1"><span style="font-size:20px">＋</span>&nbsp;Добавить точку</div></div>`;
     html+=`<div class="group-title tight">Точки</div>${vl}`;
     let pl=`<div class="clist">`;
-    positions.forEach(p=>{pl+=`<div class="crow"><span class="sw" style="background:${p.status==='active'?'#e6e6ea':'#fff4e5'};display:flex;align-items:center;justify-content:center;color:${p.status==='active'?'#8a8a8e':'#b26a00'};font-weight:700">${p.name[0]}</span><span class="ct"><b>${p.name}</b><span>${p.status==='active'?'единый реестр':'на утверждении'}</span></span>${p.status==='active'?`<span class="pill ok">активна</span>`:`<span class="pill warn">на утверждении</span>`}</div>`;});
+    positions.forEach(p=>{pl+=`<div class="crow" data-postog="${p.id}"><span class="sw" style="background:${p.status==='active'?'#e6e6ea':'#fff4e5'};display:flex;align-items:center;justify-content:center;color:${p.status==='active'?'#8a8a8e':'#b26a00'};font-weight:700">${p.name[0]}</span><span class="ct"><b>${p.name}</b><span>${p.status==='active'?'единый реестр':'на утверждении'}${p.defSenior?' · старший по умолч.':''}</span></span>${p.status==='active'?`<span class="pill ok">активна</span>`:`<span class="pill warn">на утверждении</span>`}</div>`;});
     pl+=`<div class="crow add" data-posadd="1"><span style="font-size:20px">＋</span>&nbsp;Добавить должность</div></div>`;
     html+=`<div class="group-title">Должности · единый реестр</div>${pl}`;
   }
-  html+=`<div class="group-title">${dir?'Смены и норматив по точке':'Норматив по точке'}</div>`+venSwitcher();
+  html+=`<div class="group-title">${dir?'Смены и норматив по точке':'Норматив по точке'}</div>`+(dir?venSwitcher():'');
   if(!dir){
     const list=staff.filter(e=>!e.temp&&empVens(e).includes(curVen));
     const temps=staff.filter(e=>e.temp&&placements.some(pl=>pl.empId===e.id&&pl.ven===curVen));
@@ -596,10 +691,10 @@ function staffScreen(dir){
 /* ===== MANAGER NOW / SWAPS ===== */
 function mgrNow(){
   const on=[];staff.forEach(e=>{const sid=schedule.cur[e.id]&&schedule.cur[e.id][TODAY_IDX];if(sid&&shById(sid)&&shById(sid).ven===curVen)on.push({e,sid});});
-  let html=venSwitcher();
-  if(!on.length)return html+`<div class="empty"><span class="em">🌙</span>Сейчас на этой точке никого нет на смене.</div>`;
-  html+=`<div class="group-title">Сейчас · ${NOW} · ${venName(curVen)}</div><div class="rows">`;
-  on.forEach(({e,sid})=>{const sh=shById(sid);html+=`<div class="row"><span class="ava" style="background:${e.c}">${ini(e.name)}</span><div class="main"><div class="name">${e.name}${e.temp?' · подменный':''}</div><div class="meta">${posName(sh.pos)} · ${sh.name} ${fmt(sh.start)}–${fmt(sh.end)}</div></div><button class="pill" style="background:rgba(51,144,236,.12);color:var(--blue);border:0;cursor:pointer" data-call="${e.name}">Написать</button></div>`;});
+  let html="";
+  if(!on.length)return `<div class="empty"><span class="em">🌙</span>${phrase("empty_now")}</div>`;
+  html+=`<div class="group-title">На смене сейчас · ${NOW}</div><div class="rows">`;
+  on.forEach(({e,sid})=>{const sh=shById(sid);html+=`<div class="row"><span class="ava" style="background:${e.c}">${ini(e.name)}</span><div class="main"><div class="name">${e.name}${e.temp?' · подменный':''}</div><div class="meta">${posName(sh.pos)} · ${sh.name} ${fmt(sh.start)}–${fmt(sh.end)}</div></div><button class="pill" style="background:rgba(222,71,38,.12);color:var(--blue);border:0;cursor:pointer" data-call="${e.name}">Написать</button></div>`;});
   return html+`</div>`;
 }
 function mgrSwaps(){
@@ -649,6 +744,7 @@ function dirAppr(){
     if(a.type==="norm"){const s=shById(a.sid);kind="Изменение нормы";desc=`${posName(s.pos)} · ${s.name}: ${a.from} → ${a.to}`;meta=`${venName(s.ven)} · ${DAYS[a.weekday]} · ${meta}`;}
     if(a.type==="position"){kind="Новая должность";desc=a.name;meta=`Единый реестр должностей · ${meta}`;}
     if(a.type==="overstaff"){const w=WEEKS.find(x=>x.key===a.week);kind="Расширение графика";desc=`+${a.qty} чел.-смен сверх норматива`;meta=`${venName(a.ven)} · ${w.label} · согласование опубликует график команде`;}
+    if(a.type==="retro"){const w=WEEKS.find(x=>x.key===a.week);kind="Правки задним числом";desc="Изменения в прошлом графике";meta=`${venName(a.ven)} · ${w?w.label:""} · согласование зафиксирует правки`;}
     if(a.type==="graduate"){const ee=emp(a.empId);kind="Выпуск стажёра";desc=ee?ee.name:"—";meta=`${ee?posName(ee.posMain):""} · после выпуска закрывает норму · ${meta}`;}
     html+=`<div class="apprcard"><div class="at"><div class="kind">${kind}</div><div class="desc">${desc}</div><div class="meta">${meta}</div></div><div class="bar"><button class="rj" data-reject="${a.id}">Отклонить</button><button class="ap" data-approve="${a.id}">Согласовать</button></div></div>`;
   });
@@ -690,6 +786,8 @@ function dirMode(){
   html+=`</div><div class="group-title">Доступность сотрудников</div><div class="rows">`;
   html+=row("Виза менеджера на недоступность","уведомление «не смогу выйти» утверждает менеджер","availVisa");
   html+=`<div class="availrow"><div class="d">Горизонт уведомления<small style="display:block;margin-left:0;font-size:12px">не позднее чем за N дней до дня</small></div><span class="timestp"><button data-avdays="-1">−</button><span class="tv">${settings.availDays} дн</span><button data-avdays="1">+</button></span></div>`;
+  html+=row("Менеджер правит прошлый график","выкл. — задним числом меняет только руководитель","mgrEditPast");
+  html+=row("Правки прошлого — с визой руководителя","изменения задним числом идут на согласование","pastVisa");
   html+=`</div><div class="group-title">Кадровые механики менеджера</div><div class="rows">`;
   html+=row("Оформляет отпуска","из карточки сотрудника","mgrVacation");
   html+=row("Отмечает больничные","из карточки сотрудника","mgrSick");
@@ -720,16 +818,24 @@ function empMine(){
     if(sw&&sw.status==="seeking"){
       badges+=`<div style="margin-top:7px"><span class="pill ${sw.offers.length?'ok':'warn'}">${sw.offers.length?`Замена найдена · выберите, кому передать`:`Ищу замену · откликов: 0`}</span></div>`;
       if(sw.offers.length){
-        badges+=`<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">`+sw.offers.map(oid=>`<button class="rfchip" data-give="${sw.id}|${oid}" style="background:rgba(52,199,89,.14);color:#2a9e49">Передать: ${emp(oid).name.split(" ")[0]}</button>`).join("")+`</div>`;
+        badges+=`<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">`+sw.offers.map(oid=>`<button class="rfchip" data-give="${sw.id}|${oid}" style="background:rgba(46,158,76,.14);color:#1F7A3A">Передать: ${emp(oid).name.split(" ")[0]}</button>`).join("")+`</div>`;
       }
     }
     if(sw&&sw.status==="visa")badges+=`<div style="margin-top:7px"><span class="pill warn">Передача ${emp(sw.taker).name.split(" ")[0]} — на визе у менеджера</span></div>`;
     let seekBtn;
-    if(sw)seekBtn=`<button class="muted" data-cancelseek="${sw.id}">Отменить поиск</button>`;
-    else if(!settings.swapsEnabled)seekBtn=`<button class="muted" disabled>Замены — через менеджера</button>`;
-    else seekBtn=`<button class="red" data-seek="${it.w.key}_${it.di}_${it.sid}">Ищу замену</button>`;
-    const confBtn=settings.confirmShift?(conf?`<button class="done" disabled>✓ Выход подтверждён</button>`:`<button data-confirm-shift="${key}">Подтвердить выход</button>`):"";
-    html+=`<div class="scard ${isNext?'next':''}"><div class="top"><div class="daybox"><div class="dn">${it.w.nums[it.di]}</div><div class="dm">${DAYS[it.di]}</div></div><div class="info"><div class="t1">${sh.name} · ${fmt(sh.start)}–${fmt(sh.end)}</div><div class="t2">${venName(sh.ven)} · ${it.w.sub}</div>${badges}</div></div><div class="bar">${confBtn}${seekBtn}</div></div>`;
+    if(sw)seekBtn=`<button class="ghost" data-cancelseek="${sw.id}">Отменить поиск</button>`;
+    else if(!settings.swapsEnabled)seekBtn=`<button class="ghost" disabled>Замены — через менеджера</button>`;
+    else seekBtn=`<button class="sec" data-seek="${it.w.key}_${it.di}_${it.sid}">Ищу замену</button>`;
+    const confBtn=settings.confirmShift?(conf?`<button class="ok" disabled>✓ Выйду</button>`:`<button class="pri" data-confirm-shift="${key}">Всё, буду</button>`):"";
+    const ld=leadOf(it.w.key,ME,it.di);
+    let lbadge="";
+    if(ld&&ld.senior)lbadge+=`<span class="sbadge sr">★ старший смены</span>`;
+    if(ld&&ld.open)lbadge+=`<span class="sbadge op">открытие</span>`;
+    if(ld&&ld.close)lbadge+=`<span class="sbadge cl">закрытие</span>`;
+    if(me.trainee)lbadge+=`<span class="sbadge tr">🎓 стажировка</span>`;
+    if(lbadge)lbadge=`<div style="margin-top:7px;display:flex;gap:5px;flex-wrap:wrap">${lbadge}</div>`;
+    const withWho=lbadge+`<button class="whobtn" data-whoshift="${it.w.key}_${it.di}">С кем работаю ›</button>`;
+    html+=`<div class="scard emp ${isNext?'next':''}"><div class="top"><div class="daybox"><div class="dn">${it.w.nums[it.di]}</div><div class="dm">${DAYS[it.di]}</div></div><div class="info"><div class="t1">${sh.name} · ${fmt(sh.start)}–${fmt(sh.end)}</div><div class="t2">${venName(sh.ven)} · ${it.w.sub}</div>${badges}${withWho}</div></div><div class="bar">${confBtn}${seekBtn}</div></div>`;
   });
   const unp=WEEKS.filter(w=>!pub[w.key+"|"+meVen]).map(w=>w.label);
   if(unp.length)html+=`<div class="hinttext" style="text-align:center">Ещё не опубликовано: ${unp.join(" · ")}</div>`;
@@ -754,7 +860,7 @@ function empAvail(){
     html+=`<div class="group-title">Мои уведомления</div><div class="rows">`;
     mine.forEach(r=>{
       const w=WEEKS.find(x=>x.key===r.wkey);
-      html+=`<div class="availrow"><div class="d">${r.days.map(di=>DAYS[di]).join(", ")}<small>${w.label} · ${AV_REASONS.find(x=>x[0]===r.reason)[1]}</small></div>${r.status==="pending"?`<span class="pill warn">виза менеджера</span><button class="pill" style="border:0;background:rgba(232,83,79,.1);color:var(--red);cursor:pointer;margin-left:6px" data-avcancel="${r.id}">Отменить</button>`:`<span class="pill ok">учтено</span>`}</div>`;
+      html+=`<div class="availrow"><div class="d">${r.days.map(di=>DAYS[di]).join(", ")}<small>${w.label} · ${AV_REASONS.find(x=>x[0]===r.reason)[1]}</small></div>${r.status==="pending"?`<span class="pill warn">виза менеджера</span><button class="pill" style="border:0;background:rgba(217,58,43,.1);color:var(--red);cursor:pointer;margin-left:6px" data-avcancel="${r.id}">Отменить</button>`:`<span class="pill ok">учтено</span>`}</div>`;
     });
     myAbs.forEach(a=>{
       const w=WEEKS.find(x=>x.key===a.wkey);
@@ -797,10 +903,14 @@ function openAssignSheet(empId,day,pid){
     opts+=`<div class="sheetgrp">`;
     if(offPattern(e,w.key,day)&&!cur)opts+=`<div style="background:#fff4e5;padding:11px 15px;font-size:13.5px;line-height:1.4;color:#7a5200">По графику найма (${patLabel(e)}) этот день у ${e.name.split(" ")[0]} — выходной. Смена будет отклонением и пометится маркером.</div>`;
     const shs=shiftsOfPosVen(pid,vid);
-    if(!shs.length)opts+=`<div style="background:#fff;padding:14px 15px;color:var(--hint);font-size:14px">У должности «${posName(pid)}» на точке «${venName(vid)}» нет смен.</div>`;
+    if(!shs.length)opts+=`<div style="background:var(--card);padding:14px 15px;color:var(--hint);font-size:14px">У должности «${posName(pid)}» на точке «${venName(vid)}» нет смен.</div>`;
     shs.forEach(sh=>{opts+=`<button class="opt" data-pick="${sh.id}"><span class="sw" style="background:${sh.col}"></span><span class="ot"><b>${fmt(sh.start)}–${fmt(sh.end)}</b><span>${sh.name} · ${dur(sh)}</span></span>${cur===sh.id?`<span class="chk">✓</span>`:""}</button>`;});
     if(cur)opts+=`<button class="opt remove" data-pick="none">Убрать смену</button>`;
     opts+=`</div>`;
+    if(cur){const ld=leadOf(w.key,empId,day)||{};const au=autoLead(w.key,empId,day,vid);
+      const chip=(k,l,on,hint)=>`<button class="lchip ${on?'on':''}" data-lead="${empId}|${day}|${k}">${l}${hint?`<span class="lh">${hint}</span>`:''}</button>`;
+      opts+=`<div class="rl">Ярлыки смены</div><div class="pickrow">${chip('senior','★ Старший',ld.senior,posDefSenior(pid)?'по умолч.':'')}${chip('open','Открытие',ld.open,au.open?'подсказка':'')}${chip('close','Закрытие',ld.close,au.close?'подсказка':'')}</div>`;
+    }
   }
   showSheet(`<h3>${e.name.split(" ")[0]} — ${DAYS[day]} ${w.nums[day]}</h3><div class="who">${posName(pid)} · ${venName(vid)} · график: ${patLabel(e)}</div>${opts}<button class="cancel" id="sheetCancel">Отмена</button>`);
 }
@@ -841,7 +951,7 @@ function openForceSheet(swapId){
   const sh=shById(s.shift);
   const cands=staff.filter(e=>!e.temp&&e.id!==s.empId&&qualifies(e,sh)&&isFree(e.id,s.week,s.day));
   let list=`<div class="sheetgrp">`;
-  if(!cands.length)list+=`<div style="background:#fff;padding:14px 15px;color:var(--hint);font-size:14px">Свободных подходящих сотрудников нет. Добавьте подменного через «＋» в графике.</div>`;
+  if(!cands.length)list+=`<div style="background:var(--card);padding:14px 15px;color:var(--hint);font-size:14px">Свободных подходящих сотрудников нет. Добавьте подменного через «＋» в графике.</div>`;
   cands.forEach(e=>{const tag=e.mainVen!==sh.ven?`с «${venShort(e.mainVen)}»`:(e.posMain!==sh.pos?'доп. должность':posName(e.posMain));list+=`<button class="opt" data-forcepick="${s.id}|${e.id}"><span class="sw" style="background:${e.c};border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${ini(e.name)}</span><span class="ot"><b>${e.name}</b><span>${tag} · ${patLabel(e)}</span></span></button>`;});
   list+=`</div>`;
   showSheet(`<h3>Назначить на смену</h3><div class="who">${sh.name} ${fmt(sh.start)}–${fmt(sh.end)} · ${DAYS[s.day]} · вместо ${emp(s.empId).name}</div>${list}<button class="cancel" id="sheetCancel">Отмена</button>`);
@@ -873,7 +983,7 @@ function openAddBlockSheet(pid){
     cands.forEach(e=>{const tag=e.mainVen===vid?`доп. должность`:`с «${venName(e.mainVen)}»`;cl+=`<button class="opt" data-addemp="${e.id}|${pid}"><span class="sw" style="background:${e.c};border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${ini(e.name)}</span><span class="ot"><b>${e.name}</b><span>${posName(e.posMain)} · ${tag}</span></span></button>`;});
     cl+=`</div>`;
   }
-  if(!list&&!cl)list=`<div class="sheetgrp"><div style="background:#fff;padding:14px 15px;color:var(--hint);font-size:14px">Подменные отключены руководителем, подходящих в реестре нет.</div></div>`;
+  if(!list&&!cl)list=`<div class="sheetgrp"><div style="background:var(--card);padding:14px 15px;color:var(--hint);font-size:14px">Подменные отключены руководителем, подходящих в реестре нет.</div></div>`;
   showSheet(`<h3>Добавить в «${posName(pid)}»</h3><div class="who">${venName(vid)}</div>${list}${cl}<button class="cancel" id="sheetCancel">Отмена</button>`);
 }
 function openTempSheet(pid){sheetCtx={type:"temp",pid};showSheet(`<h3>Подменный сотрудник</h3><div class="who">${posName(pid)} · ${venName(curVen)} · не попадёт в реестр</div><div class="editgrp"><div class="editrow"><span class="el">Имя</span><input id="tempName" placeholder="Имя"></div></div><button class="cancel" id="tempSave" style="color:#fff;background:var(--blue)">Добавить в график</button><button class="cancel" id="sheetCancel">Отмена</button>`);const i=$("#tempName");if(i)i.oninput=()=>{sheetCtx.name=i.value;};}
@@ -1004,7 +1114,7 @@ function tryPublish(pkey){
     editMode=false;closeSheet();renderScreen();renderTabs();return;
   }
   publishWeek(wk,vid);editMode=false;closeSheet();renderScreen();renderTabs();
-  toast("Опубликовано — команда увидит и подтвердит ознакомление");
+  toast(phrase("published_toast"));
 }
 function openAbsenceSheet(id,absType){
   sheetCtx={type:"absence",empId:id,absType,wkey:"cur",days:[]};renderAbsenceSheet();
@@ -1043,6 +1153,49 @@ function openAvailReqSheet(id){
     <button class="cancel" data-avno="${r.id}" style="color:var(--red)">Отклонить</button>
     <button class="cancel" id="sheetCancel">Закрыть</button>`);
 }
+function openRoleSheet(){
+  sheetCtx={type:"rolemenu"};
+  const roles=[["employee","Сотрудник","clock"],["manager","Менеджер","gridcal"],["director","Руководитель","gear"]];
+  let rl=`<div class="sheetgrp">`;
+  roles.forEach(([r,l,ic0])=>{rl+=`<button class="opt" data-setrole="${r}"><span class="sw" style="background:${r===role?'var(--blue)':'#E7E0D0'};color:${r===role?'#fff':'#8E877A'};display:flex;align-items:center;justify-content:center;font-weight:800">${l[0]}</span><span class="ot"><b>${l}</b><span>${r===role?'текущая роль':'переключиться'}</span></span>${r===role?'<span class="chk">✓</span>':''}</button>`;});
+  rl+=`</div>`;
+  const toneRow=`<div class="rl">Персональное</div><div class="rows"><div class="availrow"><div class="d">Кроме шуток<small style="display:block;margin-left:0;font-size:12px">строгий, формальный язык интерфейса</small></div><div class="toggle ${state.formal?'on':''}" data-toggleformal="1"></div></div></div>
+  <div class="rl">Тема</div><div class="pickrow"><button data-theme="light" class="${state.theme!=='dark'?'on':''}">Светлая</button><button data-theme="dark" class="${state.theme==='dark'?'on':''}">Тёмная</button></div>`;
+  showSheet(`<h3>Роль и настройки</h3><div class="who">Демо: роль переключается для проверки. В бою — задаётся при входе.</div>${rl}${toneRow}<button class="cancel" id="sheetCancel">Закрыть</button>`);
+}
+function openVenPickSheet(){
+  sheetCtx={type:"venpick"};
+  let rl=`<div class="sheetgrp">`;
+  venues.forEach(v=>{const m=v.name.match(/на\s+(.)/);const letter=(m?m[1]:v.name.replace(/[«»\s]/g,"")[0]);
+    rl+=`<button class="opt" data-venpicked="${v.id}"><span class="sw" style="background:var(--ink);color:#FFF6F2;display:flex;align-items:center;justify-content:center;font-weight:800">${letter}</span><span class="ot"><b>${v.name}</b><span>${v.addr}</span></span>${v.id===curVen?'<span class="chk">✓</span>':''}</button>`;});
+  rl+=`</div>`;
+  showSheet(`<h3>Точка</h3><div class="who">Смотрите график и штат выбранной точки</div>${rl}<button class="cancel" id="sheetCancel">Закрыть</button>`);
+}
+
+function openWhoSheet(wkey,di){
+  const me=emp(ME),sh0=shById((published[wkey]&&published[wkey][ME]||[])[di]);
+  const vid=sh0?sh0.ven:me.mainVen;
+  const on=[];
+  staff.forEach(e=>{
+    const sid=(published[wkey]&&published[wkey][e.id]||[])[di]; if(!sid)return;
+    const sh=shById(sid); if(!sh||sh.ven!==vid)return;
+    if(unavailable(e,wkey,di))return;
+    on.push({e,sh});
+  });
+  on.sort((a,b)=>a.sh.start-b.sh.start);
+  const w=WEEKS.find(x=>x.key===wkey);
+  let rows=`<div class="rows">`;
+  on.forEach(({e,sh})=>{
+    const meMark=e.id===ME?' · вы':'';
+    const ld=leadOf(wkey,e.id,di);const marks=[];if(ld&&ld.senior)marks.push("★ старший");if(ld&&ld.open)marks.push("открытие");if(ld&&ld.close)marks.push("закрытие");if(e.trainee)marks.push("стажёр");
+    const tags=[posName(sh.pos)].concat(marks);
+    rows+=`<div class="row"><span class="ava" style="background:${e.c}">${ini(e.name)}</span><div class="main"><div class="name">${e.name.split(" ")[0]}${meMark}</div><div class="meta">${tags.join(" · ")} · ${fmt(sh.start)}–${fmt(sh.end)}</div></div></div>`;
+  });
+  rows+=`</div>`;
+  if(!on.length)rows=`<div class="hinttext" style="text-align:center">В этот день на точке пока никого.</div>`;
+  showSheet(`<h3>Кто на смене</h3><div class="who">${venName(vid)} · ${DAYS[di]} ${w.nums[di]}</div>${rows}<button class="cancel" id="sheetCancel">Закрыть</button>`);
+}
+
 function openAckListSheet(pkey){
   const p=pub[pkey];if(!p)return;
   const[wk,vid]=pkey.split("|");const w=WEEKS.find(x=>x.key===wk);
@@ -1050,7 +1203,7 @@ function openAckListSheet(pkey){
   const missing=team.filter(e=>!p.acks.includes(e.id));
   sheetCtx={type:"acklist",pkey};
   let list=`<div class="sheetgrp">`;
-  if(!missing.length)list+=`<div style="background:#fff;padding:14px 15px;color:var(--green);font-size:14px;text-align:center">Все ознакомились ✓</div>`;
+  if(!missing.length)list+=`<div style="background:var(--card);padding:14px 15px;color:var(--green);font-size:14px;text-align:center">Все ознакомились ✓</div>`;
   missing.forEach(e=>{list+=`<div class="opt" style="cursor:default"><span class="sw" style="background:${e.c};border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600">${ini(e.name)}</span><span class="ot"><b>${e.name}</b><span>${posName(e.posMain)}</span></span></div>`;});
   list+=`</div>`;
   showSheet(`<h3>Не ознакомились с графиком</h3><div class="who">${venName(vid)} · ${w.label} · опубликован ${p.ts}</div>${list}${missing.length?`<button class="cancel" data-remindack="${pkey}" style="color:#fff;background:var(--blue)">Напомнить (${missing.length})</button>`:""}<button class="cancel" id="sheetCancel">Закрыть</button>`);
@@ -1069,22 +1222,32 @@ function renderVenSheet(){
   const n=$("#venName");if(n)n.oninput=()=>sheetCtx.name=n.value;
   const a=$("#venAddr");if(a)a.oninput=()=>sheetCtx.addr=a.value;
 }
+function openPosSettSheet(pid){
+  const p=pos(pid);if(!p)return;sheetCtx={type:"posett",pid};
+  showSheet(`<h3>${p.name}</h3><div class="who">Настройки должности</div>
+    <div class="rows"><div class="availrow"><div class="d">Старший смены по умолчанию<small style="display:block;margin-left:0;font-size:12px">новые смены этой должности предлагать как старшие</small></div><div class="toggle ${p.defSenior?'on':''}" data-posdefsr="${pid}"></div></div></div>
+    <button class="cancel" id="sheetCancel">Закрыть</button>`);
+}
+
 function openPosAddSheet(){sheetCtx={type:"posadd"};showSheet(`<h3>Новая должность</h3><div class="who">Добавится в единый реестр, сразу активна</div><div class="editgrp"><div class="editrow"><span class="el">Название</span><input id="posName" placeholder="Например, Хостес"></div></div><button class="cancel" id="posSave" style="color:#fff;background:var(--blue)">Добавить</button><button class="cancel" id="sheetCancel">Отмена</button>`);}
 
-function render(){document.querySelectorAll("#roleSeg button").forEach(b=>b.classList.toggle("on",b.dataset.role===role));renderHeader();renderScreen(true);renderTabs();}
+function render(){document.body.classList.toggle("dark",state.theme==="dark");renderHeader();renderScreen(true);renderTabs();}
 
 document.addEventListener("click",e=>{
-  const sel="[data-role],[data-tab],[data-week],[data-ven-sel],#layoutBtn,[data-publish],[data-ack],[data-acklist],[data-remindack],[data-editmode],[data-editdone],[data-editpub],[data-editdraft],[data-emp],[data-cov],[data-pick],#sheetCancel,[data-confirm-shift],[data-seek],[data-cancelseek],[data-offer],[data-give],[data-visa-ok],[data-visa-no],[data-force],[data-forcepick],[data-remind],[data-mgrcancel],[data-avweek],[data-avday],[data-avreason],#avSubmit,[data-avcancel],[data-avreq],[data-avok],[data-avno],[data-avdays],[data-call],#resetBtn,[data-norm],[data-normday],[data-normcell],[data-npp],#normProposeSend,[data-shift-edit],[data-shift-add],[data-st],#shiftDone,[data-shift-del],[data-reinforce],[data-reinf],[data-approve],[data-reject],[data-addblock],[data-addtemp],[data-addemp],#tempSave,[data-mem],[data-memdel],[data-regadd],[data-empinfo],[data-reg],[data-regfv],[data-regfp],[data-rpm],[data-rpe],[data-rvm],[data-rve],[data-rpt],[data-rpa],[data-rpd],[data-rds],[data-rtr],[data-rsw],[data-raw],[data-rad],[data-rmn],[data-rab],[data-hrext],[data-hrstop],[data-hrabs],[data-absw],[data-absd],#absApply,[data-hrterm],[data-termw],#termApply,[data-hrgrad],[data-hrgradreq],#regSave,#regDelBtn,[data-venadd],[data-ven],[data-venpos],#venSave,#venDelBtn,[data-posadd],#posSave,[data-set],[data-dlh]";
+  const sel="[data-rolemenu],[data-setrole],[data-toggleformal],[data-theme],[data-venpick],[data-venpicked],[data-tab],[data-week],[data-ven-sel],#layoutBtn,[data-publish],[data-ack],[data-acklist],[data-remindack],[data-editmode],[data-editdone],[data-editpub],[data-retrosend],[data-editdraft],[data-emp],[data-cov],[data-pick],[data-lead],#sheetCancel,[data-confirm-shift],[data-seek],[data-cancelseek],[data-offer],[data-give],[data-visa-ok],[data-visa-no],[data-force],[data-forcepick],[data-remind],[data-mgrcancel],[data-whoshift],[data-avweek],[data-avday],[data-avreason],#avSubmit,[data-avcancel],[data-avreq],[data-avok],[data-avno],[data-avdays],[data-call],[data-norm],[data-normday],[data-normcell],[data-npp],#normProposeSend,[data-shift-edit],[data-shift-add],[data-st],#shiftDone,[data-shift-del],[data-reinforce],[data-reinf],[data-approve],[data-reject],[data-addblock],[data-addtemp],[data-addemp],#tempSave,[data-mem],[data-memdel],[data-regadd],[data-empinfo],[data-reg],[data-regfv],[data-regfp],[data-rpm],[data-rpe],[data-rvm],[data-rve],[data-rpt],[data-rpa],[data-rpd],[data-rds],[data-rtr],[data-rsw],[data-raw],[data-rad],[data-rmn],[data-rab],[data-hrext],[data-hrstop],[data-hrabs],[data-absw],[data-absd],#absApply,[data-hrterm],[data-termw],#termApply,[data-hrgrad],[data-hrgradreq],#regSave,#regDelBtn,[data-venadd],[data-ven],[data-venpos],#venSave,#venDelBtn,[data-posadd],[data-postog],[data-posdefsr],#posSave,[data-set],[data-dlh]";
   const t=e.target.closest(sel);if(!t)return;const d=t.dataset;
 
   if(d.role){role=d.role;tab=role==="manager"?"grid":role==="director"?"appr":"mine";render();return;}
-  if(t.id==="resetBtn"){init();toast("Демо сброшено");return;}
   if(d.tab){tab=d.tab;render();return;}
   if(d.venSel){curVen=d.venSel;editMode=false;renderScreen();return;}
   if(d.week){curWeek=Math.max(0,Math.min(WEEKS.length-1,curWeek+Number(d.week)));editMode=false;renderScreen();return;}
   if(d.editmode){editMode=true;renderScreen();return;}
   if(d.editdone){const[wk,vid]=d.editdone.split("|");if(pubDiff(wk,vid)>0)openEditDoneSheet(d.editdone);else{editMode=false;renderScreen();}return;}
   if(d.editpub){tryPublish(d.editpub);return;}
+  if(d.retrosend){const[wk,vid]=d.retrosend.split("|");
+    if(!retroPending(wk,vid))approvals.push({id:Date.now(),type:"retro",week:wk,ven:vid,status:"pending",by:"Менеджер"});
+    delete pub[retroKey(wk,vid)];state.retroWarned=false;editMode=false;closeSheet();renderScreen();renderTabs();
+    toast("Правки отправлены руководителю на согласование");return;}
   if(d.editdraft){editMode=false;closeSheet();renderScreen();toast("Черновик сохранён. Жёлтая полоса напомнит опубликовать");return;}
   if(t.id==="layoutBtn"){layoutWeek();return;}
   if(d.publish){tryPublish(d.publish);return;}
@@ -1094,9 +1257,18 @@ document.addEventListener("click",e=>{
 
   if(d.cov!==undefined&&t.classList.contains("ghead")){openCovSheet(Number(d.cov));return;}
   if(d.mem){const[eid,pid]=d.mem.split("|");openMemberSheet(Number(eid),pid);return;}
-  if(d.emp){openAssignSheet(Number(d.emp),Number(d.day),d.bp);return;}
+  if(d.emp){
+    const w=WEEKS[curWeek];
+    if(isPastDay(w.key,Number(d.day))){
+      if(!settings.mgrEditPast){toast("Правка прошлых дней запрещена руководителем");return;}
+      if(!state.retroWarned){state.retroWarned=true;toast("Правки задним числом требуют согласования руководителя");}
+    }
+    openAssignSheet(Number(d.emp),Number(d.day),d.bp);return;
+  }
   if(t.id==="sheetCancel"){closeSheet();return;}
-  if(d.pick&&sheetCtx&&sheetCtx.type==="assign"){const c=sheetCtx,w=WEEKS[curWeek];schedule[w.key][c.empId][c.day]=d.pick==="none"?null:d.pick;if(d.pick==="none"&&c.foreign){openAssignSheet(c.empId,c.day,c.pid);renderScreen();toast("Смена снята — теперь можно ставить");return;}closeSheet();renderScreen();return;}
+  if(d.lead){const[eid,di,k]=d.lead.split("|");const w=WEEKS[curWeek];const kk=leadKey(w.key,Number(eid),Number(di));leads[kk]=leads[kk]||{senior:false,open:false,close:false};leads[kk][k]=!leads[kk][k];if(!leads[kk].senior&&!leads[kk].open&&!leads[kk].close)delete leads[kk];openAssignSheet(Number(eid),Number(di),sheetCtx.pid);renderScreen();return;}
+  if(d.pick&&sheetCtx&&sheetCtx.type==="assign"){const c=sheetCtx,w=WEEKS[curWeek];schedule[w.key][c.empId][c.day]=d.pick==="none"?null:d.pick;
+    if(isPastDay(w.key,c.day)&&settings.pastVisa){pub[retroKey(w.key,curVen)]=true;}if(d.pick==="none"&&c.foreign){openAssignSheet(c.empId,c.day,c.pid);renderScreen();toast("Смена снята — теперь можно ставить");return;}closeSheet();renderScreen();return;}
 
   if(d.norm){const[sid,delta]=d.norm.split("|");normWeek[normDay][sid]=Math.max(0,((normWeek[normDay]&&normWeek[normDay][sid])||0)+Number(delta));renderScreen();return;}
   if(d.normday!==undefined){normDay=Number(d.normday);renderScreen();return;}
@@ -1113,7 +1285,7 @@ document.addEventListener("click",e=>{
   if(d.reinforce!==undefined){openReinforceSheet(Number(d.reinforce));return;}
   if(d.reinf&&sheetCtx&&sheetCtx.type==="reinforce"){const w=WEEKS[curWeek];approvals.push({id:Date.now(),type:"reinforce",week:w.key,day:sheetCtx.di,sid:d.reinf,qty:1,status:"pending",by:"Менеджер"});openReinforceSheet(sheetCtx.di);renderTabs();toast("Усиление отправлено на согласование");return;}
 
-  if(d.approve){const a=approvals.find(x=>x.id===Number(d.approve));if(a){a.status="approved";if(a.type==="norm"){normWeek[a.weekday][a.sid]=a.to;}if(a.type==="position"){positions.push({id:"p"+Date.now(),name:a.name,status:"active"});}if(a.type==="overstaff"){publishWeek(a.week,a.ven);}if(a.type==="graduate"){const ee=emp(a.empId);if(ee)ee.trainee=false;}render();toast(a.type==="overstaff"?"Согласовано — график опубликован":"Согласовано");}return;}
+  if(d.approve){const a=approvals.find(x=>x.id===Number(d.approve));if(a){a.status="approved";if(a.type==="norm"){normWeek[a.weekday][a.sid]=a.to;}if(a.type==="position"){positions.push({id:"p"+Date.now(),name:a.name,status:"active"});}if(a.type==="overstaff"){publishWeek(a.week,a.ven);}if(a.type==="graduate"){const ee=emp(a.empId);if(ee)ee.trainee=false;}if(a.type==="retro"){publishWeek(a.week,a.ven);}render();toast(a.type==="overstaff"||a.type==="retro"?"Согласовано — график обновлён":"Согласовано");}return;}
   if(d.reject){const a=approvals.find(x=>x.id===Number(d.reject));if(a){a.status="rejected";render();toast("Отклонено");}return;}
 
   /* --- новый флоу замен --- */
@@ -1131,7 +1303,14 @@ document.addEventListener("click",e=>{
   if(d.visaNo){const s=swaps.find(x=>x.id===Number(d.visaNo));if(s){s.status="seeking";s.taker=null;render();toast("Передача отклонена — поиск продолжается");}return;}
   if(d.force){openForceSheet(Number(d.force));return;}
   if(d.forcepick){const[sid3,eid]=d.forcepick.split("|");const s=swaps.find(x=>x.id===Number(sid3));if(s){doTransfer(s,Number(eid));closeSheet();renderScreen();renderTabs();toast("Назначено менеджером");}return;}
-  if(d.remind){toast("Напоминание отправлено команде (в рабочей версии — в чат)");return;}
+  if(d.rolemenu){openRoleSheet();return;}
+  if(d.setrole){role=d.setrole;tab=role==="manager"?"grid":role==="director"?"appr":"mine";editMode=false;closeSheet();render();return;}
+  if(d.toggleformal){state.formal=!state.formal;openRoleSheet();return;}
+  if(d.theme){state.theme=d.theme;document.body.classList.toggle("dark",state.theme==="dark");openRoleSheet();return;}
+  if(d.venpick){openVenPickSheet();return;}
+  if(d.venpicked){curVen=d.venpicked;editMode=false;closeSheet();renderScreen();return;}
+  if(d.whoshift){const[wk,di]=d.whoshift.split("_");openWhoSheet(wk,Number(di));return;}
+  if(d.remind){toast(phrase("reminded"));return;}
   if(d.mgrcancel){const s=swaps.find(x=>x.id===Number(d.mgrcancel));if(s){s.status="cancelled";renderScreen();renderTabs();toast("Замена отменена — смена остаётся за владельцем");}return;}
 
   /* --- кадровые механики --- */
@@ -1183,6 +1362,8 @@ document.addEventListener("click",e=>{
   if(d.venpos&&sheetCtx&&(sheetCtx.type==="venadd"||sheetCtx.type==="venedit")){const i=sheetCtx.positions.indexOf(d.venpos);if(i<0)sheetCtx.positions.push(d.venpos);else sheetCtx.positions.splice(i,1);renderVenSheet();return;}
   if(t.id==="venSave"&&sheetCtx&&(sheetCtx.type==="venadd"||sheetCtx.type==="venedit")){const c=sheetCtx,nm=(c.name||"").trim();if(!nm){toast("Введите название");return;}if(c.type==="venadd"){venues.push({id:"v"+Date.now(),name:nm,addr:(c.addr||"").trim()||"—",positions:c.positions.slice()});}else{const v=ven(c.id);v.name=nm;v.addr=(c.addr||"").trim()||"—";v.positions=c.positions.slice();}closeSheet();renderScreen();toast("Точка сохранена");return;}
   if(t.id==="venDelBtn"&&sheetCtx&&sheetCtx.type==="venedit"){const id=sheetCtx.id;if(venues.length<=1){toast("Нельзя удалить единственную точку");return;}staff=staff.map(s=>s.mainVen===id?{...s,mainVen:venues.find(v=>v.id!==id).id,vens:empVens(s).filter(v=>v!==id).length?empVens(s).filter(v=>v!==id):[venues.find(v=>v.id!==id).id]}:{...s,vens:empVens(s).filter(v=>v!==id)});placements=placements.filter(pl=>pl.ven!==id);venues=venues.filter(v=>v.id!==id);if(curVen===id)curVen=venues[0].id;closeSheet();renderScreen();toast("Точка удалена");return;}
+  if(d.postog){openPosSettSheet(d.postog);return;}
+  if(d.posdefsr){const p=pos(d.posdefsr);if(p){p.defSenior=!p.defSenior;openPosSettSheet(d.posdefsr);}return;}
   if(d.posadd){openPosAddSheet();return;}
   if(t.id==="posSave"&&sheetCtx&&sheetCtx.type==="posadd"){const nm=($("#posName").value||"").trim();if(!nm){toast("Введите название");return;}positions.push({id:"p"+Date.now(),name:nm,status:"active"});closeSheet();renderScreen();toast("Должность добавлена");return;}
 
