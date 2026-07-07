@@ -10,7 +10,7 @@
     --blue:#DE4726;--blue-press:#2b7bd6;--red:#D93A2B;--green:#2E9E4C;--amber:#EF9B1F;--radius:12px;--tap:#f2f2f6;
     --head:#F1EDE3;--chiphead:#F1EDE3;--rowtrn:#FBF2DA;--rowatt:var(--rowatt);--rowna:var(--rowna);--rowvisa:var(--rowvisa);--naborder:#E0DBCF;--ink:#16140E;--onink:#FFF6F2;}
   body.dark{--bg:#141210;--card:#1E1B17;--sep:#332F28;--text:#EDE8DE;--hint:#8E877A;
-    --head:#242019;--chiphead:#242019;--rowtrn:#2E2617;--rowatt:#2E1E1C;--rowna:#201E19;--rowvisa:#2C2713;--naborder:#3A352B;--ink:#000;--onink:#EDE8DE;--tap:#26231d;}
+    --head:#242019;--chiphead:#242019;--rowtrn:#2E2617;--rowatt:#2E1E1C;--rowna:#201E19;--rowvisa:#2C2713;--naborder:#3A352B;--ink:#000;--onink:#EDE8DE;--tap:#26231d;--gsec:#26221B;--gsecbd:#332F28;--gsectx:#A69E90;--cov:#1A1712;--headtx:#B8B1A3;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
   body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#d8d8de;color:var(--text);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;align-items:center;min-height:100vh;}
@@ -48,16 +48,21 @@
   .copybar{padding:10px 12px 0;}
   .copybtn{width:100%;background:var(--card);border:.5px solid var(--sep);border-radius:10px;color:var(--blue);font:inherit;font-size:14px;font-weight:500;padding:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
   .copybtn:active{background:var(--tap);}
-  .gridwrap{margin:12px 12px 0;border-radius:var(--radius);overflow:hidden;background:var(--card);border:.5px solid var(--sep);}
+  .gridwrap{margin:12px 12px 0;background:var(--card);border-radius:var(--radius);position:relative;}
+  .gridwrap::after{content:"";position:absolute;inset:0;border:.5px solid var(--sep);border-radius:var(--radius);pointer-events:none;z-index:6;}
   .grid{display:grid;grid-template-columns:74px repeat(7,minmax(0,1fr));}
+  .grid > .ghead:first-child{border-top-left-radius:var(--radius);}
+  .grid > .ghead:nth-child(8){border-top-right-radius:var(--radius);}
+  .gc.blcorner{border-bottom-left-radius:var(--radius);}
+  .gc.brcorner{border-bottom-right-radius:var(--radius);}
   .gc{border-right:.5px solid rgba(60,60,67,0.08);border-bottom:.5px solid rgba(60,60,67,0.08);min-height:41px;min-width:0;overflow:hidden;}
-  .ghead{background:var(--head);font-size:12px;font-weight:600;color:#3a3a3c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 0 6px;line-height:1.1;cursor:pointer;}
+  .ghead{background:var(--head);font-size:12px;font-weight:600;color:var(--headtx);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 0 6px;line-height:1.1;cursor:pointer;position:sticky;top:0;z-index:5;box-shadow:0 1px 0 var(--sep);}
   .ghead small{color:var(--hint);font-weight:500;font-size:11px;}
   .todaypill{background:var(--ink);color:#fff;border-radius:10px;padding:2px 7px;font-size:11px;font-weight:700;line-height:1.2;margin-bottom:1px;}
   .todaypill small{color:rgba(255,255,255,.85);font-weight:600;font-size:10px;}
   .ghead .cov{margin-top:3px;font-size:10px;font-weight:700;padding:1px 5px;border-radius:9px;}
   .ghead .cov.ok{color:var(--green);background:rgba(46,158,76,.14);} .ghead .cov.bad{color:var(--red);background:rgba(217,58,43,.14);}
-  .gsec{grid-column:1/-1;background:#eef0f4;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#5a5a5e;padding:6px 10px;display:flex;justify-content:space-between;border-top:2px solid #d9d9df;border-bottom:.5px solid var(--sep);border-right:0;overflow:hidden;}
+  .gsec{grid-column:1/-1;background:var(--gsec);font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--gsectx);padding:6px 10px;display:flex;justify-content:space-between;border-top:2px solid var(--gsecbd);border-bottom:.5px solid var(--sep);border-right:0;overflow:hidden;}
   .gsec span{color:var(--hint);font-weight:500;text-transform:none;letter-spacing:0;}
   .gsec .gsl{display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;}
   .gsec .addp{border:0;background:var(--blue);color:#fff;width:18px;height:18px;border-radius:5px;font-size:12px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex:0 0 auto;}
@@ -65,8 +70,8 @@
   .lchip{border:1px solid var(--sep);background:var(--card);border-radius:9px;padding:7px 11px;font:inherit;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
   .lchip.on{background:var(--ink);color:#fff;border-color:#221F18;}
   .lchip .lh{font-size:10px;font-weight:600;color:var(--hint);} .lchip.on .lh{color:#B9B3A6;}
-  .gcov{background:#fcfcfd;font-size:9px;color:var(--hint);display:flex;align-items:center;padding-left:10px;font-weight:600;}
-  .covcell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:#fcfcfd;}
+  .gcov{background:var(--cov);font-size:9px;color:var(--hint);display:flex;align-items:center;padding-left:10px;font-weight:600;}
+  .covcell{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:var(--cov);}
   .covcell.ok{color:var(--green);} .covcell.bad{color:var(--red);} .covcell.over{color:#b26a00;}
   .ghead .cov.warn{color:#b26a00;background:#fff4e5;}
   .devdot{position:absolute;top:1px;left:1px;width:8px;height:8px;border-radius:2px;background:var(--card);border:1.5px solid var(--amber);z-index:2;}
@@ -597,6 +602,11 @@ function mgrGrid(){
     }
   }
   const tools=editing?`<div class="copybar"><button class="copybtn" id="layoutBtn">⚙︎ Разложить по графикам найма</button></div>`:"";
+  // скругление нижних углов: последняя строка = последний gname (низ-лево) и последняя ячейка (низ-право)
+  const lastNameIdx=body.lastIndexOf('<div class="gc gname');
+  if(lastNameIdx>=0)body=body.slice(0,lastNameIdx)+body.slice(lastNameIdx).replace('<div class="gc gname','<div class="gc gname blcorner');
+  const lastCellIdx=body.lastIndexOf('<div class="gc cell');
+  if(lastCellIdx>=0)body=body.slice(0,lastCellIdx)+body.slice(lastCellIdx).replace('<div class="gc cell','<div class="gc cell brcorner');
   return `<div class="weekbar"><button class="nav" data-week="-1">‹</button><div class="wk">${w.label}<small>${w.sub}</small></div><button class="nav" data-week="1">›</button></div>
     ${pubbar}${editRow}${tools}
     <div class="gridwrap"><div class="grid">${head}${body}</div></div>
